@@ -94,7 +94,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: `POST`
-  * URL: `/user/log-in`
+  * URL: `/users/login`
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -163,7 +163,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: `POST`
-  * URL: `/user/sign-up`
+  * URL: `/users/signup`
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -297,7 +297,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: `GET`
-  * URL: `locations/owned`
+  * URL: `/users/:userId/locations`
   * Body: none
 
 * Successful Response
@@ -844,7 +844,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: `POST`
-  * URL: `/locations/:locationId/reviews/:reviewId/images`
+  * URL: `/reviews/:reviewId/images`
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -903,7 +903,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: `PUT`
-  * URL: `/locations/:locationId/reviews/:reviewId`
+  * URL: `/reviews/:reviewId`
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -971,7 +971,7 @@ Delete an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: `DELETE`
-  * URL: `/locations/:locationId/reviews/:reviewId`
+  * URL: `/reviews/:reviewId`
   * Body: none
 
 * Successful Response
@@ -1205,7 +1205,7 @@ Update and return an existing booking.
 * Require proper authorization: Booking must belong to the current user
 * Request
   * Method: `PUT`
-  * URL: `/locations/:locationId/bookings/:bookingId`
+  * URL: `/bookings/:bookingId`
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1303,7 +1303,7 @@ Delete an existing booking.
   Spot must belong to the current user
 * Request
   * Method: `DELETE`
-  * URL: `/locations/:locationId/bookings/:bookingId`
+  * URL: `/bookings/:bookingId`
   * Body: none
 
 * Successful Response
@@ -1392,7 +1392,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: `DELETE`
-  * URL: `/locations/:locationId/reviews/:reviewId/images/:imageId`
+  * URL: `/reviews/:reviewId/images/:imageId`
   * Body: none
 
 * Successful Response
