@@ -2,7 +2,8 @@
 
 ## Database Schema Design
 
-<img width="1094" alt="Screenshot 2023-04-06 200836" src="https://user-images.githubusercontent.com/95331968/230533788-308a415f-cd74-4a6e-a2ef-2adcefef542d.png">
+<img width="998" alt="Screenshot 2023-04-06 201725" src="https://user-images.githubusercontent.com/95331968/230534309-a38bf873-bb36-44a3-b024-aaee61ad3257.png">
+
 
 
 
