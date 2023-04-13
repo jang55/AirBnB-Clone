@@ -18,11 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [1, 45],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error("Cannot be an email.");
-          }
-        }
+        isAlpha: true
       }
     }, 
     lastName: {
@@ -30,19 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [1, 45],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error("Cannot be an email.");
-          }
-        }
+        isAlpha: true
       }
     }, 
     username: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(20),
       allowNull: false,
       unique: true,
       validate: {
-        len: [4, 15],
+        len: [4, 20],
         isNotEmail(value) {
           if (Validator.isEmail(value)) {
             throw new Error("Cannot be an email.");
@@ -63,12 +55,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
-        len: [60, 60],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error("Cannot be an email.");
-          }
-        }
+        len: [60, 60]
       }
     }, 
   }, {
@@ -78,7 +65,18 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
       }
-    }
+    },
+    scopes: {
+      checkPassword(email) {
+          // using an email or any unique identifier for the current user like a username
+          return {
+              where: { email },
+              attributes: { // will return only the hashedPassword attribute
+                  include: [ "hashedPassword" ]
+              }
+          }
+      }
+  }
   });
   return User;
 };
