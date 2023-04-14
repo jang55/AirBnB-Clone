@@ -48,7 +48,9 @@ module.exports = {
       }
     }, options);
 
-    await queryInterface.addIndex("Users", ["username", "email"], options);
+    options.tableName = "Users";
+    
+    await queryInterface.addIndex(options, ["username", "email"]);
 
   },
   async down(queryInterface, Sequelize) {
