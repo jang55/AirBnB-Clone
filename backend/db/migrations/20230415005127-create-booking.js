@@ -51,14 +51,14 @@ module.exports = {
       }
     }, options);
 
-    // options.tableName = 'Bookings';
-    // await queryInterface.addIndex(options, ["spotId", "startDate"], {
-    //   unique: true
-    // });
+    options.tableName = 'Bookings';
+    await queryInterface.addIndex(options, ["spotId", "startDate"], {
+      unique: true
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Bookings');
 
-    // await queryInterface.removeIndex(options, ["spotId", "startDate"]);
+    await queryInterface.removeIndex(options, ["spotId", "startDate"]);
   }
 };

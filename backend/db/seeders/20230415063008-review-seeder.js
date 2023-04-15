@@ -7,40 +7,53 @@ if (process.env.NODE_ENV === 'production') {
 
 const {Review} = require("../models");
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    options.tableName = 'Reviews';
-    return queryInterface.bulkInsert(options, [
-      {
-        review: "This was a fun place to camp",
-        stars: 5,
-        userId: 1,
-        spotId: 1
-      },
-      {
-        review: "The lake at this place is very clean",
-        stars: 3,
-        userId: 2,
-        spotId: 2
-      },
-    ], {});
+const data = [
+  {
+    review: "This was a fun place to camp",
+    stars: 5,
+    userId: 1,
+    spotId: 1
   },
+  {
+    review: "The lake at this place is very clean",
+    stars: 3,
+    userId: 2,
+    spotId: 2
+  },
+]
 
-  // async up (queryInterface, Sequelize) {
-  //   await Review.create({
-  //   review: "This was a fun place to camp",
-  //   stars: 5,
-  //   userId: 1,
-  //   spotId: 1
-  //     })
+module.exports = {
+  // up: async (queryInterface, Sequelize) => {
+  //   options.tableName = 'Reviews';
+  //   return queryInterface.bulkInsert(options, [
+  //     {
+  //       review: "This was a fun place to camp",
+  //       stars: 5,
+  //       userId: 1,
+  //       spotId: 1
+  //     },
+  //     {
+  //       review: "The lake at this place is very clean",
+  //       stars: 3,
+  //       userId: 2,
+  //       spotId: 2
+  //     },
+  //   ], {});
   // },
 
+  async up (queryInterface, Sequelize) {
+    for(let i = 0; i < data.length; i++) {
+      let dataObj = data[i];
+      await Review.create(dataObj)
+    }
+  },
+ 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       review: { [Op.in]: ["This was a fun place to camp", "The lake at this place is very clean"] }
-    }, {});
+    }, {truncate: true});
   }
 };
 

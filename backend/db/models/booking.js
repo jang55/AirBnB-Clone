@@ -19,16 +19,16 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isAlpha: false,
-      }
+      // validate: {
+      //   isAlpha: false,
+      // }
     }, 
     endDate: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isAlpha: false
-      }
+      // validate: {
+      //   isAlpha: false
+      // }
     }, 
     userId: {
       type: DataTypes.INTEGER,
