@@ -1,5 +1,4 @@
 'use strict';
-
 // /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
@@ -9,34 +8,36 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Bookings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING(45),
-        allowNull: false,
-      },
-      lastName: {
-        type: Sequelize.STRING(45),
-        allowNull: false,
-      },
-      username: {
-        type: Sequelize.STRING(20),
-        allowNull: false,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING(45),
-        allowNull: false, 
-        unique: true
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      startDate: {
+        type: Sequelize.STRING,
         allowNull: false
+      },
+      endDate: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users"
+        },
+        onDelete: "CASCADE"
+      },
+      spotId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Spots"
+        },
+        onDelete: "CASCADE"
       },
       createdAt: {
         allowNull: false,
@@ -50,15 +51,14 @@ module.exports = {
       }
     }, options);
 
-    
-    options.tableName = "Users";
-    
-    await queryInterface.addIndex(options, ["username", "email"]);
-
+    options.tableName = 'Bookings';
+    await queryInterface.addIndex(options, ["spotId", "startDate"], {
+      unique: true
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Bookings');
 
-    await queryInterface.removeIndex("Users", ["username", "email"])
+    await queryInterface.removeIndex(options, ["spotId", "startDate"]);
   }
 };

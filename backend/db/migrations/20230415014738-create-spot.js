@@ -1,5 +1,4 @@
 'use strict';
-
 // /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
@@ -9,33 +8,51 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Spots', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
+      ownerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      address: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+      },
+      city: {
         type: Sequelize.STRING(45),
-        allowNull: false,
+        allowNull: false
       },
-      lastName: {
+      state: {
         type: Sequelize.STRING(45),
-        allowNull: false,
+        allowNull: false
       },
-      username: {
-        type: Sequelize.STRING(20),
-        allowNull: false,
-        unique: true
-      },
-      email: {
+      country: {
         type: Sequelize.STRING(45),
-        allowNull: false, 
-        unique: true
+        allowNull: false
       },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      lat: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      lng: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      name: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      price: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
@@ -49,16 +66,8 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     }, options);
-
-    
-    options.tableName = "Users";
-    
-    await queryInterface.addIndex(options, ["username", "email"]);
-
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
-
-    await queryInterface.removeIndex("Users", ["username", "email"])
+    await queryInterface.dropTable('Spots');
   }
 };
