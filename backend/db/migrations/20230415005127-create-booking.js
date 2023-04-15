@@ -16,11 +16,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       startDate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false
       },
       endDate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false
       },
       userId: {
@@ -51,14 +51,14 @@ module.exports = {
       }
     }, options);
 
-    options.tableName = 'Bookings';
-    await queryInterface.addIndex(options, ["spotId", "startDate"], {
-      unique: true
-    });
+    // options.tableName = 'Bookings';
+    // await queryInterface.addIndex(options, ["spotId", "startDate"], {
+    //   unique: true
+    // });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Bookings');
 
-    await queryInterface.removeIndex(options, ["spotId", "startDate"]);
+    // await queryInterface.removeIndex(options, ["spotId", "startDate"]);
   }
 };
