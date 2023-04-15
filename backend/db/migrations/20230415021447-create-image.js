@@ -25,12 +25,10 @@ module.exports = {
       },
       imageableType: {
         type: Sequelize.ENUM,
-        allowNull: false,
         values: ["Spots", "Reviews"]
       },
       imageableId: {
         type: Sequelize.INTEGER,
-        allowNull: false
       },
       createdAt: {
         allowNull: false,
