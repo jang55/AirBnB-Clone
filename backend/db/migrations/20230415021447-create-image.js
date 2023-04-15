@@ -8,33 +8,28 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Images', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING(45),
+      url: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      preview: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
+      imageableType: {
+        type: Sequelize.ENUM,
         allowNull: false,
+        values: ["Spots", "Reviews"]
       },
-      lastName: {
-        type: Sequelize.STRING(45),
-        allowNull: false,
-      },
-      username: {
-        type: Sequelize.STRING(20),
-        allowNull: false,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING(45),
-        allowNull: false, 
-        unique: true
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      imageableId: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
@@ -48,14 +43,8 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     }, options);
-
-    options.tableName = 'Users';
-    await queryInterface.addIndex(options, ["username", "email"]);
-
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
-
-    await queryInterface.removeIndex("Users", ["username", "email"])
+    await queryInterface.dropTable('Images');
   }
 };
