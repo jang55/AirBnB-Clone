@@ -9,16 +9,52 @@ const {Booking} = require("../models");
 
 const data = [    
     {
-      startDate: "2023/05/11",
-      endDate: "2023/06/02",
+      startDate: new Date("2023-05-20 14:00:00"),
+      endDate: new Date("2023-05-22 12:00:00"),
       userId: 1,
       spotId: 1
     },
     {
-      startDate: "2024/01/03",
-      endDate: "2024/02/07",
+      startDate: new Date("2023-06-22 13:00:00"),
+      endDate: new Date("2023-06-24 11:00:00"),
       userId: 2,
       spotId: 2
+    },
+    {
+      startDate: new Date("2023-08-02 13:00:00"),
+      endDate: new Date("2023-08-04 11:00:00"),
+      userId: 3,
+      spotId: 2
+    },
+    {
+      startDate: new Date("2023-07-22 14:00:00"),
+      endDate: new Date("2023-07-24 12:00:00"),
+      userId: 2,
+      spotId: 1
+    },
+    {
+      startDate: new Date("2023-04-22 14:00:00"),
+      endDate: new Date("2023-04-24 10:00:00"),
+      userId: 3,
+      spotId: 5
+    },
+    {
+      startDate: new Date("2024-01-12 14:00:00"),
+      endDate: new Date("2024-01-14 11:00:00"),
+      userId: 4,
+      spotId: 8
+    },
+    {
+      startDate: new Date("2023-07-04 13:00:00"),
+      endDate: new Date("2023-07-07 11:00:00"),
+      userId: 1,
+      spotId: 7
+    },
+    {
+      startDate: new Date("2023-06-18 14:00:00"),
+      endDate: new Date("2023-06-20 11:00:00"),
+      userId: 4,
+      spotId: 5
     }
 ]
 
@@ -53,7 +89,16 @@ module.exports = {
     options.tableName = 'Bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      startDate: { [Op.in]: ["2023/05/11", "2024/01/03"] }
+      startDate: { [Op.in]: [
+        new Date("2023-05-20 14:00:00"),
+        new Date("2023-06-22 13:00:00"),
+        new Date("2023-08-02 13:00:00"),
+        new Date("2023-07-22 14:00:00"),
+        new Date("2023-04-22 14:00:00"),
+        new Date("2024-01-12 14:00:00"),
+        new Date("2023-07-04 13:00:00"),
+        new Date("2023-06-18 14:00:00")
+      ] }
     }, {truncate: true, restartIdentity: true});
   }
 };
