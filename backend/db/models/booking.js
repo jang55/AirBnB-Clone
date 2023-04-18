@@ -17,32 +17,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init({
     startDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
-      // validate: {
-      //   isAlpha: false,
-      // }
     }, 
     endDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
-      // validate: {
-      //   isAlpha: false
-      // }
     }, 
     userId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
-      // references: {
-      //   model: "User"
-      // }
     }, 
     spotId: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
-      // references: {
-      //   model: "Spot"
-      // }
     }, 
   }, {
     sequelize,
