@@ -60,30 +60,30 @@ const data = [
 
 
 module.exports = {
-  // up: async (queryInterface, Sequelize) => {
-  //   options.tableName = 'Bookings';
-  //   return queryInterface.bulkInsert(options, [
-  //     {
-  //       startDate: "2023/05/11",
-  //       endDate: "2023/06/02",
-  //       userId: 1,
-  //       spotId: 1
-  //     },
-  //     {
-  //       startDate: "2024/01/03",
-  //       endDate: "2024/02/07",
-  //       userId: 2,
-  //       spotId: 2
-  //     },
-  //   ], {});
-  // },
-
-  async up (queryInterface, Sequelize) {
-    for(let i = 0; i < data.length; i++) {
-      let dataObj = data[i];
-      await Booking.create(dataObj)
-    }
+  up: async (queryInterface, Sequelize) => {
+    options.tableName = 'Bookings';
+    return queryInterface.bulkInsert(options, [
+      {
+        startDate: "2023/05/11",
+        endDate: "2023/06/02",
+        userId: 1,
+        spotId: 1
+      },
+      {
+        startDate: "2024/01/03",
+        endDate: "2024/02/07",
+        userId: 2,
+        spotId: 2
+      },
+    ], {});
   },
+
+  // async up (queryInterface, Sequelize) {
+  //   for(let i = 0; i < data.length; i++) {
+  //     let dataObj = data[i];
+  //     await Booking.create(dataObj)
+  //   }
+  // },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Bookings';

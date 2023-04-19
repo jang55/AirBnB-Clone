@@ -10,7 +10,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-/**************************************************/
+/***************** Validations *********************************/
 
 const validateSignup = [
   check('firstName')
@@ -56,21 +56,52 @@ const validateLogin = [
 
 
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
+router.post('/signup', validateSignup, async (req, res, next) => {
       const { email, password, username, firstName, lastName } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
+
+  // Check if Username or Email exists
+      const existedUsername = await User.findOne({ 
+          where: {
+            username: username
+          } 
+        });
+      const existedEmail = await User.findOne({ 
+        where: {
+          email: email
+        } 
+      });
+
+      if(existedUsername){
+        const err = new Error("User already exists");
+        err.title = "Bad request.";
+        err.errors = ["User with that username already exists"];
+        err.status = 403;
+        next(err);
+      } 
+      if(existedEmail) {
+        const err = new Error("User already exists");
+        err.title = "Bad request.";
+        err.errors = ["User with that email already exists"];
+        err.status = 403;
+        next(err);
+      } 
+
+  //creates the new user if info are all valid
       const user = await User.create({ email, username, hashedPassword, firstName, lastName });
   
       const safeUser = {
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
-        id: user.id,
         email: user.email,
         username: user.username,
       };
   
-      await setTokenCookie(res, safeUser);
+      const token = await setTokenCookie(res, safeUser);
+      safeUser.token = token;
   
+      res.status(200)
       return res.json({
         user: safeUser
       });
@@ -92,7 +123,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
   });
 
   if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
-    const err = new Error('Login failed');
+    const err = new Error("Invalid credentials");
     err.status = 401;
     err.title = 'Login failed';
     err.errors = { credential: 'The provided credentials were invalid.' };
@@ -100,19 +131,37 @@ router.post('/login', validateLogin, async (req, res, next) => {
   }
 
   const safeUser = {
+    id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
-    id: user.id,
     email: user.email,
     username: user.username,
   };
 
-  const token = await setTokenCookie(res, safeUser);
-  safeUser.token = token;
+    const token = await setTokenCookie(res, safeUser);
+    safeUser.token = token;
 
-  return res.json({
-    user: safeUser
-  });
+    return res.json({
+      user: safeUser
+    });
+  }
+);
+
+// Restore session user
+router.get('/currentUser', (req, res) => {
+  const { user } = req;
+  if (user && requireAuth) {
+    const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+    };
+    return res.json({
+      user: safeUser
+    });
+  } else return res.json({ user: null });
 }
 );
 

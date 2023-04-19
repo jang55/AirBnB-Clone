@@ -1,4 +1,5 @@
 'use strict';
+
 // /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
@@ -49,7 +50,9 @@ module.exports = {
       }
     }, options);
 
-    options.tableName = 'Users';
+    
+    options.tableName = "Users";
+    
     await queryInterface.addIndex(options, ["username", "email"]);
 
   },

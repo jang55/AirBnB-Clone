@@ -10,6 +10,8 @@ const setTokenCookie = (res, user) => {
     // Create the token.
     const safeUser = {
       id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       username: user.username,
     };
@@ -80,4 +82,4 @@ const requireAuth = function (req, _res, next) {
 
 
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, checkAuthorization };
+module.exports = { setTokenCookie, restoreUser, requireAuth };
