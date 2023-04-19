@@ -15,9 +15,63 @@ const data = [
     spotId: 1
   },
   {
+    review: "decent",
+    stars: 3,
+    userId: 2,
+    spotId: 1
+  },
+  {
+    review: "an alright place",
+    stars: 2,
+    userId: 3,
+    spotId: 1
+  },
+  {
+    review: "This was a fun place to camp",
+    stars: 2,
+    userId: 3,
+    spotId: 1
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 5,
+    userId: 4,
+    spotId: 5
+  },
+  {
     review: "The lake at this place is very clean",
     stars: 3,
     userId: 2,
+    spotId: 8
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 5,
+    userId: 4,
+    spotId: 7
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 5,
+    userId: 1,
+    spotId: 4
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 2,
+    userId: 2,
+    spotId: 3
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 5,
+    userId: 3,
+    spotId: 5
+  },
+  {
+    review: "The lake at this place is very clean",
+    stars: 3,
+    userId: 4,
     spotId: 2
   },
 ]
