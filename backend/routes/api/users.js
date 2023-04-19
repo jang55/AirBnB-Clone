@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -147,7 +147,53 @@ router.post('/login', validateLogin, async (req, res, next) => {
   }
 );
 
-// Restore session user
+
+//get all spots owned by the current user
+router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userId = +user.id;
+
+  const allSpots = await Spot.findAll({
+    where: {
+      ownerId: userId
+    },
+    attributes: {
+        include:[
+            [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+
+        ] 
+    },
+    include:[
+        {
+            model: Review,
+            attributes: []
+        },
+        {
+            model: Image,
+            as: "previewImage",
+            where: { preview: true },
+            attributes: ["url"],
+            required: false,
+        },
+    ],
+    group: "Spot.id"
+        
+  });
+
+  const spots = []
+
+  for(let i = 0; i < allSpots.length; i++) {
+      let spot = allSpots[i].toJSON();
+      spot.previewImage = spot.previewImage[0].url;
+      spots.push(spot)
+  }
+
+  res.json({
+      spots: spots
+  });
+})
+
+// get the current user
 router.get('/currentUser', (req, res) => {
   const { user } = req;
   if (user && requireAuth) {
