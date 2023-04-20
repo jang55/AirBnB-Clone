@@ -74,34 +74,36 @@ router.get("/:locationId", async (req, res, next) => {
         where: {
             id: spotId
         },
-        // attributes: {
-        //     include:[
-        //         [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
-        //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
-        //     ] 
-        // },
-        // include:[
-            // {
-            //     model: Review,
-            //     attributes: []
-            // },
-            // {
-            //     model: Image,
-            //     as: "spotImages",
-            //     where: {
-            //         imageableId: spotId
-            //     },
-            //     attributes: ["id", "url", "preview"],
-            //     required: false,
-            // },
-            // {
-            //     model: User,
-            //     as: "Owner",
-            //     attributes: ["id", "firstName", "lastName"]
-            // }
-        // ],        
-        // group: "spotImages.id",
+        attributes: {
+            include:[
+                [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+            ] 
+        },
+        include:[
+            {
+                model: Review,
+                attributes: []
+            },
+            {
+                model: Image,
+                as: "spotImages",
+                where: {
+                    imageableId: spotId
+                },
+                attributes: ["id", "url", "preview"],
+                required: false,
+            },
+            {
+                model: User,
+                as: "Owner",
+                attributes: ["id", "firstName", "lastName"]
+            }
+        ],        
+        group: "spotImages.id",
     });
+
+
 
 //if spot does not exist, throw error
     if(!spot) {
@@ -115,32 +117,37 @@ router.get("/:locationId", async (req, res, next) => {
 // change query to POJO
     const spotObj = spot.toJSON();
 
-//get the count of reviews
-    const reviewCount = await Review.count({ where: { spotId: spotId } })
-    spotObj.numReviews = reviewCount;
+//reassign avrStarRating to be decimal with 1 place
+    spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
 
-//get the average of the stars
-    const reviewStarAverage = await Review.findAll({
-        where: { spotId: spotId },
-        attributes: [
-            [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]
-        ]
-    })
-    spotObj.avgStarRating = +reviewStarAverage[0].dataValues.avgStarRating.toFixed(1);
+    res.json(spotObj)
 
-//get the images associated with the spot
-    const images = await spot.getImages({
-        where: { imageableId: spotId },
-        attributes: ["id", "url", "preview"],
-        required: false,
-    });
-    spotObj.SpotImages = images;
+// //get the count of reviews
+//     const reviewCount = await Review.count({ where: { spotId: spotId } })
+//     spotObj.numReviews = reviewCount;
 
-//get the owner of the spot
-    const owner = await spot.getOwner({attributes: ["id", "firstName", "lastName"]});
-    spotObj.Owner = owner;
+// //get the average of the stars
+//     const reviewStarAverage = await Review.findAll({
+//         where: { spotId: spotId },
+//         attributes: [
+//             [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]
+//         ]
+//     })
+//     spotObj.avgStarRating = +reviewStarAverage[0].dataValues.avgStarRating.toFixed(1);
 
-    res.json(spotObj);
+// //get the images associated with the spot
+//     const images = await spot.getImages({
+//         where: { imageableId: spotId },
+//         attributes: ["id", "url", "preview"],
+//         required: false,
+//     });
+//     spotObj.SpotImages = images;
+
+// //get the owner of the spot
+//     const owner = await spot.getOwner({attributes: ["id", "firstName", "lastName"]});
+//     spotObj.Owner = owner;
+
+//     res.json(spotObj);
 });
 
 /*****/
