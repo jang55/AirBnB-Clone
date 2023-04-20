@@ -12,6 +12,54 @@ const router = express.Router();
 
 /***************** Validations *********************************/
 
+//Get all spots by id
+router.get("/:locationId", async (req, res, next) => {
+    const spotId = +req.params.locationId;
+
+    const spot = await Spot.findOne({
+        where: {
+            id: spotId
+        },
+        attributes: {
+            include:[
+                [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+            ] 
+        },
+        include:[
+            {
+                model: Review,
+                attributes: []
+            },
+            {
+                model: Image,
+                as: "spotImages",
+                where: {
+                    imageableId: spotId
+                },
+                attributes: ["id", "url", "preview"],
+                required: false,
+            },
+            {
+                model: User,
+                as: "Owner",
+                attributes: ["id", "firstName", "lastName"]
+            }
+        ],        
+        group: "spotImages.id",
+    });
+
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        next(err);
+    }
+
+    res.json(spot);
+});
+
 
 
 //Get all spots
@@ -19,7 +67,7 @@ router.get("/", async (req, res, next) => {
     const allSpots = await Spot.findAll({
         attributes: {
             include:[
-                [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
 
             ] 
         },
