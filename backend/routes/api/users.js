@@ -54,6 +54,7 @@ const validateLogin = [
   handleValidationErrors
 ];
 
+/****************** Routes ******************************/
 
 // Sign up
 router.post('/signup', validateSignup, async (req, res, next) => {
@@ -108,6 +109,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     }
   );
 
+  /*****/
 
   // Log in
 router.post('/login', validateLogin, async (req, res, next) => {
@@ -147,6 +149,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
   }
 );
 
+/*****/
 
 //get all spots owned by the current user
 router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
@@ -184,7 +187,7 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
 
   for(let i = 0; i < allSpots.length; i++) {
       let spot = allSpots[i].toJSON();
-      spot.previewImage = spot.previewImage[0].url;
+      spot.previewImage = spot.previewImage[0]?.url || null;
       spots.push(spot)
   }
 
@@ -192,6 +195,8 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
       spots: spots
   });
 })
+
+/*****/
 
 // get the current user
 router.get('/currentUser', (req, res) => {
