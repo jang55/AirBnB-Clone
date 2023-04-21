@@ -111,7 +111,7 @@ router.get("/:locationId", async (req, res, next) => {
         err.title = "Bad request.";
         err.message = "Spot couldn't be found";
         err.status = 404;
-        next(err);
+        return next(err);
     }
 
 // change query to POJO

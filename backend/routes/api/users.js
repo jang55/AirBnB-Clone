@@ -78,14 +78,14 @@ router.post('/signup', validateSignup, async (req, res, next) => {
         err.title = "Bad request.";
         err.errors = ["User with that username already exists"];
         err.status = 403;
-        next(err);
+        return next(err);
       } 
       if(existedEmail) {
         const err = new Error("User already exists");
         err.title = "Bad request.";
         err.errors = ["User with that email already exists"];
         err.status = 403;
-        next(err);
+        return next(err);
       } 
 
   //creates the new user if info are all valid
@@ -179,8 +179,7 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
             required: false,
         },
     ],
-    group: "Spot.id"
-        
+    group: "Spot.id"   
   });
 
   const spots = []
