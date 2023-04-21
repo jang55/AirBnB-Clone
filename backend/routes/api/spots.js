@@ -66,7 +66,7 @@ const validateSpot = [
 /********************** Routes ************************************/
 
 
-//Get all spots by id
+//Get spots by id
 router.get("/:locationId", async (req, res, next) => {
     const spotId = +req.params.locationId;
 
@@ -187,6 +187,41 @@ router.get("/", async (req, res, next) => {
     res.json({
         spots: spots
     });
+});
+
+/*****/
+
+//create an image for a spot
+router.post("/:locationId/images", requireAuth, async (req, res, next) => {
+    const spotId = +req.params.locationId;
+//find the spot
+    const spot = await Spot.findByPk(spotId);
+    const { url, preview } = req.body;
+
+//if spot doesnt exist, throw an error
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        next(err);
+    }
+
+//create a new image
+    const image = await spot.createImage(
+        {
+            url: url,
+            preview: preview,
+            imageableType: "Spot",
+            imageableId: spotId
+        }
+    );
+
+//find the new image id and get the response back
+    const imageId = image.dataValues.id;
+    const newImage = await spot.getImages({ where: {id: imageId} })
+
+    res.json(newImage[0]);
 });
 
 /*****/
