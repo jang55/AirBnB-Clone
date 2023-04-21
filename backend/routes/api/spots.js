@@ -59,7 +59,18 @@ const validateSpot = [
     handleValidationErrors
   ];
 
-
+  const validateImage = [
+    check('url')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .isURL()
+      .withMessage("URL is required"),
+    check('preview')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage("Preview is required with true or false"),
+    handleValidationErrors
+  ];
 
 
 
@@ -192,7 +203,7 @@ router.get("/", async (req, res, next) => {
 /*****/
 
 //create an image for a spot
-router.post("/:locationId/images", requireAuth, async (req, res, next) => {
+router.post("/:locationId/images", validateImage, requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
 //find the spot
     const spot = await Spot.findByPk(spotId);
