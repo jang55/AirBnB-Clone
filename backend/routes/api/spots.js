@@ -193,7 +193,12 @@ router.get("/", async (req, res, next) => {
 
     for(let i = 0; i < allSpots.length; i++) {
         let spot = allSpots[i].toJSON();
-        spot.previewImage = spot.previewImage[0]?.url;
+
+        if(spot.avgRating) {
+            spot.avgRating = +spot.avgRating.toFixed(1);
+        }
+
+        spot.previewImage = spot.previewImage[0]?.url || null;
         spots.push(spot)
     }
 
@@ -284,7 +289,7 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
 
 /*****/
 
-
+//updating the spot by id
 router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
 //find the spot
@@ -332,7 +337,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
 
 /*****/
 
-
+//delete spot by id
 router.delete("/:locationId", requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
 //find the spot
@@ -360,6 +365,7 @@ router.delete("/:locationId", requireAuth, async (req, res, next) => {
         return next(err);
     } 
 
+//delete the record from the table
      await spot.destroy({ force: true });
 
      res.json(

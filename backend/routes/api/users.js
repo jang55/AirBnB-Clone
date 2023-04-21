@@ -197,6 +197,65 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
 
 /*****/
 
+
+//get all reviews owned by the current user
+router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userId = +user.id;
+
+  const allReviews = await Review.findAll({
+    where: {
+      userId: userId
+    },
+    attributes: {
+      include: ["id"]
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+        require: true
+      },
+      {
+        model: Spot,
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "description"]
+        },
+        include: {
+          model: Image,
+          as: "previewImage",
+          where: { preview: true },
+        }
+      },
+    ],
+  });
+
+  const reviews = []
+  
+  for(let i = 0; i < allReviews.length; i++) {
+    const reviewObj = allReviews[i].toJSON();
+    const images = await allReviews[i].getImages({ attributes: ["id", "url"] });
+
+    if(images) {
+      reviewObj.ReviewImages = images
+      reviews.push(reviewObj)
+    } 
+
+    let previewImage = reviewObj.Spot.previewImage;
+    if(previewImage) {
+      reviewObj.Spot.previewImage = previewImage[previewImage.length - 1]?.url || null;
+    }
+  }
+
+  res.json({
+    Reviews: reviews
+  })
+});
+
+
+/*****/
+
+
 // get the current user
 router.get('/currentUser', (req, res) => {
   const { user } = req;
