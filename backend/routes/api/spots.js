@@ -209,8 +209,6 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
     const spot = await Spot.findByPk(spotId);
     const { url, preview } = req.body;
     const { user } = req;
-    const userId = +user.id;
-    const ownerId = +spot.ownerId;
 
 //if spot doesnt exist, throw an error
     if(!spot) {
@@ -220,6 +218,9 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
         err.status = 404;
         return next(err);
     }
+
+    const userId = +user.id;
+    const ownerId = +spot.ownerId;
 
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
@@ -279,6 +280,49 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
 })
 
 
+/*****/
+
+
+router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => {
+    const spotId = +req.params.locationId;
+//find the spot
+    const spot = await Spot.findByPk(spotId);
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    const { user } = req;
+
+//if spot doesnt exist, throw an error
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userId = +user.id;
+    const ownerId = +spot.ownerId;
+
+//check to see if the user is owner of the spot for authorization
+    if(userId !== ownerId) {
+        const err = new Error("Need to be owner of the spot to add images");
+        err.title = "Bad request.";
+        err.message = "Need to be owner of the spot to add images";
+        err.status = 403;
+        return next(err);
+    } 
+
+    if(address !== undefined) spot.address = address;
+    if(city !== undefined) spot.city = city;
+    if(state !== undefined) spot.state = state;
+    if(country !== undefined) spot.country = country;
+    if(lat !== undefined) spot.lat = lat;
+    if(lng !== undefined) spot.lng = lng;
+    if(name !== undefined) spot.name = name;
+    if(description !== undefined) spot.description = description;
+    if(price !== undefined) spot.price = price;
+
+    res.json(spot)
+})
 
 
 
