@@ -12,7 +12,7 @@ module.exports = {
     options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
-        ownerId: 1,
+        ownerId: 1,                                     //1
         address: "123 thatWay Ln",
         city: "SomePlace",
         state: "CA",
@@ -24,7 +24,7 @@ module.exports = {
         price: 1000000
       },
       {
-        ownerId: 2,
+        ownerId: 2,                                     //2
         address: "123 upthatway Rd",
         city: "SomeOtherPlace",
         state: "CA",
@@ -36,7 +36,7 @@ module.exports = {
         price: 1
       },
       {
-        ownerId: 3,
+        ownerId: 3,                                     //3
         address: "Tioga Rd Hwy 120 & Hwy 140 Yosemite National Park",
         city: "Sierra Nevada",
         state: "CA",
@@ -48,7 +48,7 @@ module.exports = {
         price: 25
       },
       {
-        ownerId: 4,
+        ownerId: 4,                                     //4
         address: "8471 N Coast Highway",
         city: "Laguna Beach",
         state: "CA",
@@ -60,7 +60,7 @@ module.exports = {
         price: 55
       },
       {
-        ownerId: 1,
+        ownerId: 1,                                     //5
         address: "47000 Highway 1 ",
         city: "Big Sur",
         state: "CA",
@@ -72,7 +72,7 @@ module.exports = {
         price: 35
       },
       {
-        ownerId: 2,
+        ownerId: 2,                                     //6
         address: "10 Refugio Beach Rd",
         city: "Goleta",
         state: "CA",
@@ -84,7 +84,7 @@ module.exports = {
         price: 45
       },
       {
-        ownerId: 3,
+        ownerId: 3,                                     //7
         address: "Highway 28, Tahoe State Park, N Lake Blvd",
         city: "Tahoe City",
         state: "CA",
@@ -96,7 +96,7 @@ module.exports = {
         price: 35
       },
       {
-        ownerId: 4,
+        ownerId: 4,                                     //8
         address: "555 Pier Avenue",
         city: "Oceano",
         state: "CA",
@@ -130,7 +130,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      city: { [Op.in]: ["SomePlace", "SomeOtherPlace"] }
+      city: { [Op.in]: ["SomePlace", "SomeOtherPlace", "Oceano", "Tahoe City", "Goleta", "Big Sur", "Laguna Beach", "Sierra Nevada"] }
     }, {});
   }
 };
