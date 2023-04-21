@@ -197,6 +197,9 @@ router.post("/:locationId/images", requireAuth, async (req, res, next) => {
 //find the spot
     const spot = await Spot.findByPk(spotId);
     const { url, preview } = req.body;
+    const { user } = req;
+    const userId = +user.id;
+    const ownerId = +spot.ownerId;
 
 //if spot doesnt exist, throw an error
     if(!spot) {
@@ -204,10 +207,19 @@ router.post("/:locationId/images", requireAuth, async (req, res, next) => {
         err.title = "Bad request.";
         err.message = "Spot couldn't be found";
         err.status = 404;
-        next(err);
+        return next(err);
     }
 
-//create a new image
+//check to see if the user is owner of the spot for authorization
+    if(userId !== ownerId) {
+        const err = new Error("Need to be owner of the spot to add images");
+        err.title = "Bad request.";
+        err.message = "Need to be owner of the spot to add images";
+        err.status = 403;
+        return next(err);
+    } 
+
+    //create a new image
     const image = await spot.createImage(
         {
             url: url,
