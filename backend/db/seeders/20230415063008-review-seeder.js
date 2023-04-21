@@ -9,15 +9,69 @@ const {Review} = require("../models");
 
 const data = [
   {
-    review: "This was a fun place to camp",
+    review: "This was a fun place to camp", //1
     stars: 5,
     userId: 1,
     spotId: 1
   },
   {
-    review: "The lake at this place is very clean",
+    review: "decent",                       //2
     stars: 3,
     userId: 2,
+    spotId: 1
+  },
+  {
+    review: "an alright place",             //3
+    stars: 2,
+    userId: 3,
+    spotId: 1
+  },
+  {
+    review: "This was a fun place to camp", //4
+    stars: 3,
+    userId: 3,
+    spotId: 1
+  },
+  {
+    review: "The lake at this place is very clean", //5
+    stars: 5,
+    userId: 4,
+    spotId: 5
+  },
+  {
+    review: "The lake at this place is very clean", //6
+    stars: 3,
+    userId: 2,
+    spotId: 8
+  },
+  {
+    review: "The lake at this place is very clean", //7 
+    stars: 5,
+    userId: 4,
+    spotId: 7
+  },
+  {
+    review: "The lake at this place is very clean", //8
+    stars: 5,
+    userId: 1,
+    spotId: 4
+  },
+  {
+    review: "The lake at this place is very clean", //9
+    stars: 2,
+    userId: 2,
+    spotId: 3
+  },
+  {
+    review: "The lake at this place is very clean", //10
+    stars: 5,
+    userId: 3,
+    spotId: 5
+  },
+  {
+    review: "The lake at this place is very clean", //11
+    stars: 3,
+    userId: 4,
     spotId: 2
   },
 ]
@@ -52,7 +106,7 @@ module.exports = {
     options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      review: { [Op.in]: ["This was a fun place to camp", "The lake at this place is very clean"] }
+      spotId: { [Op.in]: ["1", "2", "3", "4", "5", "6", "7", "8"] }
     }, {truncate: true, restartIdentity: true});
   }
 };

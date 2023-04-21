@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true
       });
 
+      User.hasMany(models.Review, {foreignKey: "userId"});
+      User.hasMany(models.Booking, {foreignKey: "userId"});
       
       User.belongsToMany(models.Spot, { through: models.Booking, foreignKey: "userId" });
       

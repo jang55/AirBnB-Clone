@@ -14,13 +14,85 @@ module.exports = {
       {
         url: "www.thisimage.com",
         preview: true,
-        imageableType: "Spots",
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
+        url: "www.thisimage.com",
+        preview: false,
+        imageableType: "Spot",
+        imageableId: 4
+      },
+      {
+        url: "www.thisimage.com",
+        preview: false,
+        imageableType: "Spot",
+        imageableId: 3
+      },
+      {
+        url: "www.thisimage.com",
+        preview: false,
+        imageableType: "Spot",
+        imageableId: 2
+      },
+      {
+        url: "www.thisimage.com",
+        preview: false,
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 2
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 3
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 4
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 5
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 6
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 7
+      },
+      {
+        url: "www.thisimage.com",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 8
+      },
+      {
+        url: "www.IGuessThisIsAnImage.com",
+        preview: true,
+        imageableType: "Review",
         imageableId: 1
       },
       {
         url: "www.IGuessThisIsAnImage.com",
-        preview: false,
-        imageableType: "Reviews",
+        preview: true,
+        imageableType: "Review",
         imageableId: 2
       },
     ], {});

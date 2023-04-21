@@ -17,7 +17,11 @@ const handleValidationErrors = (req, _res, next) => {
     const errors = []
     validationErrors
     .array()
-    .forEach(error => errors.push(error.msg))
+    .forEach(error => {
+      if(error.msg !== "Invalid value") {
+        errors.push(error.msg)
+      }
+    });
 
     const err = Error("Validation error");
     err.errors = errors;

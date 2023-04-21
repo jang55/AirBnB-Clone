@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -17,20 +17,20 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1 })
     .isAlpha()
-    .withMessage('Please provide your full First Name.'),
+    .withMessage("First Name is required"),
   check('lastName')
     .exists({ checkFalsy: true })
     .isLength({ min: 1 })
     .isAlpha()
-    .withMessage('Please provide your full Last Name.'),
+    .withMessage("Last Name is required"),
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
+    .withMessage("Invalid email"),
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
+    .withMessage("Username is required"),
   check('username')
     .not()
     .isEmail()
@@ -42,6 +42,19 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+
+const validateLogin = [
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Email or username is required"),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage("Password is required"),
+  handleValidationErrors
+];
+
+/****************** Routes ******************************/
 
 // Sign up
 router.post('/signup', validateSignup, async (req, res, next) => {
@@ -65,14 +78,14 @@ router.post('/signup', validateSignup, async (req, res, next) => {
         err.title = "Bad request.";
         err.errors = ["User with that username already exists"];
         err.status = 403;
-        next(err);
+        return next(err);
       } 
       if(existedEmail) {
         const err = new Error("User already exists");
         err.title = "Bad request.";
         err.errors = ["User with that email already exists"];
         err.status = 403;
-        next(err);
+        return next(err);
       } 
 
   //creates the new user if info are all valid
@@ -96,7 +109,111 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     }
   );
 
+  /*****/
 
+  // Log in
+router.post('/login', validateLogin, async (req, res, next) => {
+  const { credential, password } = req.body;
+
+  const user = await User.unscoped().findOne({
+    where: {
+      [Op.or]: {
+        username: credential,
+        email: credential
+      }
+    }
+  });
+
+  if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
+    const err = new Error("Invalid credentials");
+    err.status = 401;
+    err.title = 'Login failed';
+    err.errors = { credential: 'The provided credentials were invalid.' };
+    return next(err);
+  }
+
+  const safeUser = {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    username: user.username,
+  };
+
+    const token = await setTokenCookie(res, safeUser);
+    safeUser.token = token;
+
+    return res.json({
+      user: safeUser
+    });
+  }
+);
+
+/*****/
+
+//get all spots owned by the current user
+router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userId = +user.id;
+
+  const allSpots = await Spot.findAll({
+    where: {
+      ownerId: userId
+    },
+    attributes: {
+        include:[
+            [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+
+        ] 
+    },
+    include:[
+        {
+            model: Review,
+            attributes: []
+        },
+        {
+            model: Image,
+            as: "previewImage",
+            where: { preview: true },
+            attributes: ["url"],
+            required: false,
+        },
+    ],
+    group: "Spot.id"   
+  });
+
+  const spots = []
+
+  for(let i = 0; i < allSpots.length; i++) {
+      let spot = allSpots[i].toJSON();
+      spot.previewImage = spot.previewImage[0]?.url || null;
+      spots.push(spot)
+  }
+
+  res.json({
+      spots: spots
+  });
+})
+
+/*****/
+
+// get the current user
+router.get('/currentUser', (req, res) => {
+  const { user } = req;
+  if (user && requireAuth) {
+    const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+    };
+    return res.json({
+      user: safeUser
+    });
+  } else return res.json({ user: null });
+}
+);
 
 
 

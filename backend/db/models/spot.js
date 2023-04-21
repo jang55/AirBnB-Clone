@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, where
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
@@ -10,20 +10,44 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Spot.belongsTo(models.User, { foreignKey: "ownerId" });
 
+      Spot.belongsTo(models.User, { foreignKey: "ownerId", as: "Owner" });
+
+    //1 to many relationship to review and booking
+      Spot.hasMany(models.Review, {foreignKey: "spotId"});
+      Spot.hasMany(models.Booking, {foreignKey: "spotId"});
+
+    //many to many relationship for users and bookings
       Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: "spotId" });
-
       Spot.belongsToMany(models.User, { through: models.Review, foreignKey: "spotId" });
+
+    //alias with previewImage in images
+      Spot.hasMany(models.Image, { 
+        foreignKey: "imageableId",
+        constraints: false,
+        scope: {
+          imageableType: "Spot"
+        },
+        as: "previewImage"
+      });
 
       Spot.hasMany(models.Image, { 
         foreignKey: "imageableId",
         constraints: false,
         scope: {
           imageableType: "Spot"
-        }
+        },
+        as: "spotImages"
       });
+    
+      Spot.hasMany(models.Image, { 
+        foreignKey: "imageableId",
+        constraints: false,
+        scope: {
+          imageableType: "Spot"
+        },
+      });
+
     }
   }
   Spot.init({

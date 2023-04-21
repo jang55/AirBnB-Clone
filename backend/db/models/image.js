@@ -28,23 +28,26 @@ module.exports = (sequelize, DataTypes) => {
 
       Image.belongsTo(models.Spot, { 
         foreignKey: "imageableId",
-        constraints: false
+        constraints: false,
       });
     }
   }
   Image.init({
     url: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isUrl: true,
+      },
     },
     preview: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
     imageableType: {
-      type: DataTypes.ENUM,
+      type: DataTypes.ENUM("Spot", "Review"),
       allowNull: false,
-      values: ["Spot", "Review"]
+      
     }, 
     imageableId: {
       type: DataTypes.INTEGER,
@@ -53,6 +56,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Image',
+    defaultScope: {
+      attributes: {
+        exclude: ["imageableType", "imageableId", "createdAt", "updatedAt"]
+      }
+    }
   });
   return Image;
 };
