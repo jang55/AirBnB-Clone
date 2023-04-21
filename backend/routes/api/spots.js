@@ -129,7 +129,9 @@ router.get("/:locationId", async (req, res, next) => {
     const spotObj = spot.toJSON();
 
 //reassign avrStarRating to be decimal with 1 place
-    spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
+    if(spotObj.avgStarRating) {
+        spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
+    }
 
     res.json(spotObj)
 
@@ -311,6 +313,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
         return next(err);
     } 
 
+//change the value of the spot if the value exist
     if(address !== undefined) spot.address = address;
     if(city !== undefined) spot.city = city;
     if(state !== undefined) spot.state = state;
@@ -321,11 +324,51 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
     if(description !== undefined) spot.description = description;
     if(price !== undefined) spot.price = price;
 
+    await spot.save();
+
     res.json(spot)
-})
+});
 
 
+/*****/
 
+
+router.delete("/:locationId", requireAuth, async (req, res, next) => {
+    const spotId = +req.params.locationId;
+//find the spot
+    const spot = await Spot.findByPk(spotId);
+    const { user } = req;
+
+//if spot doesnt exist, throw an error
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userId = +user.id;
+    const ownerId = +spot.ownerId;
+
+//check to see if the user is owner of the spot for authorization
+    if(userId !== ownerId) {
+        const err = new Error("Need to be owner of the spot to add images");
+        err.title = "Bad request.";
+        err.message = "Need to be owner of the spot to add images";
+        err.status = 403;
+        return next(err);
+    } 
+
+     await spot.destroy({ force: true });
+
+     res.json(
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }
+     );
+});
 
 
 
