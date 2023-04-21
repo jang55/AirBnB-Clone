@@ -76,6 +76,55 @@ const validateSpot = [
 
 /********************** Routes ************************************/
 
+//Get all Reviews by spot id
+router.get("/:locationId/reviews", async (req, res, next) => {
+    const spotId = +req.params.locationId;
+    const spot = await Spot.findByPk(spotId);
+
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+    const spotReviews = await spot.getReviews({
+        attributes: {
+            include: ["id"]
+        },
+        include: [
+            {
+                model: User,
+                attributes: ["id", "firstName", "lastName"],
+                require: true
+            },
+        ]
+    })
+
+    const reviews = [];
+
+//loop through each review
+    for(let i = 0; i < spotReviews.length; i++) {
+        const reviewObj = spotReviews[i].toJSON();
+        const images = await spotReviews[i].getImages({ attributes: ["id", "url"] });
+    //if there are images, set the image to ReviewImages else set to null
+        if(images.length < 1) {
+            reviewObj.ReviewImages = null;
+            reviews.push(reviewObj);
+        } else {
+            reviewObj.ReviewImages = images;
+            reviews.push(reviewObj);
+        };
+    };
+
+    res.json({
+        Reviews: reviews
+    });
+});
+
+
+/*****/
+
 
 //Get spots by id
 router.get("/:locationId", async (req, res, next) => {
@@ -131,9 +180,9 @@ router.get("/:locationId", async (req, res, next) => {
 //reassign avrStarRating to be decimal with 1 place
     if(spotObj.avgStarRating) {
         spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
-    }
+    };
 
-    res.json(spotObj)
+    res.json(spotObj);
 
 // //get the count of reviews
 //     const reviewCount = await Review.count({ where: { spotId: spotId } })
