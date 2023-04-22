@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init({
     startDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
       // get: function() { // or use get(){ }
       //   return this.getDataValue('startDate')
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       // }
     }, 
     endDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
       // get: function() { // or use get(){ }
       //   return this.getDataValue('endDate')
