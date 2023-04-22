@@ -13,19 +13,19 @@ const router = express.Router();
 /***************** Validations *********************************/
 
 
-const validateImage = [
-    check('url')
+const validateReview = [
+    check('review')
       .exists({ checkFalsy: true })
       .notEmpty()
-      .isURL()
-      .withMessage("URL is required"),
-    check('preview')
+      .withMessage("Review text is required"),
+    check('stars')
       .exists({ checkFalsy: true })
       .notEmpty()
-      .withMessage("Preview is required with true or false"),
+      .isNumeric()
+      .isIn([1,2,3,4,5])
+      .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
-];
-
+  ];
 
 /********************** Routes ************************************/
 
@@ -33,6 +33,7 @@ const validateImage = [
 //create an image for a review
 router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     const reviewId = +req.params.reviewId;
+
 //find the review
     const review = await Review.findOne({
         where:{
@@ -42,9 +43,6 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
             model: User
         }
     });
-    const { url } = req.body;
-    const { user } = req;
-    
 
 //if review doesnt exist, throw an error
     if(!review) {
@@ -55,6 +53,8 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    const { url } = req.body;
+    const { user } = req;
     const userId = +user.id;
     const reviewUser = review.dataValues.User;
     const reviewOwnerId = +reviewUser.id;
@@ -71,10 +71,12 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 //findall the images related to the review
     const images = await Image.findAll({
         where: {
+            imageableType: "Review",
             imageableId: reviewId
         }
     });
 
+    console.log(images.length)
 //if the images is more than 10, throw error
     if(images.length >= 10) {
         const err = new Error("Maximum number of images for this resource was reached");
@@ -103,9 +105,120 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 /*****/
 
 
+//edit a review
+router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => {
+    const reviewId = +req.params.reviewId;
+
+//find the review
+    const currentReview = await Review.findOne({
+        where:{
+            id: reviewId
+        },
+        include: {
+            model: User
+        },
+        attributes: {
+            include: ["id"]
+        }
+    });
+
+//if review doesnt exist, throw an error
+    if(!currentReview) {
+        const err = new Error("Review couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Review couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const { review, stars } = req.body
+    const { user } = req;
+    const userId = +user.id;
+    const reviewUser = currentReview.dataValues.User;
+    const reviewOwnerId = +reviewUser.id;
+
+//checks to see if the currentUser is the owner of the review
+    if(userId !== reviewOwnerId) {
+        const err = new Error("Need to be owner of the review to add images");
+        err.title = "Forbidden.";
+        err.message = "Need to be owner of the review to add images";
+        err.status = 403;
+        return next(err);
+    }
+
+//change the value of the spot if the value exist
+    if(review !== undefined) currentReview.review = review;
+    if(stars !== undefined) currentReview.stars = stars;
+  
+
+    await currentReview.save();
+    
+    const result = {};
+    result.id = currentReview.id;
+    result.userId = currentReview.userId;
+    result.spotId = currentReview.spotId;
+    result.review = currentReview.review;
+    result.stars = currentReview.stars;
+    result.createdAt = currentReview.createdAt;
+    result.updatedAt = currentReview.updatedAt;
+
+    res.json(result)
+});
 
 
+/*****/
 
+
+//delete a review
+router.delete("/:reviewId", requireAuth, async (req, res, next) => {
+    const reviewId = +req.params.reviewId;
+    
+//find the review
+    const currentReview = await Review.findOne({
+        where:{
+            id: reviewId
+        },
+        include: {
+            model: User
+        },
+        attributes: {
+            include: ["id"]
+        }
+    });
+
+//if review doesnt exist, throw an error
+    if(!currentReview) {
+        const err = new Error("Review couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Review couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const { user } = req;
+    const userId = +user.id;
+    const reviewUser = currentReview.dataValues.User;
+    const reviewOwnerId = +reviewUser.id;
+
+//checks to see if the currentUser is the owner of the review
+    if(userId !== reviewOwnerId) {
+        const err = new Error("Need to be owner of the review to delete the review");
+        err.title = "Forbidden.";
+        err.message = "Need to be owner of the review to delete the review";
+        err.status = 403;
+        return next(err);
+    }
+
+//delete the record from the table
+    await currentReview.destroy({ force: true });
+
+    res.json(
+    {
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }
+    );
+});
 
 
 
