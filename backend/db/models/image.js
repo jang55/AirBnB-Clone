@@ -42,12 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     preview: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
     },
     imageableType: {
       type: DataTypes.ENUM("Spot", "Review"),
       allowNull: false,
-      
     }, 
     imageableId: {
       type: DataTypes.INTEGER,
