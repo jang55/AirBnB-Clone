@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, sequelize, Review, Image } = require('../../db/models');
+const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -183,10 +183,12 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
   });
 
   const spots = []
-
+//set nested preview image to just url only or null if none exist and latest one
   for(let i = 0; i < allSpots.length; i++) {
       let spot = allSpots[i].toJSON();
-      spot.previewImage = spot.previewImage[0]?.url || null;
+      if(spot.previewImage) {
+        spot.previewImage = spot.previewImage[spot.previewImage.length - 1]?.url || null;
+      }
       spots.push(spot)
   }
 
@@ -196,6 +198,119 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
 })
 
 /*****/
+
+
+//get all reviews owned by the current user
+router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userId = +user.id;
+
+  const allReviews = await Review.findAll({
+    where: {
+      userId: userId
+    },
+    attributes: {
+      include: ["id"]
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+        require: true
+      },
+      {
+        model: Spot,
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "description"]
+        },
+        include: {
+          model: Image,
+          as: "previewImage",
+          where: { preview: true },
+        }
+      },
+    ],
+  });
+
+  const reviews = []
+
+//loop through each review
+  for(let i = 0; i < allReviews.length; i++) {
+    const reviewObj = allReviews[i].toJSON();
+    const images = await allReviews[i].getImages({ attributes: ["id", "url"] });
+//if there are images, set the image to ReviewImages, else set to null
+    if(images.length < 1) {
+      reviewObj.ReviewImages = null;
+      reviews.push(reviewObj);
+    } else {
+      reviewObj.ReviewImages = images;
+      reviews.push(reviewObj);
+    }
+
+//set nested preview image to just url only or null if none exist and latest one
+    let previewImage = reviewObj.Spot.previewImage;
+    if(previewImage) {
+      reviewObj.Spot.previewImage = previewImage[previewImage.length - 1]?.url || null;
+    }
+  }
+
+  res.json({
+    Reviews: reviews
+  })
+});
+
+
+/*****/
+
+
+//get all bookings owned by the current user
+router.get("/currentUser/bookings", requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const userId = +user.id;
+
+  const bookings = await Booking.findAll({
+    where: {
+      userId: userId
+    },
+    include: {
+      model: Spot,
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "description"]
+      },
+      include: {
+        model: Image,
+        as: "previewImage",
+        where: { preview: true },
+      }
+    },
+    attributes: {
+      include: ["id"]
+    }
+  })
+
+  const bookingsArr = []
+
+  //loop through each review
+    for(let i = 0; i < bookings.length; i++) {
+      const bookingObj = bookings[i].toJSON();
+  
+  //set nested preview image to just url only or null if none exist and latest one
+      let previewImage = bookingObj.Spot.previewImage;
+      if(previewImage) {
+        bookingObj.Spot.previewImage = previewImage[previewImage.length - 1]?.url || null;
+      }
+
+      bookingsArr.push(bookingObj);
+    }
+
+  res.json({
+    Bookings: bookingsArr
+  })
+});
+
+
+/*****/
+
 
 // get the current user
 router.get('/currentUser', (req, res) => {

@@ -72,9 +72,71 @@ const validateSpot = [
     handleValidationErrors
   ];
 
+  const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage("Review text is required"),
+    check('stars')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .isNumeric()
+      .isIn([1,2,3,4,5])
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
 
 
 /********************** Routes ************************************/
+
+//Get all Reviews by spot id
+router.get("/:locationId/reviews", async (req, res, next) => {
+    const spotId = +req.params.locationId;
+    const spot = await Spot.findByPk(spotId);
+
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+    const spotReviews = await spot.getReviews({
+        attributes: {
+            include: ["id"]
+        },
+        include: [
+            {
+                model: User,
+                attributes: ["id", "firstName", "lastName"],
+                require: true
+            },
+        ]
+    })
+
+    const reviews = [];
+
+//loop through each review
+    for(let i = 0; i < spotReviews.length; i++) {
+        const reviewObj = spotReviews[i].toJSON();
+        const images = await spotReviews[i].getImages({ attributes: ["id", "url"] });
+    //if there are images, set the image to ReviewImages else set to null
+        if(images.length < 1) {
+            reviewObj.ReviewImages = null;
+            reviews.push(reviewObj);
+        } else {
+            reviewObj.ReviewImages = images;
+            reviews.push(reviewObj);
+        };
+    };
+
+    res.json({
+        Reviews: reviews
+    });
+});
+
+
+/*****/
 
 
 //Get spots by id
@@ -131,9 +193,9 @@ router.get("/:locationId", async (req, res, next) => {
 //reassign avrStarRating to be decimal with 1 place
     if(spotObj.avgStarRating) {
         spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
-    }
+    };
 
-    res.json(spotObj)
+    res.json(spotObj);
 
 // //get the count of reviews
 //     const reviewCount = await Review.count({ where: { spotId: spotId } })
@@ -193,7 +255,12 @@ router.get("/", async (req, res, next) => {
 
     for(let i = 0; i < allSpots.length; i++) {
         let spot = allSpots[i].toJSON();
-        spot.previewImage = spot.previewImage[0]?.url;
+
+        if(spot.avgRating) {
+            spot.avgRating = +spot.avgRating.toFixed(1);
+        }
+
+        spot.previewImage = spot.previewImage[0]?.url || null;
         spots.push(spot)
     }
 
@@ -202,7 +269,69 @@ router.get("/", async (req, res, next) => {
     });
 });
 
+
 /*****/
+
+
+//create an review for a spot
+router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res, next) => {
+    const spotId = +req.params.locationId;
+//find the spot
+    const spot = await Spot.findByPk(spotId);
+    const { review, stars } = req.body;
+    const { user } = req;
+    const userId = +user.id;
+
+//if spot doesnt exist, throw an error
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userReview = await spot.getReviews({
+        where: {
+            spotId: spotId,
+            userId: userId
+        }
+    });
+
+//check to see if a review exist for spot by the user
+    if(userReview.length > 0) {
+        const err = new Error("User already has a review for this spot");
+        err.title = "Forbidden.";
+        err.message = "User already has a review for this spot";
+        err.status = 403;
+        return next(err);
+    } 
+
+    //create a new review
+    const createdReview = await spot.createReview(
+        {
+            review: review,
+            stars: +stars,
+            userId: userId,
+            spotId: spotId
+        }
+    );
+
+//find the new review id and get the response back
+    const newReview = await spot.getReviews({
+        where: {
+            userId: userId,
+            spotId:spotId
+        },
+        attributes: { include: ["id"] }
+    });
+
+    res.json(newReview[0]);
+});
+
+
+/*****/
+
 
 //create an image for a spot
 router.post("/:locationId/images", validateImage, requireAuth, async (req, res, next) => {
@@ -250,7 +379,9 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
     res.json(newImage[0]);
 });
 
+
 /*****/
+
 
 //creates a new spot
 router.post("/", validateSpot, requireAuth, async (req, res, next) => {
@@ -284,7 +415,7 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
 
 /*****/
 
-
+//updating the spot by id
 router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
 //find the spot
@@ -332,7 +463,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
 
 /*****/
 
-
+//delete spot by id
 router.delete("/:locationId", requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
 //find the spot
@@ -354,12 +485,13 @@ router.delete("/:locationId", requireAuth, async (req, res, next) => {
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
         const err = new Error("Need to be owner of the spot to add images");
-        err.title = "Bad request.";
+        err.title = "Forbidden.";
         err.message = "Need to be owner of the spot to add images";
         err.status = 403;
         return next(err);
     } 
 
+//delete the record from the table
      await spot.destroy({ force: true });
 
      res.json(
