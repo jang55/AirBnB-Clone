@@ -9,8 +9,10 @@ const {Booking} = require("../models");
 
 const data = [    
     {
-      startDate: new Date("2023-05-20 14:00:00"),
-      endDate: new Date("2023-05-22 12:00:00"),
+      // startDate: new Date("2023-05-20 14:00:00"),
+      // endDate: new Date("2023-05-22 12:00:00"),
+      startDate: new Date("2023", "05", "22"),
+      endDate: new Date("2023", "05", "24"),
       userId: 1,
       spotId: 1
     },
