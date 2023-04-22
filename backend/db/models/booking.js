@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init({
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       // get: function() { // or use get(){ }
       //   return this.getDataValue('startDate')
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       // }
     }, 
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       // get: function() { // or use get(){ }
       //   return this.getDataValue('endDate')
@@ -41,6 +41,31 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Booking',
+    scopes: {
+      notOwner(spotId) {
+        return {
+          where: {
+            spotId: spotId
+          },
+          attributes: ["spotId", "startDate", "endDate"]
+        }
+      },
+      owner(spotId) {
+        const { User } = require("../models")
+        return {
+          where: {
+            spotId: spotId
+          },
+          include: {
+            model: User,
+            attributes: ["id", "firstName", "lastName"],
+          },
+          attributes: {
+            include: ["id"]
+          }
+        }
+      }
+    }
   });
   return Booking;
 };

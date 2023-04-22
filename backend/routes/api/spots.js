@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, sequelize, Review, Image } = require('../../db/models');
+const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -86,8 +86,59 @@ const validateSpot = [
     handleValidationErrors
   ];
 
+  const validateBooking = [
+    check('startDate')
+      .custom((value, {req})=> {
+        const date = new Date()
+        return new Date(value) > date
+      })
+      .withMessage('Start date must be in the future'),
+    check('endDate')
+    .custom((value, {req})=> {
+      if(value > req.body.startDate || value === req.body.startDate) {
+        return false
+      }
+      return true
+    })
+      .withMessage("endDate cannot be on or before startDate"),
+    handleValidationErrors
+  ]
 
 /********************** Routes ************************************/
+
+//get all bookings by spot id
+router.get("/:locationId/bookings", requireAuth, async (req, res, next) => {
+    const spotId = +req.params.locationId;
+    const spot = await Spot.findByPk(spotId);
+
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Spot couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const { user } = req
+    const userId = +user.id;
+    const ownerId = +spot.ownerId;
+
+    let bookings;
+//check to see if the user is the owner of the spot
+    if(userId !== ownerId) {
+        bookings = await Booking.scope({method: ["notOwner", spotId]}).findAll()
+    }else {
+        bookings = await Booking.scope({method: ["owner", spotId]}).findAll()
+    }
+
+    res.json({
+        Bookings: bookings
+    })
+});
+
+
+/*****/
+
 
 //Get all Reviews by spot id
 router.get("/:locationId/reviews", async (req, res, next) => {
@@ -316,6 +367,15 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
             spotId: spotId
         }
     );
+
+    // const createdReview = await Review.create(
+    //     {
+    //         review: review,
+    //         stars: +stars,
+    //         userId: userId,
+    //         spotId: spotId
+    //     }
+    // )
 
 //find the new review id and get the response back
     const newReview = await spot.getReviews({
