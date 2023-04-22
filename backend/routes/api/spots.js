@@ -485,7 +485,7 @@ router.delete("/:locationId", requireAuth, async (req, res, next) => {
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
         const err = new Error("Need to be owner of the spot to add images");
-        err.title = "Bad request.";
+        err.title = "Forbidden.";
         err.message = "Need to be owner of the spot to add images";
         err.status = 403;
         return next(err);

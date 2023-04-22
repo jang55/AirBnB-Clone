@@ -76,13 +76,12 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
         }
     });
 
-    console.log(images.length)
 //if the images is more than 10, throw error
     if(images.length >= 10) {
         const err = new Error("Maximum number of images for this resource was reached");
-        err.title = "Forbidden.";
+        err.title = "Bad request.";
         err.message = "Maximum number of images for this resource was reached";
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
 
