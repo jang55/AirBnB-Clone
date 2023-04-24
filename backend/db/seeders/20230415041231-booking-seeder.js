@@ -57,7 +57,13 @@ const data = [
       endDate: new Date("2023-06-20"),
       userId: 4,
       spotId: 5
-    }
+    },
+    {
+      startDate: new Date("2021-06-18"),
+      endDate: new Date("2021-06-20"),
+      userId: 1,
+      spotId: 8
+    },
 ]
 
 

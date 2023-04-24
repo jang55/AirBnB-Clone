@@ -98,7 +98,17 @@ const validateSpot = [
             } else {
                 return true
             }
-        }) 
+        })
+        .custom((value) => {
+            const dateArr = value.split("-");
+            if(dateArr[0].length !== 4) {
+                return false;
+            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
+                return false;
+            } else {
+                return true;
+            }
+        })
         .withMessage(`Start date is required in format YYYY-MM-DD .ie 2000-01-25`)
         .custom((value, {req}) => {
             const date = new Date()
@@ -114,6 +124,16 @@ const validateSpot = [
                 return false
             } else {
                 return true
+            }
+        })
+        .custom((value) => {
+            const dateArr = value.split("-");
+            if(dateArr[0].length !== 4) {
+                return false;
+            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
+                return false;
+            } else {
+                return true;
             }
         })
         .withMessage(`End date is required in format YYYY-MM-DD .ie 2000-01-25`)
@@ -437,7 +457,8 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         if(errMsg.length > 0) {
             const err = new Error("Sorry, this spot is already booked for the specified dates");
             err.title = "Forbidden.";
-            err.message = errMsg;
+            err.message = "Sorry, this spot is already booked for the specified dates";
+            err.errors = errMsg
             err.status = 403;
             return next(err);
         };
