@@ -75,7 +75,8 @@ const validateBooking = [
 
 /********************** Routes ************************************/
 
-//helper function to check if date is available
+
+// helper function to check if date is available
 function checkAvailableStartDate(date, booking) {
     if(date >= booking.startDate && date < booking.endDate) {
         return false
@@ -96,7 +97,7 @@ function checkAvailableEndDate(date, booking) {
     }
 };
 
-function checkOverLapDates(start, end, booking) {
+function checkDoesNotOverLapDates(start, end, booking) {
     // console.log("users start date:", start);
     // console.log("bookers start date:", booking.startDate);
     // console.log("--------------------------")
@@ -156,83 +157,54 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
         return next(err);
     }
 
-    const start = new Date(startDate);
-    const userStart = Number(start.getTime())
-    const bookingStartDate = booking.startDate.getTime();
-
-//if there is a new start date given, enter loop checks for *BOTH* startDate and endDate
-//to see if both dates are avialable to be used
-    if(userStart !== bookingStartDate) {
+// enter loop checks for *BOTH* startDate and endDate to see if both dates are avialable to be used
     //iterate through each booking
-        for(let i = 0; i < spotBookings.length; i++) {
-            let bookingObj = spotBookings[i].toJSON();
-            let errMsg = [];
-            let startMsg = "Start date conflicts with an existing booking";
-            let endMsg = "End date conflicts with an existing booking"
+    for(let i = 0; i < spotBookings.length; i++) {
+        let bookingObj = spotBookings[i].toJSON();
+        let errMsg = [];
+        let startMsg = "Start date conflicts with an existing booking";
+        let endMsg = "End date conflicts with an existing booking"
 
-        //checks to see if the start date conflicts in between a booking
-            if(!checkAvailableStartDate(new Date(startDate), bookingObj)) {
-            //if the given booking is it's own booking conflict, skip and 
-            //continue checking other bookings
-                if(booking.id === bookingObj.id) {
-                    continue;
-                } else {
-                    errMsg.push(startMsg);
-                }
-            };
-
-        //checks to see if the end date conflicts in between a booking
-            if(!checkAvailableEndDate(new Date(endDate), bookingObj)) {
-                errMsg.push(endMsg);
-            };
-
-        //checks to see if the dates over lap another booking
-            if(!checkOverLapDates(new Date(startDate), new Date(endDate), bookingObj)) {
-                    errMsg.push(startMsg);
-                    errMsg.push(endMsg);        
-            };
-
-        //if any conflicts found, throw the error 
-            if(errMsg.length > 0) {
-                const err = new Error("Sorry, this spot is already booked for the specified dates");
-                err.title = "Forbidden.";
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = errMsg
-                err.status = 403;
-                return next(err);
-            };
+    //checks to see if the start date conflicts in between a booking
+        if(!checkAvailableStartDate(new Date(startDate), bookingObj)) {
+        //if the given booking is it's own booking conflict, skip and 
+        //continue checking other bookings
+            if(booking.id === bookingObj.id) {
+                continue;
+            } else {
+                errMsg.push(startMsg);
+            }
         };
-    } else {
-//if the start date IS THE SAME, *ONLY* checks to see if the end date is 
-//available to be used
-    //iterate through each booking
-        for(let i = 0; i < spotBookings.length; i++) {
-            let bookingObj = spotBookings[i].toJSON();
-            let errMsg = [];
-            let endMsg = "End date conflicts with an existing booking"
 
-        //checks to see if the end date conflicts in between a booking
-            if(!checkAvailableEndDate(new Date(endDate), bookingObj)) {
-            //if the given booking is it's own booking conflict, skip and 
-            //continue checking other bookings
-                if(booking.id === bookingObj.id) {
-                    continue;
-                } else {
-                    errMsg.push(endMsg)
-                }
-            };
+    //checks to see if the end date conflicts in between a booking
+        if(!checkAvailableEndDate(new Date(endDate), bookingObj)) {
+            if(booking.id === bookingObj.id) {
+                continue;
+            } else {
+                errMsg.push(endMsg)
+            }
+        };
 
-        //if any conflicts found, throw the error 
-            if(errMsg.length > 0) {
-                const err = new Error("Sorry, this spot is already booked for the specified dates");
-                err.title = "Forbidden.";
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = errMsg
-                err.status = 403;
-                return next(err);
-            };
-        }
-    }
+    //checks to see if the dates over lap another booking
+        if(!checkDoesNotOverLapDates(new Date(startDate), new Date(endDate), bookingObj)) {
+            if(booking.id === bookingObj.id) {
+                continue;
+            } else {
+                errMsg.push(startMsg);
+                errMsg.push(endMsg);
+            }         
+        };
+
+    //if any conflicts found, throw the error 
+        if(errMsg.length > 0) {
+            const err = new Error("Sorry, this spot is already booked for the specified dates");
+            err.title = "Forbidden.";
+            err.message = "Sorry, this spot is already booked for the specified dates";
+            err.errors = errMsg
+            err.status = 403;
+            return next(err);
+        };
+    };
 
 //update the booking to its new dates and save it
     if(startDate !== undefined) booking.startDate = new Date(startDate);
@@ -243,11 +215,60 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
 });
 
 
-
-
 /*****/
 
 
+//delete a booking
+router.delete("/:bookingId", requireAuth, async (req, res, next) => {
+    const bookingId = +req.params.bookingId;
+//find the booking
+    const booking = await Booking.findByPk(bookingId, {
+        include: {
+            model: Spot
+        }
+    });
+
+//if booking doesnt exist, throw an error
+    if(!booking) {
+        const err = new Error("Booking couldn't be found");
+        err.title = "Bad request.";
+        err.message = "Booking couldn't be found";
+        err.status = 404;
+        return next(err);
+    }
+
+    const { user } = req;
+    const userId = +user.id;
+    const ownerId = +booking.dataValues.Spot.ownerId;
+    const bookingUserId = +booking.userId;
+
+//check to see if the user is owner of the spot for authorization
+    if(!(userId === bookingUserId || userId === ownerId)) {
+        const err = new Error("Need to be owner of the booking or be the spots owner to delete a booking");
+        err.title = "Forbidden.";
+        err.message = "Need to be owner of the booking or be the spots owner to delete a booking";
+        err.status = 403;
+        return next(err);
+    } 
+
+//checks to see if the start date has already started and in the past
+    if(booking.dataValues.startDate.getTime() <= new Date().getTime()) {
+        const err = new Error("Bookings that have been started can't be deleted");
+        err.title = "Bad request.";
+        err.message = "Bookings that have been started can't be deleted";
+        err.status = 400;
+        return next(err);
+    }
+//delete the record from the table
+     await booking.destroy({ force: true });
+
+     res.json(
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }
+     );
+});
 
 
 

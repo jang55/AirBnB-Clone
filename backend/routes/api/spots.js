@@ -382,7 +382,7 @@ function checkAvailableEndDate(date, booking) {
     }
 };
 
-function checkOverLapDates(start, end, booking) {
+function checkDoesNotOverLapDates(start, end, booking) {
     // console.log("users start date:", start);
     // console.log("bookers start date:", booking.startDate);
     // console.log("--------------------------")
@@ -448,7 +448,7 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         };
 
     //checks to see if the dates over lap another booking
-        if(!checkOverLapDates(new Date(startDate), new Date(endDate), bookingObj)) {
+        if(!checkDoesNotOverLapDates(new Date(startDate), new Date(endDate), bookingObj)) {
             errMsg.push(startMsg)
             errMsg.push(endMsg)
         };
