@@ -173,9 +173,6 @@ router.get("/:locationId/reviews", async (req, res, next) => {
         return next(err);
     }
     const spotReviews = await spot.getReviews({
-        attributes: {
-            include: ["id"]
-        },
         include: [
             {
                 model: User,
@@ -406,31 +403,37 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         return next(err);
     }
 
+//find bookings related to stop by id
     const bookings = await Booking.findAll({
         where: {
             spotId: spotId
         }
     });
 
+//iterate through each booking
     for(let i = 0; i < bookings.length; i++) {
         let bookingObj = bookings[i].toJSON();
         let errMsg = [];
         let startMsg = "Start date conflicts with an existing booking";
         let endMsg = "End date conflicts with an existing booking"
 
+    //checks to see if the start date conflicts in between a booking
         if(!checkAvailableStartDate(new Date(startDate), bookingObj)) {
             errMsg.push(startMsg)
         };
 
+    //checks to see if the end date conflicts in between a booking
         if(!checkAvailableEndDate(new Date(endDate), bookingObj)) {
             errMsg.push(endMsg)
         };
 
+    //checks to see if the dates over lap another booking
         if(!checkOverLapDates(new Date(startDate), new Date(endDate), bookingObj)) {
             errMsg.push(startMsg)
             errMsg.push(endMsg)
         };
 
+    //if any conflicts found, throw the error 
         if(errMsg.length > 0) {
             const err = new Error("Sorry, this spot is already booked for the specified dates");
             err.title = "Forbidden.";
@@ -440,16 +443,15 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         };
     };
 
-//create a new booking
-    // const newBooking = await spot.createBooking({
-    //     startDate: new Date(startDate),
-    //     endDate: new Date(endDate),
-    //     userId: userId,
-    //     spotId: spotId
-    // })
+// create a new booking
+    const newBooking = await Booking.create({
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        userId: userId,
+        spotId: spotId
+    });
 
-    res.json("hi")
-
+    res.json(newBooking);
 })
 
 
@@ -500,25 +502,7 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
         }
     );
 
-    // const createdReview = await Review.create(
-    //     {
-    //         review: review,
-    //         stars: +stars,
-    //         userId: userId,
-    //         spotId: spotId
-    //     }
-    // )
-
-//find the new review id and get the response back
-    const newReview = await spot.getReviews({
-        where: {
-            userId: userId,
-            spotId:spotId
-        },
-        attributes: { include: ["id"] }
-    });
-
-    res.json(newReview[0]);
+    res.json(createdReview);
 });
 
 
@@ -564,11 +548,12 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
         }
     );
 
-//find the new image id and get the response back
-    const imageId = image.dataValues.id;
-    const newImage = await spot.getImages({ where: {id: imageId} })
+    const result = {};
+    result.id = image.id;
+    result.url = image.url;
+    result.preview = image.preview;
 
-    res.json(newImage[0]);
+    res.json(result);
 });
 
 
