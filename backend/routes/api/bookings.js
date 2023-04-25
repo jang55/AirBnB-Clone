@@ -3,6 +3,12 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+//helper funcs
+const { 
+    err404,
+    err400,
+    err403
+} = require("../../utils/helpers.js");
 const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
@@ -121,10 +127,7 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
 
 //if booking doesnt exist, throw an error
     if(!booking) {
-        const err = new Error("Booking couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Booking couldn't be found";
-        err.status = 404;
+        const err = err404("Booking couldn't be found");
         return next(err);
     }
 
@@ -134,10 +137,7 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
 
 //check to see if the user is owner of the booking for authorization
     if(userId !== bookingUserId) {
-        const err = new Error("Need to be owner of the booking to make changes");
-        err.title = "Bad request.";
-        err.message = "Need to be owner of the booking to make changes";
-        err.status = 403;
+        const err = err403("Need to be owner of the booking to make changes");
         return next(err);
     };
 
@@ -150,10 +150,7 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
 
 //checks to see if the booking is an old booking
     if(booking.dataValues.endDate.getTime() <= new Date().getTime()) {
-        const err = new Error("Past bookings can't be modified");
-        err.title = "Bad request.";
-        err.message = "Past bookings can't be modified";
-        err.status = 400;
+        const err = err400("Past bookings can't be modified");
         return next(err);
     }
 
@@ -197,11 +194,8 @@ router.put("/:bookingId", validateBooking, requireAuth, async (req, res, next) =
 
     //if any conflicts found, throw the error 
         if(errMsg.length > 0) {
-            const err = new Error("Sorry, this spot is already booked for the specified dates");
-            err.title = "Forbidden.";
-            err.message = "Sorry, this spot is already booked for the specified dates";
+            const err = err403("Sorry, this spot is already booked for the specified dates");
             err.errors = errMsg
-            err.status = 403;
             return next(err);
         };
     };
@@ -230,10 +224,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
 
 //if booking doesnt exist, throw an error
     if(!booking) {
-        const err = new Error("Booking couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Booking couldn't be found";
-        err.status = 404;
+        const err = err404("Booking couldn't be found");
         return next(err);
     }
 
@@ -244,19 +235,13 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
 
 //check to see if the user is owner of the spot for authorization
     if(!(userId === bookingUserId || userId === ownerId)) {
-        const err = new Error("Need to be owner of the booking or be the spots owner to delete a booking");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the booking or be the spots owner to delete a booking";
-        err.status = 403;
+        const err = err403("Need to be owner of the booking or be the spots owner to delete a booking");
         return next(err);
     } 
 
 //checks to see if the start date has already started and in the past
     if(booking.dataValues.startDate.getTime() <= new Date().getTime()) {
-        const err = new Error("Bookings that have been started can't be deleted");
-        err.title = "Bad request.";
-        err.message = "Bookings that have been started can't be deleted";
-        err.status = 400;
+        const err = err400("Bookings that have been started can't be deleted");
         return next(err);
     }
 //delete the record from the table

@@ -3,10 +3,17 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+//helper funcs
+const { 
+    err404,
+    err400,
+    err403
+} = require("../../utils/helpers.js");
 const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
 
 const router = express.Router();
 
@@ -46,10 +53,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //if review doesnt exist, throw an error
     if(!review) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
     }
 
@@ -61,10 +65,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to add images");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to add images");
         return next(err);
     }
 
@@ -78,10 +79,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //if the images is more than 10, throw error
     if(images.length >= 10) {
-        const err = new Error("Maximum number of images for this resource was reached");
-        err.title = "Bad request.";
-        err.message = "Maximum number of images for this resource was reached";
-        err.status = 400;
+        const err = err400("Maximum number of images for this resource was reached");
         return next(err);
     }
 
@@ -123,10 +121,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
 
 //if review doesnt exist, throw an error
     if(!currentReview) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
     }
 
@@ -138,10 +133,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to add images");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to add images");
         return next(err);
     }
 
@@ -187,10 +179,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
 
 //if review doesnt exist, throw an error
     if(!currentReview) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
     }
 
@@ -201,10 +190,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to delete the review");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to delete the review";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to delete the review");
         return next(err);
     }
 
@@ -212,10 +198,10 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
     await currentReview.destroy({ force: true });
 
     res.json(
-    {
-        "message": "Successfully deleted",
-        "statusCode": 200
-    }
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }
     );
 });
 

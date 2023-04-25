@@ -106,7 +106,7 @@ module.exports = {
         preview: true,
         imageableType: "Spot",
         imageableId: 8
-      },
+      },                                    //16
       /******************************/
       {
         url: "www.fIGuessThisIsAnImage.com",

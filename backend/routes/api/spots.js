@@ -3,11 +3,16 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+//helper funcs
+const { 
+    err404,
+    err400,
+    err403
+} = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const booking = require('../../db/models/booking');
 
 const router = express.Router();
 
@@ -151,11 +156,9 @@ router.get("/:locationId/bookings", requireAuth, async (req, res, next) => {
     const spotId = +req.params.locationId;
     const spot = await Spot.findByPk(spotId);
 
+//if spot is not found, throw error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found")
         return next(err);
     }
 
@@ -186,10 +189,7 @@ router.get("/:locationId/reviews", async (req, res, next) => {
     const spot = await Spot.findByPk(spotId);
 
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found")
         return next(err);
     }
     const spotReviews = await spot.getReviews({
@@ -268,10 +268,7 @@ router.get("/:locationId", async (req, res, next) => {
 
 //if spot does not exist, throw error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found")
         return next(err);
     }
 
@@ -284,39 +281,55 @@ router.get("/:locationId", async (req, res, next) => {
     };
 
     res.json(spotObj);
-
-// //get the count of reviews
-//     const reviewCount = await Review.count({ where: { spotId: spotId } })
-//     spotObj.numReviews = reviewCount;
-
-// //get the average of the stars
-//     const reviewStarAverage = await Review.findAll({
-//         where: { spotId: spotId },
-//         attributes: [
-//             [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]
-//         ]
-//     })
-//     spotObj.avgStarRating = +reviewStarAverage[0].dataValues.avgStarRating.toFixed(1);
-
-// //get the images associated with the spot
-//     const images = await spot.getImages({
-//         where: { imageableId: spotId },
-//         attributes: ["id", "url", "preview"],
-//         required: false,
-//     });
-//     spotObj.SpotImages = images;
-
-// //get the owner of the spot
-//     const owner = await spot.getOwner({attributes: ["id", "firstName", "lastName"]});
-//     spotObj.Owner = owner;
-
-//     res.json(spotObj);
 });
+
 
 /*****/
 
+
 //Get all spots
 router.get("/", async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    const errMsg = [];
+    const query = {};
+
+//checks to see if any of the query exists, and turn it into a number type or a NaN
+    if(page) page = parseInt(page);
+    if(size) size = parseInt(size);
+    if(minLat) minLat = parseInt(minLat);
+    if(maxLat) maxLat = parseInt(maxLat);
+    if(minLng) minLng = parseInt(minLng);
+    if(maxLng) maxLng = parseInt(maxLng);
+    if(minPrice) minPrice = parseInt(minPrice);
+    if(maxPrice) maxPrice = parseInt(maxPrice);
+
+    if(Number.isNaN(page) || !page) {
+        page = 0;
+    } else if(page < 0) {
+        errMsg.push("Page must be greater than or equal to 0");
+    }
+
+    if (Number.isNaN(size) || !size) {
+        size = 20;
+    } else if(size < 0) {
+        errMsg.push("Size must be greater than or equal to 0")
+    }
+
+    let limit = size;
+    let offset = size * (page - 1);
+    query.limit = limit;
+    query.offset = offset;
+    console.log(errMsg)
+    // if (Number.isNaN(page)) page = 1;
+    // if (Number.isNaN(size)) size = 4;
+
+
+    if(errMsg.length > 0) {
+        const err = err400("Validation Error");
+        err.errors = errMsg
+        return next(err);
+    }
+
     const allSpots = await Spot.findAll({
         attributes: {
             include: [
@@ -326,7 +339,8 @@ router.get("/", async (req, res, next) => {
         include:[
             {
                 model: Review,
-                attributes: []
+                attributes: [],
+                required: false
             },
             {
                 model: Image,
@@ -336,7 +350,9 @@ router.get("/", async (req, res, next) => {
                 required: false,
             },
         ],
-        group: "Spot.id"
+        group: "Spot.id",
+        subQuery: false,
+        ...query,
     });
 
     const spots = []
@@ -353,7 +369,9 @@ router.get("/", async (req, res, next) => {
     }
 
     res.json({
-        spots: spots
+        spots: spots,
+        page: page,
+        size: size
     });
 });
 
@@ -402,10 +420,7 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
 
 //if spot does not exist, throw error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found")
         return next(err);
     }
 
@@ -416,10 +431,7 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
 
 //checks to see if the currentUser is the owner of the review
     if(userId === ownerId) {
-        const err = new Error("Owners can not book at there own spots");
-        err.title = "Bad request.";
-        err.message = "Owners can not book at there own spots";
-        err.status = 400;
+        const err = err400("Owners can not book at there own spots")
         return next(err);
     }
 
@@ -455,11 +467,8 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
 
     //if any conflicts found, throw the error 
         if(errMsg.length > 0) {
-            const err = new Error("Sorry, this spot is already booked for the specified dates");
-            err.title = "Forbidden.";
-            err.message = "Sorry, this spot is already booked for the specified dates";
+            const err = err403("Sorry, this spot is already booked for the specified dates");
             err.errors = errMsg
-            err.status = 403;
             return next(err);
         };
     };
@@ -490,10 +499,7 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
 
 //if spot doesnt exist, throw an error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found");
         return next(err);
     }
 
@@ -506,10 +512,7 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
 
 //check to see if a review exist for spot by the user
     if(userReview.length > 0) {
-        const err = new Error("User already has a review for this spot");
-        err.title = "Forbidden.";
-        err.message = "User already has a review for this spot";
-        err.status = 403;
+        const err = err403("User already has a review for this spot");
         return next(err);
     } 
 
@@ -522,7 +525,7 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
             spotId: spotId
         }
     );
-
+    res.status(201);
     res.json(createdReview);
 });
 
@@ -540,10 +543,7 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
 
 //if spot doesnt exist, throw an error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found");
         return next(err);
     }
 
@@ -552,10 +552,7 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
 
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
-        const err = new Error("Need to be owner of the spot to add images");
-        err.title = "Bad request.";
-        err.message = "Need to be owner of the spot to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the spot to add images");
         return next(err);
     } 
 
@@ -623,10 +620,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
 
 //if spot doesnt exist, throw an error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found");
         return next(err);
     }
 
@@ -635,10 +629,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
 
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
-        const err = new Error("Need to be owner of the spot to add images");
-        err.title = "Bad request.";
-        err.message = "Need to be owner of the spot to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the spot to add images");
         return next(err);
     } 
 
@@ -655,7 +646,7 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
 
     await spot.save();
 
-    res.json(spot)
+    res.json(spot);
 });
 
 
@@ -670,10 +661,7 @@ router.delete("/:locationId", requireAuth, async (req, res, next) => {
 
 //if spot doesnt exist, throw an error
     if(!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Spot couldn't be found";
-        err.status = 404;
+        const err = err404("Spot couldn't be found");
         return next(err);
     }
 
@@ -682,10 +670,7 @@ router.delete("/:locationId", requireAuth, async (req, res, next) => {
 
 //check to see if the user is owner of the spot for authorization
     if(userId !== ownerId) {
-        const err = new Error("Need to be owner of the spot to add images");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the spot to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the spot to add images");
         return next(err);
     } 
 
