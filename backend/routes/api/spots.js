@@ -291,7 +291,9 @@ router.get("/:locationId", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     const errMsg = [];
-    const query = {};
+    const query = {
+        where: {}
+    };
 
 //checks to see if any of the query exists, and turn it into a number type or a NaN
     if(page) page = parseInt(page);
@@ -303,33 +305,89 @@ router.get("/", async (req, res, next) => {
     if(minPrice) minPrice = parseInt(minPrice);
     if(maxPrice) maxPrice = parseInt(maxPrice);
 
-    if(Number.isNaN(page) || !page) {
-        page = 0;
-    } else if(page < 0) {
+//checks to see if page is below 0 or is a page is not a number
+    breakme: if(Number.isNaN(page) || page < 0) {
         errMsg.push("Page must be greater than or equal to 0");
+    } else if(page === 0 || page === 10){
+        return
+    } else if(page > 10) {
+    //if page is greater than 10, set page to 10 as max
+        page = 10;
+    } else if (page > 0 && page < 10) {
+        break breakme;  
+    } else {
+    //if page is undefined set default to 0
+        page = 0;
     }
 
-    if (Number.isNaN(size) || !size) {
+//checks to see if size is less than 0 and if size is not a number
+    if(Number.isNaN(size) || size < 0) {
+        errMsg.push("Size must be greater than or equal to 0");
+    } else if(size > 20) {
+    //if size is greater than 20 or is undefined, set it to 20 as a max number or as default
         size = 20;
-    } else if(size < 0) {
-        errMsg.push("Size must be greater than or equal to 0")
+    } else {
+        size = 20;
     }
 
+//set up the calculations for limit and size and add it to the query object
     let limit = size;
     let offset = size * (page - 1);
     query.limit = limit;
     query.offset = offset;
-    console.log(errMsg)
-    // if (Number.isNaN(page)) page = 1;
-    // if (Number.isNaN(size)) size = 4;
 
+    // console.log(Number.isNaN(minLat))
+    
+//checks minimum Latitude
+    if(Number.isNaN(minLat) || minLat < -90 || minLat > 90) {
+        errMsg.push("Minimum latitude is invalid");
+    } else if(minLat){
+        query.where.lat = {[Op.gte]: minLat};
+    }
 
+//checks maximum Latitude
+    if(Number.isNaN(maxLat) || maxLat > 90 || maxLat < -90) {
+        errMsg.push("Maximum latitude is invalid");
+    } else if(maxLat){
+        query.where.lat = {[Op.lte]: maxLat};
+    }
+
+//checks minimum Longitude
+    if(Number.isNaN(minLng) || minLng < -180 || minLng > 180) {
+        errMsg.push("Minimum longitude is invalid")
+    } else if(minLng) {
+        query.where.lng = {[Op.gte]: minLng};
+    }
+
+//checks maximum Longitude
+    if(Number.isNaN(maxLng) || maxLng > 180 || maxLng < -180) {
+        errMsg.push("Maximum longitude is invalid")
+    } else if(maxLng){
+        query.where.lng = {[Op.lte]: maxLng};
+    }
+
+//checks minimum price
+    if(Number.isNaN(minPrice)) {
+        errMsg.push("Minimum price must be greater than or equal to 0")
+    } else if(minPrice) {
+        query.where.price = {[Op.gte]: minPrice};
+    }
+
+//checks maximum price
+    if(Number.isNaN(maxPrice)) {
+        errMsg.push("Maximum price must be greater than or equal to 0")
+    } else if(maxPrice){
+        query.where.price = {[Op.lte]: maxPrice};
+    }
+
+//if there are any errors in between the query filters, throw err
     if(errMsg.length > 0) {
         const err = err400("Validation Error");
         err.errors = errMsg
         return next(err);
     }
 
+//query for all the spots
     const allSpots = await Spot.findAll({
         attributes: {
             include: [
@@ -357,6 +415,7 @@ router.get("/", async (req, res, next) => {
 
     const spots = []
 
+//iteratng through each spot to fix the decimal
     for(let i = 0; i < allSpots.length; i++) {
         let spot = allSpots[i].toJSON();
 
