@@ -308,8 +308,6 @@ router.get("/", async (req, res, next) => {
 //checks to see if page is below 0 or is a page is not a number
     breakme: if(Number.isNaN(page) || page < 0) {
         errMsg.push("Page must be greater than or equal to 0");
-    } else if(page === 0 || page === 10){
-        return
     } else if(page > 10) {
     //if page is greater than 10, set page to 10 as max
         page = 10;
