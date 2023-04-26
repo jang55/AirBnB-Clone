@@ -3,11 +3,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
       Booking.belongsTo(models.User, { foreignKey: "userId" });
@@ -25,18 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      // get: function() { // or use get(){ }
-      //   return this.getDataValue('startDate')
-      //     .toLocaleString('en-GB', { timeZone: 'UTC' });
-      // }
     }, 
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      // get: function() { // or use get(){ }
-      //   return this.getDataValue('endDate')
-      //     .toLocaleString('en-GB', { timeZone: 'UTC' });
-      // }
     }, 
     userId: {
       type: DataTypes.INTEGER,

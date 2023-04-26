@@ -252,24 +252,6 @@ const data = [
 ]
 
 module.exports = {
-  // up: async (queryInterface, Sequelize) => {
-  //   options.tableName = 'Reviews';
-  //   return queryInterface.bulkInsert(options, [
-  //     {
-  //       review: "This was a fun place to camp",
-  //       stars: 5,
-  //       userId: 1,
-  //       spotId: 1
-  //     },
-  //     {
-  //       review: "The lake at this place is very clean",
-  //       stars: 3,
-  //       userId: 2,
-  //       spotId: 2
-  //     },
-  //   ], {});
-  // },
-
   async up (queryInterface, Sequelize) {
     for(let i = 0; i < data.length; i++) {
       let dataObj = data[i];
@@ -288,31 +270,3 @@ module.exports = {
 
 
 
-
-/************************************************/
-
-// 'use strict';
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     /**
-//      * Add seed commands here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkInsert('People', [{
-//      *   name: 'John Doe',
-//      *   isBetaMember: false
-//      * }], {});
-//     */
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };

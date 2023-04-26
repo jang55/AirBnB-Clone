@@ -194,6 +194,11 @@ router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
           where: { preview: true },
         }
       },
+      {
+        model: Image,
+        as: "ReviewImages",
+        attributes: ["id", "url"]
+      }
     ],
   });
 
@@ -202,21 +207,13 @@ router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
 //loop through each review
   for(let i = 0; i < allReviews.length; i++) {
     const reviewObj = allReviews[i].toJSON();
-    const images = await allReviews[i].getImages({ attributes: ["id", "url"] });
-//if there are images, set the image to ReviewImages, else set to null
-    if(images.length < 1) {
-      reviewObj.ReviewImages = null;
-      reviews.push(reviewObj);
-    } else {
-      reviewObj.ReviewImages = images;
-      reviews.push(reviewObj);
-    }
 
 //set nested preview image to just url only or null if none exist and latest one
     let previewImage = reviewObj.Spot.previewImage;
     if(previewImage) {
       reviewObj.Spot.previewImage = previewImage[previewImage.length - 1]?.url || null;
     }
+    reviews.push(reviewObj)
   }
 
   res.json({

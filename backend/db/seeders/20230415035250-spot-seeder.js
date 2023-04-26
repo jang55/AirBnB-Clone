@@ -16,8 +16,8 @@ module.exports = {
         city: "SomePlace",
         state: "CA",
         country: "USA",
-        lat: 1000.34242,
-        lng: -12424.2342,
+        lat: 10.34242,
+        lng: -104.2342,
         name: "Amazing camping spot",
         description: "This is a really short description",
         price: 1000000
@@ -28,7 +28,7 @@ module.exports = {
         city: "SomeOtherPlace",
         state: "CA",
         country: "USA",
-        lat: 24220.34242,
+        lat: 240.34242,
         lng: -124.2342,
         name: "Cool camping spot",
         description: "This is a really short description",
@@ -40,8 +40,8 @@ module.exports = {
         city: "Sierra Nevada",
         state: "CA",
         country: "USA",
-        lat: 240.344542,
-        lng: -5454.23442,
+        lat: 40.344542,
+        lng: -54.23442,
         name: "Yosemite National Park",
         description: "This is a really short description",
         price: 25
@@ -52,8 +52,8 @@ module.exports = {
         city: "Laguna Beach",
         state: "CA",
         country: "USA",
-        lat: 1131220.343242,
-        lng: -1424.23432,
+        lat: 20.343242,
+        lng: -124.23432,
         name: "Crystal Cove State Park",
         description: "This is a really short description",
         price: 55
@@ -64,8 +64,8 @@ module.exports = {
         city: "Big Sur",
         state: "CA",
         country: "USA",
-        lat: 220.34242,
-        lng: 3454.2342,
+        lat: 70.34242,
+        lng: 154.2342,
         name: "Big Sur",
         description: "This is a really short description",
         price: 35
@@ -76,7 +76,7 @@ module.exports = {
         city: "Goleta",
         state: "CA",
         country: "USA",
-        lat: 24220.34242,
+        lat: 80.34242,
         lng: 124.2342,
         name: "El Capitan State Beach",
         description: "This is a really short description",
@@ -88,7 +88,7 @@ module.exports = {
         city: "Tahoe City",
         state: "CA",
         country: "USA",
-        lat: 24220.34242,
+        lat: 50.34242,
         lng: -124.2342,
         name: "Tahoe State Recreation Area",
         description: "This is a really short description",
@@ -100,7 +100,7 @@ module.exports = {
         city: "Oceano",
         state: "CA",
         country: "USA",
-        lat: 24220.34242,
+        lat: 60.34242,
         lng: -124.2342,
         name: "Pismo Beach",
         description: "This is a really short description",
@@ -109,21 +109,6 @@ module.exports = {
     ], {});
   },
 
-  // async up (queryInterface, Sequelize) {
-  //   await Spot.create({
-  //       ownerId: 1,
-  //       address: "123 thatWay Ln",
-  //       city: "SomePlace",
-  //       state: "CA",
-  //       country: "USA",
-  //       lat: 1000.34242,
-  //       lng: -12424.234242,
-  //       name: "Amazing camping spot",
-  //       description: "This is a really short description",
-  //       price: 1000000,
-        
-  //     })
-  // },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Spots';

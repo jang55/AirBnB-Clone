@@ -80,27 +80,16 @@ router.get("/:locationId/reviews", async (req, res, next) => {
                 attributes: ["id", "firstName", "lastName"],
                 require: true
             },
+            {
+                model: Image,
+                as: "ReviewImages",
+                attributes: ["id", "url"]
+            }
         ]
-    })
-
-    const reviews = [];
-
-//loop through each review
-    for(let i = 0; i < spotReviews.length; i++) {
-        const reviewObj = spotReviews[i].toJSON();
-        const images = await spotReviews[i].getImages({ attributes: ["id", "url"] });
-    //if there are images, set the image to ReviewImages else set to null
-        if(images.length < 1) {
-            reviewObj.ReviewImages = null;
-            reviews.push(reviewObj);
-        } else {
-            reviewObj.ReviewImages = images;
-            reviews.push(reviewObj);
-        };
-    };
+    });
 
     res.json({
-        Reviews: reviews
+        Reviews: spotReviews
     });
 });
 
@@ -215,8 +204,6 @@ router.get("/", async (req, res, next) => {
     let offset = size * (page - 1);
     query.limit = limit;
     query.offset = offset;
-
-    // console.log(Number.isNaN(minLat))
     
 //checks minimum Latitude
     if(Number.isNaN(minLat) || minLat < -90) {
@@ -326,18 +313,18 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
 
 //if spot does not exist, throw error
     if(!spot) {
-        const err = err404("Spot couldn't be found")
+        const err = err404("Spot couldn't be found");
         return next(err);
     }
 
     const { startDate, endDate } = req.body;
-    const { user } = req
+    const { user } = req;
     const userId = +user.id;
     const ownerId = +spot.ownerId;
 
 //checks to see if the currentUser is the owner of the review
     if(userId === ownerId) {
-        const err = err400("Owners can not book at there own spots")
+        const err = err400("Owners can not book at there own spots");
         return next(err);
     }
 
@@ -353,7 +340,7 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         let bookingObj = bookings[i].toJSON();
         let errMsg = [];
         let startMsg = "Start date conflicts with an existing booking";
-        let endMsg = "End date conflicts with an existing booking"
+        let endMsg = "End date conflicts with an existing booking";
 
     //checks to see if the start date conflicts in between a booking
         if(!checkAvailableStartDate(new Date(startDate), bookingObj)) {
@@ -407,7 +394,7 @@ router.post("/:locationId/reviews", validateReview, requireAuth, async (req, res
     if(!spot) {
         const err = err404("Spot couldn't be found");
         return next(err);
-    }
+    };
 
     const userReview = await spot.getReviews({
         where: {
@@ -486,9 +473,9 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
 
 //creates a new spot
 router.post("/", validateSpot, requireAuth, async (req, res, next) => {
-    const {user} = req;
-    const ownerId = +user.id
-    const {address, city, state, country, lat, lng, name, description, price} = req.body
+    const { user } = req;
+    const ownerId = +user.id;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
 //find the current user
     const owner = await User.findByPk(ownerId);
@@ -509,8 +496,8 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
         }
     );
     
-    res.status(201)
-    res.json(newSpot)
+    res.status(201);
+    res.json(newSpot);
 })
 
 

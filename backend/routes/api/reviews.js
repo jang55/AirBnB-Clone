@@ -52,7 +52,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     if(!review) {
         const err = err404("Review couldn't be found");
         return next(err);
-    }
+    };
 
     const { url } = req.body;
     const { user } = req;
@@ -64,7 +64,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     if(userId !== reviewOwnerId) {
         const err = err403("Need to be owner of the review to add images");
         return next(err);
-    }
+    };
 
 //findall the images related to the review
     const images = await Image.findAll({
@@ -78,7 +78,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     if(images.length >= 10) {
         const err = err400("Maximum number of images for this resource was reached");
         return next(err);
-    }
+    };
 
 //create a new image for that review
     const newImage = await Image.create({
@@ -90,7 +90,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     let result = {};
 
     result.id = newImage.id;
-    result.url = url
+    result.url = url;
 
     res.json(result);
 });
@@ -122,7 +122,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
         return next(err);
     }
 
-    const { review, stars } = req.body
+    const { review, stars } = req.body;
     const { user } = req;
     const userId = +user.id;
     const reviewUser = currentReview.dataValues.User;
@@ -132,7 +132,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
     if(userId !== reviewOwnerId) {
         const err = err403("Need to be owner of the review to add images");
         return next(err);
-    }
+    };
 
 //change the value of the spot if the value exist
     if(review !== undefined) currentReview.review = review;
@@ -150,7 +150,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
     result.createdAt = currentReview.createdAt;
     result.updatedAt = currentReview.updatedAt;
 
-    res.json(result)
+    res.json(result);
 });
 
 
@@ -189,7 +189,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
     if(userId !== reviewOwnerId) {
         const err = err403("Need to be owner of the review to delete the review");
         return next(err);
-    }
+    };
 
 //delete the record from the table
     await currentReview.destroy({ force: true });

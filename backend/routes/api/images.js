@@ -45,7 +45,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
     if(!image) {
         const err = err404("Image not found");
         return next(err);
-    }
+    };
 
     const { user } = req;
     const userId = +user.id;
