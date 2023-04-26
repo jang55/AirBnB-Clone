@@ -28,7 +28,7 @@ module.exports = {
         city: "SomeOtherPlace",
         state: "CA",
         country: "USA",
-        lat: 240.34242,
+        lat: 40.34242,
         lng: -124.2342,
         name: "Cool camping spot",
         description: "This is a really short description",

@@ -21,7 +21,8 @@ const { handleValidationErrors,
     validateBooking,
     validateReview,
     validateSignup,
-    validateLogin 
+    validateLogin,
+    validateImageUrl
     } = require('../../utils/validation');
 
 
@@ -35,7 +36,7 @@ const router = express.Router();
 
 
 //create an image for a review
-router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
+router.post("/:reviewId/images", validateImageUrl, requireAuth, async (req, res, next) => {
     const reviewId = +req.params.reviewId;
 
 //find the review

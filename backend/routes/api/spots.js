@@ -275,7 +275,7 @@ router.get("/", async (req, res, next) => {
                 required: false,
             },
         ],
-        group: "Spot.id",
+        group: ["Spot.id", "previewImage.id"],
         subQuery: false,
         ...query,
     });
@@ -295,7 +295,7 @@ router.get("/", async (req, res, next) => {
     }
 
     res.json({
-        spots: spots,
+        Spots: spots,
         page: page,
         size: size
     });
