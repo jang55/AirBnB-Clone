@@ -7,114 +7,31 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { 
     err404,
     err400,
-    err403
-} = require("../../utils/helpers.js");
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
+} = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,
+    validateSpot,
+    validateImage,
+    validateBooking,
+    validateReview,
+    validateSignup,
+    validateLogin 
+    } = require('../../utils/validation');
 const booking = require('../../db/models/booking');
 
 const router = express.Router();
 
-/***************** Validations *********************************/
-
-
-const validateBooking = [
-    check('startDate')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if (dateArr.length !== 3) {
-                return false;
-            } else {
-                return true;
-            }
-        })
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if(dateArr[0].length !== 4) {
-                return false;
-            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
-                return false;
-            } else {
-                return true;
-            }
-        })
-        .withMessage(`Start date is required in format YYYY-MM-DD .ie 2000-01-25`)
-        .custom((value, {req}) => {
-            const date = new Date()
-            return new Date(value) > date
-        })
-        .withMessage('Start date must be in the future'),
-    check('endDate')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if (dateArr.length !== 3) {
-                return false
-            } else {
-                return true
-            }
-        })
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if(dateArr[0].length !== 4) {
-                return false;
-            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
-                return false;
-            } else {
-                return true;
-            }
-        })
-        .withMessage(`End date is required in format YYYY-MM-DD .ie 2000-01-25`)
-        .custom((value, {req}) => {
-            return value > req.body.startDate
-        })
-        .withMessage("endDate cannot be on or before startDate"),
-    handleValidationErrors
-  ]
 
 
 
 /********************** Routes ************************************/
 
-
-// helper function to check if date is available
-function checkAvailableStartDate(date, booking) {
-    if(date >= booking.startDate && date < booking.endDate) {
-        return false
-    } else {
-        return true
-    }
-};
-
-function checkAvailableEndDate(date, booking) {
-    // console.log("users end date:", date);
-    // console.log("bookers start date:", booking.startDate);
-    if(date > booking.startDate && date <= booking.endDate) {
-    // if(date > booking.endDate) 
-        return false
-    } else {
-        return true
-
-    }
-};
-
-function checkDoesNotOverLapDates(start, end, booking) {
-    // console.log("users start date:", start);
-    // console.log("bookers start date:", booking.startDate);
-    // console.log("--------------------------")
-    // console.log("users end date:", end);
-    // console.log("bookers end date:", booking.endDate);
-    if(start < booking.startDate && end > booking.endDate) {
-        return false
-    } else {
-        return true
-    }
-}
 
 
 //updating the booking by id

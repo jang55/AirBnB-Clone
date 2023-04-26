@@ -7,32 +7,29 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { 
     err404,
     err400,
-    err403
-} = require("../../utils/helpers.js");
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
+} = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,
+    validateSpot,
+    validateImage,
+    validateBooking,
+    validateReview,
+    validateSignup,
+    validateLogin 
+    } = require('../../utils/validation');
 
 
 const router = express.Router();
 
-/***************** Validations *********************************/
 
 
-const validateReview = [
-    check('review')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Review text is required"),
-    check('stars')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .isNumeric()
-      .isIn([1,2,3,4,5])
-      .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-  ];
+
 
 /********************** Routes ************************************/
 

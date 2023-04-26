@@ -7,147 +7,28 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { 
     err404,
     err400,
-    err403
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
 } = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,
+    validateSpot,
+    validateImage,
+    validateBooking,
+    validateReview,
+    validateSignup,
+    validateLogin 
+    } = require('../../utils/validation');
 
 const router = express.Router();
 
-/***************** Validations *********************************/
 
 
 
-const validateSpot = [
-    check('address')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Street address is required"),
-    check('city')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("City is required"),
-    check('state')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("State is required"),
-    check('country')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Country is required"),
-    check('lat')
-      .exists({ checkFalsy: true })
-      .isDecimal()
-      .notEmpty()
-      .withMessage("Latitude is not valid"),
-    check('lng')
-      .exists({ checkFalsy: true })
-      .isDecimal()
-      .notEmpty()
-      .withMessage("Longitude is not valid"),
-    check('name')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Name is required")
-      .isLength({ max: 100 })
-      .withMessage("Name must be less than 100 characters"),
-    check('description')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Description is required"),
-    check('price')
-      .exists({ checkFalsy: true })
-      .isNumeric()
-      .notEmpty()
-      .withMessage("Price per day is required"),
-    handleValidationErrors
-  ];
-
-  const validateImage = [
-    check('url')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .isURL()
-      .withMessage("URL is required"),
-    check('preview')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Preview is required with true or false"),
-    handleValidationErrors
-  ];
-
-  const validateReview = [
-    check('review')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Review text is required"),
-    check('stars')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .isNumeric()
-      .isIn([1,2,3,4,5])
-      .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-  ];
-
-  const validateBooking = [
-    check('startDate')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if (dateArr.length !== 3) {
-                return false
-            } else {
-                return true
-            }
-        })
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if(dateArr[0].length !== 4) {
-                return false;
-            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
-                return false;
-            } else {
-                return true;
-            }
-        })
-        .withMessage(`Start date is required in format YYYY-MM-DD .ie 2000-01-25`)
-        .custom((value, {req}) => {
-            const date = new Date()
-            return new Date(value) > date
-        })
-        .withMessage('Start date must be in the future'),
-    check('endDate')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if (dateArr.length !== 3) {
-                return false
-            } else {
-                return true
-            }
-        })
-        .custom((value) => {
-            const dateArr = value.split("-");
-            if(dateArr[0].length !== 4) {
-                return false;
-            } else if(dateArr[1].length !== 2 || dateArr[2].length !== 2) {
-                return false;
-            } else {
-                return true;
-            }
-        })
-        .withMessage(`End date is required in format YYYY-MM-DD .ie 2000-01-25`)
-        .custom((value, {req}) => {
-            return value > req.body.startDate
-        })
-        .withMessage("endDate cannot be on or before startDate"),
-    handleValidationErrors
-  ]
 
 /********************** Routes ************************************/
 
@@ -312,6 +193,7 @@ router.get("/", async (req, res, next) => {
     //if page is greater than 10, set page to 10 as max
         page = 10;
     } else if (page > 0 && page < 10) {
+    //if page value is within limits, keep value
         break breakme;  
     } else {
     //if page is undefined set default to 0
@@ -337,28 +219,28 @@ router.get("/", async (req, res, next) => {
     // console.log(Number.isNaN(minLat))
     
 //checks minimum Latitude
-    if(Number.isNaN(minLat) || minLat < -90 || minLat > 90) {
+    if(Number.isNaN(minLat) || minLat < -90) {
         errMsg.push("Minimum latitude is invalid");
     } else if(minLat){
         query.where.lat = {[Op.gte]: minLat};
     }
 
 //checks maximum Latitude
-    if(Number.isNaN(maxLat) || maxLat > 90 || maxLat < -90) {
+    if(Number.isNaN(maxLat) || maxLat > 90) {
         errMsg.push("Maximum latitude is invalid");
     } else if(maxLat){
         query.where.lat = {[Op.lte]: maxLat};
     }
 
 //checks minimum Longitude
-    if(Number.isNaN(minLng) || minLng < -180 || minLng > 180) {
+    if(Number.isNaN(minLng) || minLng < -180) {
         errMsg.push("Minimum longitude is invalid")
     } else if(minLng) {
         query.where.lng = {[Op.gte]: minLng};
     }
 
 //checks maximum Longitude
-    if(Number.isNaN(maxLng) || maxLng > 180 || maxLng < -180) {
+    if(Number.isNaN(maxLng) || maxLng > 180) {
         errMsg.push("Maximum longitude is invalid")
     } else if(maxLng){
         query.where.lng = {[Op.lte]: maxLng};
@@ -436,39 +318,6 @@ router.get("/", async (req, res, next) => {
 /*****/
 
 
-//helper function to check if date is available
-function checkAvailableStartDate(date, booking) {
-    if(date >= booking.startDate && date < booking.endDate) {
-        return false
-    } else {
-        return true
-    }
-};
-
-function checkAvailableEndDate(date, booking) {
-    // console.log("users end date:", date);
-    // console.log("bookers start date:", booking.startDate);
-    if(date > booking.startDate && date <= booking.endDate) {
-    // if(date > booking.endDate) 
-        return false
-    } else {
-        return true
-
-    }
-};
-
-function checkDoesNotOverLapDates(start, end, booking) {
-    // console.log("users start date:", start);
-    // console.log("bookers start date:", booking.startDate);
-    // console.log("--------------------------")
-    // console.log("users end date:", end);
-    // console.log("bookers end date:", booking.endDate);
-    if(start < booking.startDate && end > booking.endDate) {
-        return false
-    } else {
-        return true
-    }
-}
 
 //create a booking for spot id
 router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, res, next) => {

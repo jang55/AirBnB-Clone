@@ -7,8 +7,11 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { 
     err404,
     err400,
-    err403
-} = require("../../utils/helpers.js");
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
+} = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');

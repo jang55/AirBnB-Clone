@@ -6,7 +6,7 @@ function err400(message) {
     return err;
 }
 
-
+/*********/
 
 function err403(message) {
     const err = new Error(message);
@@ -16,8 +16,7 @@ function err403(message) {
     return err;
 }
 
-
-
+/*********/
 
 function err404(message) {
     const err = new Error(message);
@@ -27,12 +26,47 @@ function err404(message) {
     return err
 }
 
+/*********/
 
+//check does the start date conflict in any bookings
+function checkAvailableStartDate(date, booking) {
+    if(date >= booking.startDate && date < booking.endDate) {
+        return false
+    } else {
+        return true
+    }
+};
+
+/*********/
+
+//checks to see if the end dates conflicts with any booking
+function checkAvailableEndDate(date, booking) {
+    if(date > booking.startDate && date <= booking.endDate) {
+        return false
+    } else {
+        return true
+
+    }
+};
+
+/*********/
+
+//checks to see if the dates are overlapping any bookings
+function checkDoesNotOverLapDates(start, end, booking) {
+    if(start < booking.startDate && end > booking.endDate) {
+        return false
+    } else {
+        return true
+    }
+}
 
 
 /******************* EXPORT *********************************/
 module.exports = {
     err404,
     err400,
-    err403
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
   };
