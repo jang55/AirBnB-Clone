@@ -131,7 +131,7 @@ router.get("/:locationId", async (req, res, next) => {
                 attributes: ["id", "firstName", "lastName"]
             }
         ],        
-        group: "spotImages.id",
+        group: ["spotImages.id", "Spot.id"],
     });
 
 
@@ -201,7 +201,7 @@ router.get("/", async (req, res, next) => {
 
 //set up the calculations for limit and size and add it to the query object
     let limit = size;
-    let offset = size * (page - 1);
+    let offset = Math.abs(size * (page - 1));
     query.limit = limit;
     query.offset = offset;
     
