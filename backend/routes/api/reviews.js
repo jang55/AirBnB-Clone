@@ -3,29 +3,33 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+//helper funcs
+const { 
+    err404,
+    err400,
+    err403,
+    checkAvailableStartDate,
+    checkAvailableEndDate,
+    checkDoesNotOverLapDates
+} = require("../../utils/helpers.js")
 const { User, Spot, sequelize, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,
+    validateSpot,
+    validateImage,
+    validateBooking,
+    validateReview,
+    validateSignup,
+    validateLogin 
+    } = require('../../utils/validation');
+
 
 const router = express.Router();
 
-/***************** Validations *********************************/
 
 
-const validateReview = [
-    check('review')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage("Review text is required"),
-    check('stars')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .isNumeric()
-      .isIn([1,2,3,4,5])
-      .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-  ];
+
 
 /********************** Routes ************************************/
 
@@ -46,12 +50,9 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //if review doesnt exist, throw an error
     if(!review) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
-    }
+    };
 
     const { url } = req.body;
     const { user } = req;
@@ -61,12 +62,9 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to add images");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to add images");
         return next(err);
-    }
+    };
 
 //findall the images related to the review
     const images = await Image.findAll({
@@ -78,12 +76,9 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
 //if the images is more than 10, throw error
     if(images.length >= 10) {
-        const err = new Error("Maximum number of images for this resource was reached");
-        err.title = "Bad request.";
-        err.message = "Maximum number of images for this resource was reached";
-        err.status = 400;
+        const err = err400("Maximum number of images for this resource was reached");
         return next(err);
-    }
+    };
 
 //create a new image for that review
     const newImage = await Image.create({
@@ -95,7 +90,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     let result = {};
 
     result.id = newImage.id;
-    result.url = url
+    result.url = url;
 
     res.json(result);
 });
@@ -123,14 +118,11 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
 
 //if review doesnt exist, throw an error
     if(!currentReview) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
     }
 
-    const { review, stars } = req.body
+    const { review, stars } = req.body;
     const { user } = req;
     const userId = +user.id;
     const reviewUser = currentReview.dataValues.User;
@@ -138,12 +130,9 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to add images");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to add images";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to add images");
         return next(err);
-    }
+    };
 
 //change the value of the spot if the value exist
     if(review !== undefined) currentReview.review = review;
@@ -161,7 +150,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
     result.createdAt = currentReview.createdAt;
     result.updatedAt = currentReview.updatedAt;
 
-    res.json(result)
+    res.json(result);
 });
 
 
@@ -187,10 +176,7 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
 
 //if review doesnt exist, throw an error
     if(!currentReview) {
-        const err = new Error("Review couldn't be found");
-        err.title = "Bad request.";
-        err.message = "Review couldn't be found";
-        err.status = 404;
+        const err = err404("Review couldn't be found");
         return next(err);
     }
 
@@ -201,21 +187,18 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
 
 //checks to see if the currentUser is the owner of the review
     if(userId !== reviewOwnerId) {
-        const err = new Error("Need to be owner of the review to delete the review");
-        err.title = "Forbidden.";
-        err.message = "Need to be owner of the review to delete the review";
-        err.status = 403;
+        const err = err403("Need to be owner of the review to delete the review");
         return next(err);
-    }
+    };
 
 //delete the record from the table
     await currentReview.destroy({ force: true });
 
     res.json(
-    {
-        "message": "Successfully deleted",
-        "statusCode": 200
-    }
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }
     );
 });
 

@@ -6,53 +6,19 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, sequelize, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,
+  validateSpot,
+  validateImage,
+  validateBooking,
+  validateReview,
+  validateSignup,
+  validateLogin 
+  } = require('../../utils/validation');
 
 const router = express.Router();
 
-/***************** Validations *********************************/
-
-const validateSignup = [
-  check('firstName')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 1 })
-    .isAlpha()
-    .withMessage("First Name is required"),
-  check('lastName')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 1 })
-    .isAlpha()
-    .withMessage("Last Name is required"),
-  check('email')
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Invalid email"),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage("Username is required"),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage('Username cannot be an email.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
-  handleValidationErrors
-];
 
 
-const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Email or username is required"),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage("Password is required"),
-  handleValidationErrors
-];
 
 /****************** Routes ******************************/
 
@@ -163,7 +129,6 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
     attributes: {
         include:[
             [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-
         ] 
     },
     include:[
@@ -229,6 +194,11 @@ router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
           where: { preview: true },
         }
       },
+      {
+        model: Image,
+        as: "ReviewImages",
+        attributes: ["id", "url"]
+      }
     ],
   });
 
@@ -237,21 +207,13 @@ router.get("/currentUser/reviews", requireAuth, async (req, res, next) => {
 //loop through each review
   for(let i = 0; i < allReviews.length; i++) {
     const reviewObj = allReviews[i].toJSON();
-    const images = await allReviews[i].getImages({ attributes: ["id", "url"] });
-//if there are images, set the image to ReviewImages, else set to null
-    if(images.length < 1) {
-      reviewObj.ReviewImages = null;
-      reviews.push(reviewObj);
-    } else {
-      reviewObj.ReviewImages = images;
-      reviews.push(reviewObj);
-    }
 
 //set nested preview image to just url only or null if none exist and latest one
     let previewImage = reviewObj.Spot.previewImage;
     if(previewImage) {
       reviewObj.Spot.previewImage = previewImage[previewImage.length - 1]?.url || null;
     }
+    reviews.push(reviewObj)
   }
 
   res.json({

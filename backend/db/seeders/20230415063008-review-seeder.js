@@ -36,7 +36,7 @@ const data = [
     review: "Worst place I been too", 
     stars: 1,
     userId: 1,
-    spotId: 5
+    spotId: 5                                   //5
   },
   {
     review: "Would return again", 
@@ -66,7 +66,7 @@ const data = [
     review: "This was a fun place to camp", 
     stars: 5,
     userId: 2,
-    spotId: 2
+    spotId: 2                                   //10
   },
   {
     review: "Family loved it", 
@@ -96,7 +96,7 @@ const data = [
     review: "BEST PLACE TO CAMP", 
     stars: 5,
     userId: 2,
-    spotId: 7
+    spotId: 7                                   //15
   },
   {
     review: "its alright", 
@@ -126,7 +126,7 @@ const data = [
     review: "FIVE STARS", 
     stars: 5,
     userId: 3,
-    spotId: 4
+    spotId: 4                                   //20
   },
   {
     review: "Could be better", 
@@ -156,7 +156,7 @@ const data = [
     review: "This place was WOW", 
     stars: 4,
     userId: 4,
-    spotId: 1
+    spotId: 1                                   //25
   },
   {
     review: "Rude Employees", 
@@ -186,7 +186,7 @@ const data = [
     review: "GREAT", 
     stars: 4,
     userId: 4,
-    spotId: 6
+    spotId: 6                                   //30
   },
   {
     review: "This was a fun place to camp", 
@@ -216,7 +216,7 @@ const data = [
     review: "FUN FUN FUN", 
     stars: 5,
     userId: 5,
-    spotId: 3
+    spotId: 3                                   //35
   },
   {
     review: "Would like to come back again", 
@@ -246,30 +246,12 @@ const data = [
     review: "I highly recommend this place to ANYONE", 
     stars: 5,
     userId: 5,
-    spotId: 8
+    spotId: 8                                   //40
   },
   
 ]
 
 module.exports = {
-  // up: async (queryInterface, Sequelize) => {
-  //   options.tableName = 'Reviews';
-  //   return queryInterface.bulkInsert(options, [
-  //     {
-  //       review: "This was a fun place to camp",
-  //       stars: 5,
-  //       userId: 1,
-  //       spotId: 1
-  //     },
-  //     {
-  //       review: "The lake at this place is very clean",
-  //       stars: 3,
-  //       userId: 2,
-  //       spotId: 2
-  //     },
-  //   ], {});
-  // },
-
   async up (queryInterface, Sequelize) {
     for(let i = 0; i < data.length; i++) {
       let dataObj = data[i];
@@ -288,31 +270,3 @@ module.exports = {
 
 
 
-
-/************************************************/
-
-// 'use strict';
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     /**
-//      * Add seed commands here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkInsert('People', [{
-//      *   name: 'John Doe',
-//      *   isBetaMember: false
-//      * }], {});
-//     */
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };

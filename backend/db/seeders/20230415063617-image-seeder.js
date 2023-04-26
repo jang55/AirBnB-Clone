@@ -106,7 +106,7 @@ module.exports = {
         preview: true,
         imageableType: "Spot",
         imageableId: 8
-      },
+      },                                    //16
       /******************************/
       {
         url: "www.fIGuessThisIsAnImage.com",
@@ -243,14 +243,6 @@ module.exports = {
     ], {});
   },
 
-  // async up (queryInterface, Sequelize) {
-  //   await Image.create({
-  //     url: "www.thisimage.com",
-  //     preview: true,
-  //     imageableType: "Spot",
-  //     imageableId: 1
-  //   },)
-  // },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Images';
@@ -262,51 +254,3 @@ module.exports = {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/******************************************************* */
-
-
-
-// 'use strict';
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     /**
-//      * Add seed commands here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkInsert('People', [{
-//      *   name: 'John Doe',
-//      *   isBetaMember: false
-//      * }], {});
-//     */
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };
