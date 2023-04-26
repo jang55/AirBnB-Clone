@@ -275,7 +275,7 @@ router.get("/", async (req, res, next) => {
                 required: false,
             },
         ],
-        group: "Spot.id",
+        group: ["Spot.id", "previewImage.id"],
         subQuery: false,
         ...query,
     });
