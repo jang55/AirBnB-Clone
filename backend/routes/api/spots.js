@@ -108,7 +108,7 @@ router.get("/:locationId", async (req, res, next) => {
         attributes: {
             include:[
                 [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
-                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+                // [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
             ] 
         },
         include:[
@@ -135,6 +135,7 @@ router.get("/:locationId", async (req, res, next) => {
     });
 
 
+    
 
 //if spot does not exist, throw error
     if(!spot) {
@@ -142,14 +143,22 @@ router.get("/:locationId", async (req, res, next) => {
         return next(err);
     }
 
+    const avgReview = await spot.getReviews({
+        attributes: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]],
+        raw: true
+    });
+
+    // console.log(avgReview)
 // change query to POJO
     const spotObj = spot.toJSON();
 
+    spotObj.avgStarRating = Number(avgReview[0].avgRating.toFixed(1));
+
 //reassign avrStarRating to be decimal with 1 place
-    if(spotObj.avgStarRating) {
-        console.log(spotObj);
-        spotObj.avgStarRating = Number(spotObj.avgStarRating.toFixed(1));
-    };
+    // if(spotObj.avgStarRating) {
+    //     console.log(spotObj);
+    //     spotObj.avgStarRating = Number(spotObj.avgStarRating.toFixed(1));
+    // };
 
     res.json(spotObj);
 });
