@@ -152,7 +152,7 @@ router.get("/:locationId", async (req, res, next) => {
 // change query to POJO
     const spotObj = spot.toJSON();
 
-    spotObj.avgStarRating = Number(avgReview[0].avgRating.toFixed(1));
+    spotObj.avgStarRating = Number(Number(avgReview[0].avgRating).toFixed(1));
 
 //reassign avrStarRating to be decimal with 1 place
     // if(spotObj.avgStarRating) {
