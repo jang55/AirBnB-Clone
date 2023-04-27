@@ -484,10 +484,14 @@ router.post("/:locationId/images", validateImage, requireAuth, async (req, res, 
 router.post("/", validateSpot, requireAuth, async (req, res, next) => {
     const { user } = req;
     const ownerId = +user.id;
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
 //find the current user
     const owner = await User.findByPk(ownerId);
+
+    if(lat) lat = Number(lat);
+    if(lng) lng = Number(lng);
+    if(price) price = Number(price);
 
 //makes a new spot associated with the current user
     const newSpot = await owner.createSpot(
@@ -540,11 +544,11 @@ router.put("/:locationId", validateSpot, requireAuth, async (req, res, next) => 
     if(city !== undefined) spot.city = city;
     if(state !== undefined) spot.state = state;
     if(country !== undefined) spot.country = country;
-    if(lat !== undefined) spot.lat = lat;
-    if(lng !== undefined) spot.lng = lng;
+    if(lat !== undefined) spot.lat = Number(lat);
+    if(lng !== undefined) spot.lng = Number(lng);
     if(name !== undefined) spot.name = name;
     if(description !== undefined) spot.description = description;
-    if(price !== undefined) spot.price = price;
+    if(price !== undefined) spot.price = Number(price);
 
     await spot.save();
 
