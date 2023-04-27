@@ -151,6 +151,10 @@ router.get("/:locationId", async (req, res, next) => {
         spotObj.avgStarRating = Number(Number(spotObj.avgStarRating).toFixed(1));
     };
 
+    if(spotObj.numReviews) {
+        spotObj.numReviews = Number(spotObj.numReviews);
+    };
+
     res.json(spotObj);
 });
 
@@ -293,10 +297,6 @@ router.get("/", async (req, res, next) => {
 
         if(spot.avgRating) {
             spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
-        };
-
-        if(spot.numReviews) {
-            spot.numReviews = Number(spot.numReviews);
         };
 
         spot.previewImage = spot.previewImage[0]?.url || null;
