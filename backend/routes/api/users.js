@@ -153,7 +153,7 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
       let spot = allSpots[i].toJSON();
 
       if(spot.avgRating) {
-        spot.avgRating = +spot.avgRating.toFixed(1);
+        spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
       };
 
       if(spot.previewImage) {

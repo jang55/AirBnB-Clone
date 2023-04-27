@@ -143,20 +143,11 @@ router.get("/:locationId", async (req, res, next) => {
         return next(err);
     }
 
-    // const avgReview = await spot.getReviews({
-    //     attributes: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]],
-    //     raw: true
-    // });
-
-    // console.log(avgReview)
 // change query to POJO
     const spotObj = spot.toJSON();
 
-    // spotObj.avgStarRating = Number(Number(avgReview[0].avgRating).toFixed(1));
-
 // reassign avrStarRating to be decimal with 1 place
     if(spotObj.avgStarRating) {
-        console.log(spotObj);
         spotObj.avgStarRating = Number(Number(spotObj.avgStarRating).toFixed(1));
     };
 
@@ -301,11 +292,11 @@ router.get("/", async (req, res, next) => {
         let spot = allSpots[i].toJSON();
 
         if(spot.avgRating) {
-            spot.avgRating = +spot.avgRating.toFixed(1);
-        }
+            spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
+        };
 
         spot.previewImage = spot.previewImage[0]?.url || null;
-        spots.push(spot)
+        spots.push(spot);
     }
 
     res.json({
