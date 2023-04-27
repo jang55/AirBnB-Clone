@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { check } = require('express-validator');
+const validator = require('validator');
 
 
 
@@ -24,12 +25,12 @@ const handleValidationErrors = (req, _res, next) => {
     validationErrors
     .array()
     .forEach(error => {
-      if(error.msg !== "Invalid value") {
+      if(!(error.msg === "Invalid value" || errors.includes(error.msg))) {
         errors.push(error.msg)
       }
     });
 
-    const err = Error("Validation error");
+    const err = Error("Validation Error");
     err.errors = errors;
     err.status = 400;
     err.title = "Bad request.";
@@ -67,6 +68,8 @@ const validateSignup = [
     .withMessage("Invalid email"),
   check('username')
     .exists({ checkFalsy: true })
+    .matches(/^[a-zA-Z0-9]+$/)
+    .withMessage("Username is required")
     .isLength({ min: 4 })
     .withMessage("Username is required"),
   check('username')
@@ -103,34 +106,53 @@ const validateSpot = [
   check('address')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .matches(/^[a-zA-Z0-9 .]+$/)
+    .custom((value) => {
+      if(value) {
+        const dateArr = value.split(" ");
+        if (dateArr.length < 2) {
+            return false;
+        } else {
+            return true;
+        }
+      }
+      return false;
+  })
     .withMessage("Street address is required"),
   check('city')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .matches(/^[a-zA-Z ]+$/)
+    .isLength({ min: 2 })
     .withMessage("City is required"),
   check('state')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .matches(/^[a-zA-Z ]+$/)
+    .isLength({ min: 2 })
     .withMessage("State is required"),
   check('country')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .matches(/^[a-zA-Z ]+$/)
+    .isLength({ min: 2 })
     .withMessage("Country is required"),
   check('lat')
     .exists({ checkFalsy: true })
-    .isDecimal()
     .notEmpty()
+    .isFloat({min: -90, max: 90})
     .withMessage("Latitude is not valid"),
   check('lng')
     .exists({ checkFalsy: true })
-    .isDecimal()
     .notEmpty()
+    .isFloat({min: -180, max: 180})
     .withMessage("Longitude is not valid"),
   check('name')
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage("Name is required")
     .isLength({ max: 100 })
+    .matches(/^[a-zA-Z ]+$/)
     .withMessage("Name must be less than 100 characters"),
   check('description')
     .exists({ checkFalsy: true })
@@ -138,8 +160,8 @@ const validateSpot = [
     .withMessage("Description is required"),
   check('price')
     .exists({ checkFalsy: true })
-    .isNumeric()
     .notEmpty()
+    .isFloat()
     .withMessage("Price per day is required"),
   handleValidationErrors
 ];
@@ -157,7 +179,21 @@ const validateImage = [
   check('preview')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .isBoolean()
     .withMessage("Preview is required with true or false"),
+  handleValidationErrors
+];
+
+
+/*********/
+
+
+const validateImageUrl = [
+  check('url')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isURL()
+    .withMessage("URL is required"),
   handleValidationErrors
 ];
 
@@ -260,5 +296,6 @@ module.exports = {
   validateReview,
   validateBooking,
   validateSignup,
-  validateLogin
+  validateLogin,
+  validateImageUrl
 };

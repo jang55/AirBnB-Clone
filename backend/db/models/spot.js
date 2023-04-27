@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Spot.hasMany(models.Booking, {foreignKey: "spotId"});
 
     //many to many relationship for users and bookings
-      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: "spotId" });
-      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: "spotId" });
+      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: "spotId", otherKey: "userId" });
+      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: "spotId", otherKey: "userId" });
 
     //alias with previewImage in images
       Spot.hasMany(models.Image, { 
@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     address: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
     }, 
     city: {
       type: DataTypes.STRING(45),
@@ -78,11 +78,19 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     lat: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: -90,
+        max: 90
+      }
     }, 
     lng: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: -180,
+        max: 180
+      }
     }, 
     name: {
       type: DataTypes.STRING(100),

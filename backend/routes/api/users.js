@@ -94,7 +94,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
     const err = new Error("Invalid credentials");
     err.status = 401;
     err.title = 'Login failed';
-    err.errors = { credential: 'The provided credentials were invalid.' };
+    // err.errors = { credential: 'The provided credentials were invalid.' };
     return next(err);
   }
 
@@ -144,13 +144,18 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
             required: false,
         },
     ],
-    group: "Spot.id"   
+    group: ["Spot.id", "previewImage.id"],  
   });
 
   const spots = []
 //set nested preview image to just url only or null if none exist and latest one
   for(let i = 0; i < allSpots.length; i++) {
       let spot = allSpots[i].toJSON();
+
+      if(spot.avgRating) {
+        spot.avgRating = +spot.avgRating.toFixed(1);
+      };
+
       if(spot.previewImage) {
         spot.previewImage = spot.previewImage[spot.previewImage.length - 1]?.url || null;
       }
@@ -289,8 +294,7 @@ router.get('/currentUser', (req, res) => {
       user: safeUser
     });
   } else return res.json({ user: null });
-}
-);
+});
 
 
 
