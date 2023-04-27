@@ -137,7 +137,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res, next) => 
 
 //change the value of the spot if the value exist
     if(review !== undefined) currentReview.review = review;
-    if(stars !== undefined) currentReview.stars = stars;
+    if(stars !== undefined) currentReview.stars = Number(stars);
   
 
     await currentReview.save();

@@ -205,6 +205,9 @@ const validateReview = [
   check('review')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .withMessage("Review text is required")
+    .isString()
+    .isLength({min: 2})
     .withMessage("Review text is required"),
   check('stars')
     .exists({ checkFalsy: true })
@@ -225,6 +228,10 @@ const validateBooking = [
       .notEmpty()
       .custom((value) => {
         if(value) {
+          if(typeof value !== "string") {
+            return false
+          }
+
           const dateArr = value.split("-");
           if (dateArr.length !== 3) {
               return false;
@@ -235,6 +242,10 @@ const validateBooking = [
         return false;
     })
       .custom((value) => {
+          if(typeof value !== "string") {
+            return false
+          }
+
           const dateArr = value.split("-");
           if(dateArr[0].length !== 4) {
               return false;
@@ -255,6 +266,10 @@ const validateBooking = [
       .notEmpty()
       .custom((value) => {
           if(value) {
+            if(typeof value !== "string") {
+              return false
+            }
+
             const dateArr = value.split("-");
             if (dateArr.length !== 3) {
                 return false
@@ -265,6 +280,9 @@ const validateBooking = [
           return false
       })
       .custom((value) => {
+        if(typeof value !== "string") {
+          return false
+        }
           const dateArr = value.split("-");
           if(dateArr[0].length !== 4) {
               return false;

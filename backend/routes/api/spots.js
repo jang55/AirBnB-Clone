@@ -489,6 +489,7 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
 //find the current user
     const owner = await User.findByPk(ownerId);
 
+//convert the strings into a number
     if(lat) lat = Number(lat);
     if(lng) lng = Number(lng);
     if(price) price = Number(price);
