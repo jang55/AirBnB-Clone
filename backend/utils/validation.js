@@ -25,12 +25,12 @@ const handleValidationErrors = (req, _res, next) => {
     validationErrors
     .array()
     .forEach(error => {
-      if(error.msg !== "Invalid value") {
+      if(!(error.msg === "Invalid value" || errors.includes(error.msg))) {
         errors.push(error.msg)
       }
     });
 
-    const err = Error("Validation error");
+    const err = Error("Validation Error");
     err.errors = errors;
     err.status = 400;
     err.title = "Bad request.";
@@ -68,8 +68,9 @@ const validateSignup = [
     .withMessage("Invalid email"),
   check('username')
     .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
     .matches(/^[a-zA-Z0-9]+$/)
+    .withMessage("Username is required")
+    .isLength({ min: 4 })
     .withMessage("Username is required"),
   check('username')
     .not()

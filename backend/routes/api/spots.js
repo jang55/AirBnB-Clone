@@ -181,7 +181,7 @@ router.get("/", async (req, res, next) => {
     } else if(page > 10) {
     //if page is greater than 10, set page to 10 as max
         page = 10;
-    } else if (page > 0 && page < 10) {
+    } else if (page > 0 && page <= 10) {
     //if page value is within limits, keep value
         break breakme;  
     } else {
@@ -190,12 +190,16 @@ router.get("/", async (req, res, next) => {
     }
 
 //checks to see if size is less than 0 and if size is not a number
-    if(Number.isNaN(size) || size < 0) {
+    breakSize: if(Number.isNaN(size) || size < 0) {
         errMsg.push("Size must be greater than or equal to 0");
     } else if(size > 20) {
-    //if size is greater than 20 or is undefined, set it to 20 as a max number or as default
+    //if size is greater than 20, set it to 20 as a max number or as default
         size = 20;
+    } else if (size > 0 && size <= 20) {
+    //if size value is within limits, keep value
+        break breakSize;  
     } else {
+    //if size is undefined set default to 0
         size = 20;
     }
 
