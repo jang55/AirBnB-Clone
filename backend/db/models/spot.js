@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Spot.hasMany(models.Booking, {foreignKey: "spotId"});
 
     //many to many relationship for users and bookings
-      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: "spotId" });
-      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: "spotId" });
+      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: "spotId", otherKey: "userId" });
+      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: "spotId", otherKey: "userId" });
 
     //alias with previewImage in images
       Spot.hasMany(models.Image, { 

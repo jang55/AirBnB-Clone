@@ -205,11 +205,9 @@ router.get("/", async (req, res, next) => {
 
 //set up the calculations for limit and size and add it to the query object
     let limit = size;
-    let offset = Math.abs(size * (page - 1));
+    let offset = Math.abs(size * (page));
     query.limit = limit;
     query.offset = offset;
-    // console.log("limit: ", limit);
-    // console.log("offset: ", offset)
     
 //checks minimum Latitude
     if(Number.isNaN(minLat) || minLat < -90 || minLat > 90) {
@@ -380,7 +378,6 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         spotId: spotId
     });
 
-    // console.log(newBooking)
     res.json(newBooking);
 })
 
