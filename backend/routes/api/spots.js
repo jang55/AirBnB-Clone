@@ -295,6 +295,10 @@ router.get("/", async (req, res, next) => {
             spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
         };
 
+        if(spot.numReviews) {
+            spot.numReviews = Number(spot.numReviews);
+        };
+
         spot.previewImage = spot.previewImage[0]?.url || null;
         spots.push(spot);
     }
