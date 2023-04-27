@@ -148,7 +148,7 @@ router.get("/:locationId", async (req, res, next) => {
 //reassign avrStarRating to be decimal with 1 place
     if(spotObj.avgStarRating) {
         console.log(spotObj);
-        spotObj.avgStarRating = +spotObj.avgStarRating.toFixed(1);
+        spotObj.avgStarRating = Number(spotObj.avgStarRating.toFixed(1));
     };
 
     res.json(spotObj);
