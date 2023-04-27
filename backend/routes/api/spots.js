@@ -131,7 +131,7 @@ router.get("/:locationId", async (req, res, next) => {
                 attributes: ["id", "firstName", "lastName"]
             }
         ],        
-        group: ["spotImages.id", "Spot.id"],
+        group: ["spotImages.id", "Spot.id", "Owner.id"],
     });
 
 
