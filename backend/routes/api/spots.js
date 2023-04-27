@@ -181,7 +181,7 @@ router.get("/", async (req, res, next) => {
     } else if(page > 10) {
     //if page is greater than 10, set page to 10 as max
         page = 10;
-    } else if (page > 0 && page <= 10) {
+    } else if (page >= 0 && page <= 10) {
     //if page value is within limits, keep value
         break breakme;  
     } else {
@@ -195,7 +195,7 @@ router.get("/", async (req, res, next) => {
     } else if(size > 20) {
     //if size is greater than 20, set it to 20 as a max number or as default
         size = 20;
-    } else if (size > 0 && size <= 20) {
+    } else if (size >= 0 && size <= 20) {
     //if size value is within limits, keep value
         break breakSize;  
     } else {
@@ -208,44 +208,46 @@ router.get("/", async (req, res, next) => {
     let offset = Math.abs(size * (page - 1));
     query.limit = limit;
     query.offset = offset;
+    // console.log("limit: ", limit);
+    // console.log("offset: ", offset)
     
 //checks minimum Latitude
-    if(Number.isNaN(minLat) || minLat < -90) {
+    if(Number.isNaN(minLat) || minLat < -90 || minLat > 90) {
         errMsg.push("Minimum latitude is invalid");
     } else if(minLat){
         query.where.lat = {[Op.gte]: minLat};
     }
 
 //checks maximum Latitude
-    if(Number.isNaN(maxLat) || maxLat > 90) {
+    if(Number.isNaN(maxLat) || maxLat > 90 || maxLat < -90) {
         errMsg.push("Maximum latitude is invalid");
     } else if(maxLat){
         query.where.lat = {[Op.lte]: maxLat};
     }
 
 //checks minimum Longitude
-    if(Number.isNaN(minLng) || minLng < -180) {
+    if(Number.isNaN(minLng) || minLng < -180 || minLng > 180) {
         errMsg.push("Minimum longitude is invalid")
     } else if(minLng) {
         query.where.lng = {[Op.gte]: minLng};
     }
 
 //checks maximum Longitude
-    if(Number.isNaN(maxLng) || maxLng > 180) {
+    if(Number.isNaN(maxLng) || maxLng > 180 || maxLng < -180) {
         errMsg.push("Maximum longitude is invalid")
     } else if(maxLng){
         query.where.lng = {[Op.lte]: maxLng};
     }
 
 //checks minimum price
-    if(Number.isNaN(minPrice)) {
+    if(Number.isNaN(minPrice) || minPrice < 0) {
         errMsg.push("Minimum price must be greater than or equal to 0")
     } else if(minPrice) {
         query.where.price = {[Op.gte]: minPrice};
     }
 
 //checks maximum price
-    if(Number.isNaN(maxPrice)) {
+    if(Number.isNaN(maxPrice) || maxPrice < 0) {
         errMsg.push("Maximum price must be greater than or equal to 0")
     } else if(maxPrice){
         query.where.price = {[Op.lte]: maxPrice};
@@ -378,6 +380,7 @@ router.post("/:locationId/bookings", validateBooking, requireAuth, async (req, r
         spotId: spotId
     });
 
+    // console.log(newBooking)
     res.json(newBooking);
 })
 
