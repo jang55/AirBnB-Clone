@@ -118,7 +118,7 @@ router.get("/:locationId", async (req, res, next) => {
             },
             {
                 model: Image,
-                as: "spotImages",
+                as: "SpotImages",
                 where: {
                     imageableId: spotId
                 },
@@ -131,7 +131,7 @@ router.get("/:locationId", async (req, res, next) => {
                 attributes: ["id", "firstName", "lastName"]
             }
         ],        
-        group: ["spotImages.id", "Spot.id", "Owner.id"],
+        group: ["SpotImages.id", "Spot.id", "Owner.id"],
     });
 
 

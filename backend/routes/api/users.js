@@ -163,7 +163,7 @@ router.get("/currentUser/locations", requireAuth, async (req, res, next) => {
   }
 
   res.json({
-      spots: spots
+      Spots: spots
   });
 })
 
