@@ -177,7 +177,7 @@ const validateImage = [
     .isURL()
     .withMessage("URL is required"),
   check('preview')
-    .exists({ checkFalsy: true })
+    .exists()
     .notEmpty()
     .isBoolean()
     .withMessage("Preview is required with true or false"),
