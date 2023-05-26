@@ -70,6 +70,17 @@ export const signupThunk = (user) => async (dispatch) => {
   return response;
 };
 
+/******/
+
+//signout user
+export const logoutThunk = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUserAction());
+  return response;
+};
+
 
 
 /************* REDUCER **********************/
