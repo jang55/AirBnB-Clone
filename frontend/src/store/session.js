@@ -14,6 +14,8 @@ const setUserAction = (user) => {
   };
 };
 
+/******/
+
 const removeUserAction = () => {
   return {
     type: REMOVE_USER,
@@ -22,6 +24,7 @@ const removeUserAction = () => {
 
 
 /*************** THUNK ACTIONS CREATOR **************************/
+//login to a user
 export const loginThunk = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch("/api/users/login", {
@@ -31,11 +34,21 @@ export const loginThunk = (user) => async (dispatch) => {
       password,
     }),
   });
+
   const data = await response.json();
   dispatch(setUserAction(data.user));
   return response;
 };
 
+/******/
+
+//get the current user
+export const restoreUserThunk = () => async (dispatch) => {
+  const response = await csrfFetch("/api/users/currentUser");
+  const data = await response.json();
+  dispatch(setUserAction(data.user));
+  return response;
+};
 
 
 
