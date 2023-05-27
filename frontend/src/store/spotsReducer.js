@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 /********************** TYPES ******************************/
 const LOAD_ALL_SPOTS = "spots/loadAllSpots";
 const LOAD_ONE_SPOT = "spots/loadOneSpot"
@@ -54,7 +56,7 @@ const removeOneSpotAction = (spotId) => {
 /********************* THUNK ACTION CREATORS ********************/
 //gets all the spots
 export const loadSpotsThunk = () => async (dispatch) => {
-  const res = await fetch("/api/locations");
+  const res = await csrfFetch("/api/locations");
 
   if (res.ok) {
     const spots = await res.json();
@@ -67,7 +69,7 @@ export const loadSpotsThunk = () => async (dispatch) => {
 
 //get one spot by id
 export const loadOneSpotThunk = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/locations/${spotId}`);
+  const res = await csrfFetch(`/api/locations/${spotId}`);
 
   if (res.ok) {
     const spot = await res.json();
@@ -80,12 +82,15 @@ export const loadOneSpotThunk = (spotId) => async (dispatch) => {
 
 //creates a new spot
 export const addSpotThunk = (newSpot) => async (dispatch) => {
-  const res = await fetch("/api/locations", {
+  // console.log(newSpot)
+  const reqBody = JSON.stringify(newSpot);
+
+  const res = await csrfFetch("/api/locations", {
     method: "POST",
     headers: {
-      "Content-Type": "applicaton/json",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(newSpot),
+    body: reqBody,
   });
 
   if (res.ok) {
@@ -99,10 +104,10 @@ export const addSpotThunk = (newSpot) => async (dispatch) => {
 
 //updates an existing spot
 export const updateSpotThunk = (updatedSpot, spotId) => async (dispatch) => {
-  const res = await fetch(`/api/locations/${spotId}`, {
+  const res = await csrfFetch(`/api/locations/${spotId}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "applicaton/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(updatedSpot),
   });
@@ -118,7 +123,7 @@ export const updateSpotThunk = (updatedSpot, spotId) => async (dispatch) => {
 
 //deletes a spot
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/locations/${spotId}`, {
+  const res = await csrfFetch(`/api/locations/${spotId}`, {
     method: "DELETE",
   });
 
@@ -165,17 +170,17 @@ const spotsReducer = (state = initialState, action) => {
 // window.store.dispatch(window.spotsActions.loadSpotsThunk());
 // window.store.dispatch(window.spotsActions.loadOneSpotThunk(1));
 // window.store.dispatch(window.spotsActions.addSpotThunk({
-//     ownerId: 1,                                     
-//     address: "123 thatWay Ln",
-//     city: "SomePlace",
-//     state: "CA",
-//     country: "USA",
-//     lat: 10.34242,
-//     lng: -104.2342,
-//     name: "Amazing camping spot",
-//     description: "This is a really short description",
-//     price: 1000000
-//   }));
+//   "address": "123 Disney Lane",
+//   "city": "San Francisco",
+//   "state": "California",
+//   "country": "United States of America",
+//   "lat": 37.7645358,
+//   "lng": -122.4730327,
+//   "name": "App Academy",
+//   "description": "Place where web developers are created",
+//   "price": 123
+// }));
 // window.store.dispatch(window.spotsActions.deleteSpotThunk(10));
+// window.store.dispatch(window.spotsActions.loadSpotsThunk());
 
 export default spotsReducer;

@@ -485,7 +485,7 @@ router.post("/", validateSpot, requireAuth, async (req, res, next) => {
     const { user } = req;
     const ownerId = +user.id;
     let { address, city, state, country, lat, lng, name, description, price } = req.body;
-
+  
 //find the current user
     const owner = await User.findByPk(ownerId);
 

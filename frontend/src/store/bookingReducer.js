@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf";
 
 
 /*************** TYPES **************************/
@@ -58,7 +58,7 @@ export const removeBookingAction = (bookingId) => {
 /*************** THUNK ACTIONS CREATOR **************************/
 //loads all users bookings
 export const loadUserBookingsThunk = () => async (dispatch) => {
-    const res = await fetch(`/api/users/currentUser/bookings`);
+    const res = await csrfFetch(`/api/users/currentUser/bookings`);
 
     if(res.ok) {
         const bookings = await res.json();
@@ -71,7 +71,7 @@ export const loadUserBookingsThunk = () => async (dispatch) => {
 
 //loads all bookings by spot id
 export const loadSpotsBookingsThunk = (spotId) => async (dispatch) => {
-    const res = await fetch(`/api/locations/${spotId}/bookings`);
+    const res = await csrfFetch(`/api/locations/${spotId}/bookings`);
 
     if(res.ok) {
         const bookings = await res.json();
@@ -84,7 +84,7 @@ export const loadSpotsBookingsThunk = (spotId) => async (dispatch) => {
 
 //creates a new booking
 export const createBookingThunk = (booking, spotId) => async (dispatch) => {
-    const res = await fetch(`/api/locations/${spotId}/bookings`, {
+    const res = await csrfFetch(`/api/locations/${spotId}/bookings`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -103,7 +103,7 @@ export const createBookingThunk = (booking, spotId) => async (dispatch) => {
 
 //updates a current booking
 export const updateBookingThunk = (booking, bookingId) => async (dispatch) => {
-    const res = await fetch(`/api/bookings/${bookingId}`, {
+    const res = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -122,7 +122,7 @@ export const updateBookingThunk = (booking, bookingId) => async (dispatch) => {
 
 //deletes a booking
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {
-    const res = await fetch(`/api/bookings/${bookingId}`, {
+    const res = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: "DELETE"
     });
 
