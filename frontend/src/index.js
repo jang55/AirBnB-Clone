@@ -9,6 +9,8 @@ import configureStore from "./store";
 
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from "./store/session";
+import * as spotsActions from "./store/spotsReducer";
+import * as bookingActions from "./store/bookingReducer";
 
 //store imports above this line
 /************************************************/
@@ -21,6 +23,8 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
+  window.spotsActions = spotsActions;
+  window.bookingActions = bookingActions;
 }
 
 const Root = () => {
