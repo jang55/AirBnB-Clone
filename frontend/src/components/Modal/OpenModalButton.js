@@ -3,8 +3,9 @@ import React, { useState } from "react";
 function OpenModalButton({
   buttonText,
   modalComponent,
-  closeMenu,
+  closeMenu
 }) {
+  
   const [showModal, setShowModal] = useState(false);
 
   const ModalWithProp = React.cloneElement(modalComponent, { setShowModal });

@@ -20,10 +20,10 @@ function LoginFormPage() {
       async (res) => {
         const data = await res.json();
         if (data) {
-            const errors = {};
-            errors.credential = data.message
-            setErrors(errors);
-        } 
+          const errors = {};
+          errors.credential = data.message;
+          setErrors(errors);
+        }
       }
     );
   };
@@ -31,28 +31,30 @@ function LoginFormPage() {
   return (
     <>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-        {errors.credential && <p className="errors">{errors.credential}</p>}
-      </form>
+      <fieldset>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Username or Email
+            <input
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <button className="submit-button" type="submit">Log In</button>
+          {errors.credential && <p className="errors">{errors.credential}</p>}
+        </form>
+      </fieldset>
     </>
   );
 }
