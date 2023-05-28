@@ -12,230 +12,230 @@ module.exports = {
     options.tableName = 'Images';
     return queryInterface.bulkInsert(options, [
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/0Py6Yx8.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 1
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/7XBR50S.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 1
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/7XBR50S.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 2
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/7XBR50S.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 2
       },
       {
-        url: "www.fthisimage.com",
-        preview: false,
-        imageableType: "Spot",
-        imageableId: 3
-      },
-      {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/CQbzQ9Q.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 3
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/CQbzQ9Q.jpg",
+        preview: false,
+        imageableType: "Spot",
+        imageableId: 3
+      },
+      {
+        url: "https://i.imgur.com/i6M9j1a.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 4
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/i6M9j1a.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 4
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/0Py6Yx8.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 5
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/0Py6Yx8.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 5
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/CQbzQ9Q.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 6
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/CQbzQ9Q.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 6
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/7XBR50S.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 7
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/7XBR50S.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 7
       },
       {
-        url: "www.fthisimage.com",
+        url: "https://i.imgur.com/i6M9j1a.jpg",
         preview: false,
         imageableType: "Spot",
         imageableId: 8
       },
       {
-        url: "www.thisimage.com",
+        url: "https://i.imgur.com/i6M9j1a.jpg",
         preview: true,
         imageableType: "Spot",
         imageableId: 8
       },                                    //16
       /******************************/
       {
-        url: "www.fIGuessThisIsAnImage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 1
       },
       {
-        url: "www.IGuessThisIsAnImage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 1
       },
       {
-        url: "www.fImage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 2
       },
       {
-        url: "www.Image.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 2
       },
       {
-        url: "www.fanotherimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 3
       },
       {
-        url: "www.anotherimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 3
       },
       {
-        url: "www.furl.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 4
       },
       {
-        url: "www.url.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 4
       },
       {
-        url: "www.fanotherurl.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 5
       },
       {
-        url: "www.anotherurl.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 5
       },
       {
-        url: "www.f12345IMAGES.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 6
       },
       {
-        url: "www.12345IMAGES.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 6
       },
       {
-        url: "www.frunningoutofnames.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 7
       },
       {
-        url: "www.runningoutofnames.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 7
       },
       {
-        url: "www.ftiny.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 8
       },
       {
-        url: "www.tiny.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 8
       },
       {
-        url: "www.ftinyimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 9
       },
       {
-        url: "www.tinyimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 9
       },
       {
-        url: "www.fmyimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 10
       },
       {
-        url: "www.myimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 10
       },
       {
-        url: "www.fFINALimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: false,
         imageableType: "Review",
         imageableId: 11
       },
       {
-        url: "www.FINALimage.com",
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
         preview: true,
         imageableType: "Review",
         imageableId: 11
@@ -248,7 +248,7 @@ module.exports = {
     options.tableName = 'Images';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ["www.thisimage.com", "www.IGuessThisIsAnImage.com"] }
+      preview: { [Op.in]: [true, false] }
     }, {});
   }
 };

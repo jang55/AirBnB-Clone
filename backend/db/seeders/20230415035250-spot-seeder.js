@@ -13,26 +13,26 @@ module.exports = {
       {
         ownerId: 1,                                     //1
         address: "123 thatWay Ln",
-        city: "SomePlace",
+        city: "El Derado",
         state: "CA",
         country: "USA",
         lat: 10.34242,
         lng: -104.2342,
-        name: "Amazing camping spot",
+        name: "Mountain View",
         description: "This is a really short description",
-        price: 1000000
+        price: 100
       },
       {
         ownerId: 2,                                     //2
         address: "123 upthatway Rd",
-        city: "SomeOtherPlace",
+        city: "Redding",
         state: "CA",
         country: "USA",
         lat: 40.34242,
         lng: -124.2342,
-        name: "Cool camping spot",
+        name: "Cool Lake",
         description: "This is a really short description",
-        price: 1
+        price: 75
       },
       {
         ownerId: 3,                                     //3
