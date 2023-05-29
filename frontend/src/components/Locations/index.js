@@ -3,27 +3,29 @@ import { useSelector, useDispatch } from "react-redux";
 import * as spotsAction from "../../store/spotsReducer";
 import { NavLink } from "react-router-dom";
 import LocationItem from "./LocationItem";
+import "./Location.css"
 
-function Locations() {
+function Locations({ isLoaded }) {
   const dispatch = useDispatch();
   const SpotsState = useSelector((state) => state.spotsState);
   const allSpots = Object.values(SpotsState)
-//   console.log(allSpots);
 
   useEffect(() => {
     (async () => {
         await dispatch(spotsAction.loadSpotsThunk())
     })();
   }, [dispatch]);
+
+
   return (
     <>
-    {allSpots.length && (
-        <nav>
-            {allSpots.map((spot) => {
-                return <NavLink key={spot.id} to={`/location/${spot.id}`}>
+    {isLoaded && (
+        <nav className="spot-container">
+            {allSpots.map((spot) => (
+                <NavLink key={spot.id} to={`/locations/${spot.id}` }>
                     <LocationItem spot={spot}/>
                 </NavLink>
-            })}
+            ))}
         </nav>
     )}
     </>

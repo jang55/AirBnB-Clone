@@ -6,7 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Locations from "./components/Locations"
-import LocationItem from "./components/Locations/LocationItem";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <Locations />
+            <Locations isLoaded={isLoaded}/>
           </Route>
           <Route path="/login">
             <LoginFormPage />
@@ -30,7 +30,7 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path="/locations/:locationId">
-            <LocationItem />
+            
           </Route>
         </Switch>
       )}

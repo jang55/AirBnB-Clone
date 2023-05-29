@@ -1,0 +1,46 @@
+a {
+    color: black;
+    text-decoration: none;
+
+}
+
+.description-link {
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.description-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.description-name {
+    margin: 2px 4px 4px 0px;
+}
+
+.description-container {
+    width: 250px;
+    margin: 10px 20px 10px 20px;
+}
+
+.description-container > img {
+    border-radius: 12px;
+    height: 200px;
+    width: 250px;
+}
+
+.spot-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+/* .active {
+    color: rgb(51, 51, 51);
+    font-weight: bold;
+    font-size: 1.2em;
+    background: rgb(240, 240, 179);
+    padding: 1px;
+  } */
+
