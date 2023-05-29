@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Locations from "./components/Locations"
+import LocationDetails from "./components/Locations/locationDetails";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path="/locations/:locationId">
-            
+            <LocationDetails />
           </Route>
         </Switch>
       )}

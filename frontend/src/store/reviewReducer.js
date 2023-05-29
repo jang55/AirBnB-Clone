@@ -40,27 +40,27 @@
 
 
 /************* REDUCER **********************/
-// const initialState = {};
+const initialState = {};
 
-// const ...Reducer = (state = initialState, action) => {
-//     const newState = {...state}
+const reviewReducer = (state = initialState, action) => {
+    const newState = {...state}
 
-//     switch(action.type) {
-//         // case :
+    switch(action.type) {
+        // case :
 
-//         //     return newState;
-//         // case :
+        //     return newState;
+        // case :
 
-//         //     return newState;
-//         // case :
+        //     return newState;
+        // case :
 
-//         //     return newState;
-//         // case :
+        //     return newState;
+        // case :
 
-//         //     return newState;
-//         default:
-//             return state;
-//     }
-// }
+        //     return newState;
+        default:
+            return state;
+    }
+}
 
-// export default ...Reducer
+export default reviewReducer
