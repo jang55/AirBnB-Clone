@@ -82,7 +82,6 @@ export const loadOneSpotThunk = (spotId) => async (dispatch) => {
 
 //creates a new spot
 export const addSpotThunk = (newSpot) => async (dispatch) => {
-  // console.log(newSpot)
   const reqBody = JSON.stringify(newSpot);
 
   const res = await csrfFetch("/api/locations", {

@@ -23,7 +23,7 @@ function LocationDetails() {
     })().then(() => setIsLoading("Loading..."));
   }, [dispatch, locationId]);
 
-  console.log(spot);
+
 
     const reserveHandler = () => {
         alert("Feature Coming Soon...")
