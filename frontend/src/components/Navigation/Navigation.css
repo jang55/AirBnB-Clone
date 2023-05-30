@@ -5,7 +5,8 @@
 .navbar {
     display: flex;
     justify-content: flex-end;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(171, 169, 169);
+    box-shadow: 0px 0.01em black;
 }
 
 .unordered-list {

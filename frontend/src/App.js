@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Locations from "./components/Locations"
 import LocationDetails from "./components/Locations/locationDetails";
+import LocationForm from "./components/Locations/LocationForm";
 
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/locations/new">
+            <LocationForm />
           </Route>
           <Route path="/locations/:locationId">
             <LocationDetails />

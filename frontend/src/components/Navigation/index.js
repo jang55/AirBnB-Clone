@@ -9,6 +9,9 @@ function Navigation({ isLoaded }) {
 
   return (
     <nav className="navbar">
+      <NavLink to="/locations/new">
+        Create A Spot
+      </NavLink>
       <ul className="unordered-list">
         <li>
           <NavLink exact to="/">
