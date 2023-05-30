@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import * as spotsActions from "../../store/spotsReducer";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Reviews from "../Reviews";
 import "./Location.css";
 
 function LocationDetails() {
@@ -61,13 +62,24 @@ function LocationDetails() {
                         ? String(spot.avgStarRating).length === 1 ? `${spot.avgStarRating}.0` : spot.avgStarRating
                         : "New"}
                     </span>
-                    <p>{`${spot.numReviews} Reviews`}</p>
+                    <span> - </span>
+                    <span>{`${spot.numReviews} Reviews`}</span>
                 </div>
                 <button id="reserve-button" onClick={reserveHandler} >Reserve</button>
             </div>
           </div>
           <div className="reviews-container">
-
+          <div>
+                    <span>{"★"}</span>
+                    <span>
+                        {spot.avgStarRating
+                        ? String(spot.avgStarRating).length === 1 ? `${spot.avgStarRating}.0` : spot.avgStarRating
+                        : "New"}
+                    </span>
+                    <span> - </span>
+                    <span>{`${spot.numReviews} Reviews`}</span>
+                </div>
+            <Reviews locationId={locationId} />
           </div>
         </div>
       )}
