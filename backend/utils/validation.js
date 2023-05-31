@@ -15,20 +15,20 @@ const handleValidationErrors = (req, _res, next) => {
 
   if (!validationErrors.isEmpty()) { 
   //auth me error format
-    // const errors = {};
-    // validationErrors
-    //   .array()
-    //   .forEach(error => errors[error.param] = error.msg);
+    const errors = {};
+    validationErrors
+      .array()
+      .forEach(error => errors[error.param] = error.msg);
 
   //my error format
-    const errors = []
-    validationErrors
-    .array()
-    .forEach(error => {
-      if(!(error.msg === "Invalid value" || errors.includes(error.msg))) {
-        errors.push(error.msg)
-      }
-    });
+    // const errors = []
+    // validationErrors
+    // .array()
+    // .forEach(error => {
+    //   if(!(error.msg === "Invalid value" || errors.includes(error.msg))) {
+    //     errors.push(error.msg)
+    //   }
+    // });
 
     const err = Error("Validation Error");
     err.errors = errors;
@@ -148,15 +148,17 @@ const validateSpot = [
     .isFloat({min: -180, max: 180})
     .withMessage("Longitude is not valid"),
   check('name')
+    .isLength({ max: 100 })
+    .withMessage("Name must be less than 100 characters")
+    .matches(/^[a-zA-Z ]+$/)
+    .withMessage("Name must be only alphabetic")
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage("Name is required")
-    .isLength({ max: 100 })
-    .matches(/^[a-zA-Z ]+$/)
-    .withMessage("Name must be less than 100 characters"),
+    .withMessage("Name is required"),
   check('description')
     .exists({ checkFalsy: true })
     .notEmpty()
+    .isLength({ min: 30 })
     .withMessage("Description is required"),
   check('price')
     .exists({ checkFalsy: true })

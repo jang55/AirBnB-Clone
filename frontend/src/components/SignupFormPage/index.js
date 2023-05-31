@@ -17,32 +17,32 @@ function SignupFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const checkErrors = (errArr) => {
-    const result = {};
-    errArr.forEach((errorMsg) => {
-      const possibleErrMsg = {
-        email: ["Invalid email", "User with that email already exists"],
-        username: [
-          "User with that username already exists",
-          "Username is required",
-          "Username cannot be an email.",
-        ],
-        password: ["Password must be 6 characters or more."],
-        firstName: ["First Name is required"],
-        lastName: ["Last Name is required"],
-      };
+  // const checkErrors = (errArr) => {
+  //   const result = {};
+  //   errArr.forEach((errorMsg) => {
+  //     const possibleErrMsg = {
+  //       email: ["Invalid email", "User with that email already exists"],
+  //       username: [
+  //         "User with that username already exists",
+  //         "Username is required",
+  //         "Username cannot be an email.",
+  //       ],
+  //       password: ["Password must be 6 characters or more."],
+  //       firstName: ["First Name is required"],
+  //       lastName: ["Last Name is required"],
+  //     };
 
-      for (let key in possibleErrMsg) {
-        if (possibleErrMsg[key].includes(errorMsg)) {
-          result[key] = errorMsg;
-        }
-      }
-    });
-    return setErrors({
-      ...errors,
-      ...result,
-    });
-  };
+  //     for (let key in possibleErrMsg) {
+  //       if (possibleErrMsg[key].includes(errorMsg)) {
+  //         result[key] = errorMsg;
+  //       }
+  //     }
+  //   });
+  //   return setErrors({
+  //     ...errors,
+  //     ...result,
+  //   });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +59,8 @@ function SignupFormPage() {
       ).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
-          checkErrors(data.errors);
+          // checkErrors(data.errors);
+          setErrors(data.errors);
         }
       });
     }

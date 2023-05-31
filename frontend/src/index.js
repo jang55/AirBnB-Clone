@@ -12,6 +12,7 @@ import * as sessionActions from "./store/session";
 import * as spotsActions from "./store/spotsReducer";
 import * as bookingActions from "./store/bookingReducer";
 import * as reviewActions from "./store/reviewReducer";
+import * as imageActions from "./store/imageReducer";
 
 //store imports above this line
 /************************************************/
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.spotsActions = spotsActions;
   window.bookingActions = bookingActions;
   window.reviewActions = reviewActions;
+  window.imageActions = imageActions;
 }
 
 const Root = () => {

@@ -1,8 +1,12 @@
-import { useState } from "react";
-import "./LocationForm.css";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as spotActions from "../../store/spotsReducer";
+import * as imageActions from "../../store/imageReducer";
+import "./LocationForm.css";
 
 function LocationForm() {
+  //all the states used in the form
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -12,14 +16,18 @@ function LocationForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
+  const [image0, setImage0] = useState("");
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState("");
+  const [image3, setImage3] = useState(""); //preview image
   const [isRequired, setIsRequired] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [imgErrors, setImgErrors] = useState({});
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
+  //reset all values
   const reset = () => {
     setAddress("");
     setCity("");
@@ -30,19 +38,93 @@ function LocationForm() {
     setName("");
     setDescription("");
     setPrice("");
-    setPreviewImage("");
+    setImage0("");
     setImage1("");
     setImage2("");
     setImage3("");
   };
 
-  const submitHandler = (e) => {
+  //submit handler
+  const submitHandler = async (e) => {
     e.preventDefault();
     setIsRequired(true);
+    setErrors({});
+    setImgErrors({});
 
-    // setIsRequired(false);
-    // reset();
-    // history.push("/locations/1")
+    //gets all the information from the from
+    const formInfo = {
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price,
+    };
+
+    /************ img error  *******************/
+//all the url into an array
+    const imgArr = [image0, image1, image2, image3];
+//saves any errors in an object
+    const imgErrorObj = {};
+//checks to see if the url in the form is valid
+    const isValidImage = (imgURL, string) => {
+  //valid url endings;
+      const imgEndings = ["png", "jpg", "jpeg"];
+  //splits it by a period to get an array of the string
+      const imgURLSplit = imgURL.split(".");
+  //if not nothing is in the url return it
+      if (!imgURL) {
+        return;
+      }
+   //if url is given and ending is not valid, place an error for the image
+      if (!imgEndings.includes(imgURLSplit[imgURLSplit.length - 1])) {
+        imgErrorObj[string] = "error";
+        return;
+      }
+   //return if all is well
+      return;
+    };
+  //loop through all url and use callback to check
+    imgArr.forEach((imgURL, i) => {
+      isValidImage(imgURL, `image${i}`);
+    });
+
+    setImgErrors({ ...imgErrorObj });
+    /**************************/
+
+    let newSpot;
+
+    const submitDetails = async () => {
+      e.preventDefault();
+
+      try {
+        newSpot = await dispatch(spotActions.addSpotThunk(formInfo));
+      } catch (err) {
+        const data = await err.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      }
+      console.log(newSpot)
+      if (newSpot) {
+        try {
+          //loop through all url and use callback to check
+          imgArr.forEach(async (imgURL, i) => {
+            if (imgURL.length > 0) {
+              const imageBody = { "url": imgURL, "preview": true };
+              await dispatch(
+                imageActions.addSpotImageThunk(imageBody, newSpot.id)
+              );
+            }
+          });
+        } catch (err) {}
+      }
+    };
+
+    submitDetails();
   };
 
   return (
@@ -66,8 +148,7 @@ function LocationForm() {
                 onChange={(e) => setCountry(e.target.value)}
               />
               <div id="country-errors">
-                {isRequired && (country.length < 1 ? <p className="errors">Country is required</p> : "")}
-                {country.length < 1 && <p className="errors">Country is required</p>}
+                {errors.country && <p className="errors">{errors.country}</p>}
               </div>
             </label>
             <label id="address-label" className="form-label">
@@ -81,7 +162,7 @@ function LocationForm() {
               />
             </label>
             <div id="address-errors">
-                {isRequired && (address.length < 1 ? <p className="errors">Address is required</p> : "")}
+              {errors.address && <p className="errors">{errors.address}</p>}
             </div>
             <label id="city-label" className="form-label">
               City
@@ -94,7 +175,7 @@ function LocationForm() {
               />
             </label>
             <div id="city-errors">
-                {isRequired && (city.length < 1 ? <p className="errors">City is required</p> : "")}
+              {errors.city && <p className="errors">{errors.city}</p>}
             </div>
             <label id="state-label" className="form-label">
               State
@@ -107,7 +188,7 @@ function LocationForm() {
               />
             </label>
             <div id="state-errors">
-                {isRequired && (state.length < 1 ? <p className="errors">State is required</p> : "")}
+              {errors.state && <p className="errors">{errors.state}</p>}
             </div>
             <label id="lat-label" className="form-label">
               Latitude
@@ -120,7 +201,13 @@ function LocationForm() {
               />
             </label>
             <div id="lat-errors">
-                {isRequired && (lat.length < 1 ? <p className="errors">Latitude is required</p> : "")}
+              {isRequired &&
+                (lat.length < 1 ? (
+                  <p className="errors">Latitude is required</p>
+                ) : (
+                  <p className="errors">{errors.lat}</p>
+                ))}
+              {/* {errors.lat && <p className="errors">{errors.lat}</p>} */}
             </div>
             <label id="lng-label" className="form-label">
               Longitude
@@ -133,7 +220,13 @@ function LocationForm() {
               />
             </label>
             <div id="lng-errors">
-                {isRequired && (lng.length < 1 ? <p className="errors">Longitude is required</p> : "")}
+              {isRequired &&
+                (lng.length < 1 ? (
+                  <p className="errors">Longitude is required</p>
+                ) : (
+                  <p className="errors">{errors.lng}</p>
+                ))}
+              {/* {errors.lng && <p className="errors">{errors.lng}</p>} */}
             </div>
           </div>
         </div>
@@ -152,7 +245,13 @@ function LocationForm() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
-          {isRequired && (country.length < 1 ? <p className="errors">Country is required</p> : "")}
+          <div>
+            {errors.description && (
+              <p className="errors">
+                Description needs a minimum of 30 characters
+              </p>
+            )}
+          </div>
         </div>
         <div className="section-wrapper">
           <h3>Create a title for your spot</h3>
@@ -169,7 +268,7 @@ function LocationForm() {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          {isRequired && (country.length < 1 ? <p className="errors">Country is required</p> : "")}
+          <div>{errors.name && <p className="errors">{errors.name}</p>}</div>
         </div>
         <div className="section-wrapper">
           <h3>Set a base price for your spot</h3>
@@ -187,7 +286,7 @@ function LocationForm() {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          {isRequired && (country.length < 1 ? <p className="errors">Country is required</p> : "")}
+          <div>{errors.price && <p className="errors">{errors.price}</p>}</div>
         </div>
         <div className="section-wrapper">
           <h3>Liven up your spot with photos</h3>
@@ -197,11 +296,41 @@ function LocationForm() {
               type="text"
               className="image"
               placeholder="Preview Image URL"
-              value={previewImage}
-              onChange={(e) => setPreviewImage(e.target.value)}
+              value={image3}
+              onChange={(e) => setImage3(e.target.value)}
             />
           </label>
-          {isRequired && (country.length < 1 ? <p className="errors">Country is required</p> : "")}
+          <div>
+            {isRequired &&
+              (image3.length < 1 ? (
+                <p className="errors">Preview image is required</p>
+              ) : (
+                ""
+              ))}
+            {/* {previewImageError && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
+            {imgErrors.image3 && (
+              <p className="errors">
+                {"Image URL must end in .png, .jpg, or.jpeg"}
+              </p>
+            )}
+          </div>
+          <label className="form-label">
+            <input
+              type="text"
+              className="image"
+              placeholder="Image URL"
+              value={image0}
+              onChange={(e) => setImage0(e.target.value)}
+            />
+          </label>
+          <div>
+            {/* {img0Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
+            {imgErrors.image0 && (
+              <p className="errors">
+                {"Image URL must end in .png, .jpg, or.jpeg"}
+              </p>
+            )}
+          </div>
           <label className="form-label">
             <input
               type="text"
@@ -211,6 +340,14 @@ function LocationForm() {
               onChange={(e) => setImage1(e.target.value)}
             />
           </label>
+          <div>
+            {/* {img1Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
+            {imgErrors.image1 && (
+              <p className="errors">
+                {"Image URL must end in .png, .jpg, or.jpeg"}
+              </p>
+            )}
+          </div>
           <label className="form-label">
             <input
               type="text"
@@ -220,15 +357,14 @@ function LocationForm() {
               onChange={(e) => setImage2(e.target.value)}
             />
           </label>
-          <label className="form-label">
-            <input
-              type="text"
-              className="image"
-              placeholder="Image URL"
-              value={image3}
-              onChange={(e) => setImage3(e.target.value)}
-            />
-          </label>
+          <div>
+            {/* {img2Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
+            {imgErrors.image2 && (
+              <p className="errors">
+                {"Image URL must end in .png, .jpg, or.jpeg"}
+              </p>
+            )}
+          </div>
         </div>
         <div id="create-button-container">
           <button type="submit" id="create-button">
