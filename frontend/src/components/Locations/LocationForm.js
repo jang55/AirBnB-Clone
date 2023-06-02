@@ -19,10 +19,9 @@ function LocationForm() {
   const [image0, setImage0] = useState("");
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState(""); //preview image
+  const [previewImage, setPreviewImage] = useState(""); //preview image
   const [isRequired, setIsRequired] = useState(false);
   const [errors, setErrors] = useState({});
-  const [imgErrors, setImgErrors] = useState({});
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,15 +40,14 @@ function LocationForm() {
     setImage0("");
     setImage1("");
     setImage2("");
-    setImage3("");
+    setPreviewImage("");
   };
 
   //submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
-    setIsRequired(true);
-    setErrors({});
-    setImgErrors({});
+
+    let newErrors = {};
 
     //gets all the information from the from
     const formInfo = {
@@ -64,67 +62,80 @@ function LocationForm() {
       price,
     };
 
-    /************ img error  *******************/
-//all the url into an array
-    const imgArr = [image0, image1, image2, image3];
-//saves any errors in an object
-    const imgErrorObj = {};
-//checks to see if the url in the form is valid
-    const isValidImage = (imgURL, string) => {
-  //valid url endings;
-      const imgEndings = ["png", "jpg", "jpeg"];
-  //splits it by a period to get an array of the string
-      const imgURLSplit = imgURL.split(".");
-  //if not nothing is in the url return it
+    if (previewImage === "") {
+      newErrors = {
+        ...newErrors,
+        previewImage: { required: "Preview image is required" },
+      };
+    }
+
+    const isValidImg = (imgURL) => {
       if (!imgURL) {
-        return;
+        return true;
       }
-   //if url is given and ending is not valid, place an error for the image
-      if (!imgEndings.includes(imgURLSplit[imgURLSplit.length - 1])) {
-        imgErrorObj[string] = "error";
-        return;
+      //valid url endings;
+      const imgEndings = ["png", "jpg", "jpeg"];
+      //splits it by a period to get an array of the string
+      const imgURLSplit = imgURL.split(".");
+      const imgURLEnding = imgURLSplit[imgURLSplit.length - 1];
+      //if url is given and ending is not valid, place an error for the image
+      if (!imgEndings.includes(imgURLEnding)) {
+        return false;
       }
-   //return if all is well
-      return;
+      //return if all is well
+      return true;
     };
-  //loop through all url and use callback to check
-    imgArr.forEach((imgURL, i) => {
-      isValidImage(imgURL, `image${i}`);
+
+    const imgs = { previewImage, image0, image1, image2 };
+    Object.keys(imgs).forEach((imgKey) => {
+      const imgURL = imgs[imgKey];
+      if (!isValidImg(imgURL)) {
+        newErrors = {
+          ...newErrors,
+          [imgKey]: { url: "Image URL's must end in .png, .jpg, or.jpeg" },
+        };
+      }
     });
 
-    setImgErrors({ ...imgErrorObj });
-    /**************************/
-
-    let newSpot;
+    let newSpot = null;
 
     const submitDetails = async () => {
-      e.preventDefault();
-
       try {
         newSpot = await dispatch(spotActions.addSpotThunk(formInfo));
       } catch (err) {
         const data = await err.json();
         if (data && data.errors) {
-          setErrors(data.errors);
+          newErrors = {...newErrors, ...data.errors};
         }
       }
-      console.log(newSpot)
+
+      // Add images to spot
       if (newSpot) {
-        try {
-          //loop through all url and use callback to check
-          imgArr.forEach(async (imgURL, i) => {
+        Object.keys(imgs).forEach( async (imgKey) => {
+            const imgURL = imgs[imgKey];
             if (imgURL.length > 0) {
-              const imageBody = { "url": imgURL, "preview": true };
+              const imageBody = { url: imgURL, preview: true };
               await dispatch(
                 imageActions.addSpotImageThunk(imageBody, newSpot.id)
-              );
+              ).catch(async (err) => {
+                const data = await err.json();
+                if (data && data.errors) {
+                  newErrors = {...newErrors, [imgKey] : { ...data.errors}};
+                }
+              });
             }
-          });
-        } catch (err) {}
+        })
       }
     };
 
-    submitDetails();
+    await submitDetails();
+
+    if (Object.values(newErrors).length > 0 && newSpot) {
+      await dispatch(spotActions.deleteSpotThunk(newSpot.id)); 
+    }
+
+    setErrors(newErrors);
+    setIsRequired(true);
   };
 
   return (
@@ -296,22 +307,16 @@ function LocationForm() {
               type="text"
               className="image"
               placeholder="Preview Image URL"
-              value={image3}
-              onChange={(e) => setImage3(e.target.value)}
+              value={previewImage}
+              onChange={(e) => setPreviewImage(e.target.value)}
             />
           </label>
           <div>
-            {isRequired &&
-              (image3.length < 1 ? (
-                <p className="errors">Preview image is required</p>
-              ) : (
-                ""
-              ))}
-            {/* {previewImageError && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
-            {imgErrors.image3 && (
-              <p className="errors">
-                {"Image URL must end in .png, .jpg, or.jpeg"}
-              </p>
+            {errors.previewImage?.required && (
+              <p className="errors">{errors.previewImage?.required}</p>
+            )}
+            {errors.previewImage?.url && (
+              <p className="errors">{errors.previewImage?.url}</p>
             )}
           </div>
           <label className="form-label">
@@ -324,11 +329,8 @@ function LocationForm() {
             />
           </label>
           <div>
-            {/* {img0Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
-            {imgErrors.image0 && (
-              <p className="errors">
-                {"Image URL must end in .png, .jpg, or.jpeg"}
-              </p>
+            {errors.image0?.url && (
+              <p className="errors">{errors.image0?.url}</p>
             )}
           </div>
           <label className="form-label">
@@ -341,11 +343,8 @@ function LocationForm() {
             />
           </label>
           <div>
-            {/* {img1Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
-            {imgErrors.image1 && (
-              <p className="errors">
-                {"Image URL must end in .png, .jpg, or.jpeg"}
-              </p>
+            {errors.image1?.url && (
+              <p className="errors">{errors.image1?.url}</p>
             )}
           </div>
           <label className="form-label">
@@ -358,11 +357,8 @@ function LocationForm() {
             />
           </label>
           <div>
-            {/* {img2Errors && <p className="errors">{"Image URL must end in .png, .jpg, or.jpeg"}</p>} */}
-            {imgErrors.image2 && (
-              <p className="errors">
-                {"Image URL must end in .png, .jpg, or.jpeg"}
-              </p>
+            {errors.image2?.url && (
+              <p className="errors">{errors.image2?.url}</p>
             )}
           </div>
         </div>
