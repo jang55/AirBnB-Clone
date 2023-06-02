@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 /********************** TYPES ******************************/
 const LOAD_ALL_SPOTS = "spots/loadAllSpots";
 const LOAD_ONE_SPOT = "spots/loadOneSpot"
+const LOAD_CURRENTUSER_SPOTS = "spots/currentUserSpots"
 const ADD_SPOT = "spots/addSpot";
 const UPDATE_SPOT = "spots/updateSpot";
 const REMOVE_SPOT = "spots/removeSpot";
@@ -21,6 +22,15 @@ const loadOneSpotsAction = (spot) => {
   return {
     type: LOAD_ONE_SPOT,
     payload: spot,
+  };
+};
+
+/******/
+
+const loadCurrentUserSpotsAction = (spots) => {
+  return {
+    type: LOAD_CURRENTUSER_SPOTS,
+    payload: spots,
   };
 };
 
@@ -75,6 +85,19 @@ export const loadOneSpotThunk = (spotId) => async (dispatch) => {
     const spot = await res.json();
     dispatch(loadOneSpotsAction(spot));
     return spot;
+  }
+};
+
+/******/
+
+//get currentUser Spots
+export const loadCurrentUserSpotsThunk = () => async (dispatch) => {
+  const res = await csrfFetch(`/api/users/currentUser/locations`);
+
+  if (res.ok) {
+    const spots = await res.json();
+    dispatch(loadCurrentUserSpotsAction(spots));
+    return spots;
   }
 };
 
@@ -148,6 +171,13 @@ const spotsReducer = (state = initialState, action) => {
     case LOAD_ONE_SPOT:
         newState = {};
         newState[action.payload.id] = action.payload;
+        return newState;
+    case LOAD_CURRENTUSER_SPOTS:
+        newState = {};
+        const allUserSpots = action.payload.Spots;
+        allUserSpots.forEach(spot => {
+            newState[spot.id] = spot;
+        })
         return newState;
     case ADD_SPOT:
         newState = {...state};

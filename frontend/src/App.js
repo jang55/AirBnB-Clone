@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import Locations from "./components/Locations";
 import LocationDetails from "./components/Locations/locationDetails";
 import LocationForm from "./components/Locations/LocationForm";
+import ManageLocations from "./components/Locations/ManageLocations";
+import UpdateLocationForm from "./components/Locations/UpdateLocationForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,17 +26,20 @@ function App() {
           <Route exact path="/">
             <Locations isLoaded={isLoaded} />
           </Route>
-          {/* <Route path="/login">
-            <LoginFormPage />
-          </Route> */}
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
-          <Route exact path="/locations/new">
+          <Route path="/locations/new">
             <LocationForm />
           </Route>
-          <Route path="/locations/:locationId">
+          <Route path="/currentUser/locations">
+            <ManageLocations isLoaded={isLoaded} />
+          </Route>
+          <Route exact path="/locations/:locationId">
             <LocationDetails />
+          </Route>
+          <Route exact path="/locations/:locationId/edit">
+            <UpdateLocationForm />
+          </Route>
+          <Route>
+            404 Page Not Found
           </Route>
         </Switch>
       )}

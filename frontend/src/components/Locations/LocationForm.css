@@ -22,6 +22,8 @@
     width: 96%;
 }
 
+
+
 .address-wrapper {
     display: grid;
     grid-template-columns: repeat(10, 40px);
