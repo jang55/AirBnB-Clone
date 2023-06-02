@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as spotActions from "../../store/spotsReducer";
@@ -19,7 +19,7 @@ function LocationForm() {
   const [image0, setImage0] = useState("");
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-  const [previewImage, setPreviewImage] = useState(""); //preview image
+  const [previewImage, setPreviewImage] = useState(""); 
   const [isRequired, setIsRequired] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -41,6 +41,8 @@ function LocationForm() {
     setImage1("");
     setImage2("");
     setPreviewImage("");
+    setIsRequired(false);
+    setErrors({});
   };
 
   //submit handler
@@ -130,13 +132,21 @@ function LocationForm() {
 
     await submitDetails();
 
-    if (Object.values(newErrors).length > 0 && newSpot) {
-      await dispatch(spotActions.deleteSpotThunk(newSpot.id)); 
-    }
-
     setErrors(newErrors);
     setIsRequired(true);
+
+    if (newSpot) {
+      if (Object.values(newErrors).length > 0) {
+        await dispatch(spotActions.deleteSpotThunk(newSpot.id)); 
+        return;
+      } 
+
+      reset();
+      history.push(`/locations/${newSpot.id}`);
+    }
+    
   };
+
 
   return (
     <div className="form-container">
