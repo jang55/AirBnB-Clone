@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
-import OpenModalButton from '../Modal/OpenModalButton';
-import LoginFormModal from '../Modal/LoginFormModal';
-import SignupFormModal from '../Modal/SignupFormModal';
-import DemoLoginButton from "./DemoLoginButton";
+import { useDispatch } from "react-redux";
+import * as sessionActions from "../../store/session";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -25,7 +23,7 @@ function ProfileButton({ user }) {
       }
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -49,7 +47,9 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+            <li>
+              {user.firstName} {user.lastName}
+            </li>
             <li>{user.email}</li>
             <li>
               <button onClick={logout}>Log Out</button>
@@ -58,21 +58,10 @@ function ProfileButton({ user }) {
         ) : (
           <>
             <li>
-              <OpenModalButton
-                buttonText="Log In"
-                onButtonClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
+              <LoginFormModal />
             </li>
             <li>
-              <OpenModalButton
-                buttonText="Sign Up"
-                onButtonClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </li>
-            <li>
-              <DemoLoginButton />
+              <SignupFormModal />
             </li>
           </>
         )}

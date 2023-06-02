@@ -5,7 +5,7 @@
     justify-content: center;
 }
 
-form {
+.create-spot-form {
     max-width: 400px;
     /* background-color: aqua; */
 }
@@ -16,11 +16,10 @@ form {
     margin: 0px;
 }
 
-.form-label > input {
-    padding-left: 0px;
-    margin-left: 0px;
+.create-form-inputs {
     border: 2px solid black;
     background-color: rgb(209, 228, 241);
+    width: 96%;
 }
 
 .address-wrapper {
@@ -34,10 +33,17 @@ form {
     grid-column-start: span 10;
     grid-row-start: 1;
 }
+#country {
+    width: 96%;
+}
 
 #address-label {
     grid-column-start: span 10;
     grid-row-start: 3;
+}
+
+#address {
+    width: 96%;
 }
 
 #city-label {
@@ -45,19 +51,33 @@ form {
     grid-row-start: 5;
 }
 
+#city-label {
+width: 94%;
+}
+
 #state-label {
     grid-column-start: span 4;
     grid-row-start: 5;
+}
+
+#state {
+    width: 91%;
 }
 
 #lat-label {
     grid-column-start: span 5;
     grid-row-start: 7;
 }
+#lat {
+width: 87%;
+}
 
 #lng-label {
     grid-column-start: span 5;
     grid-row-start: 7;
+}
+#lng {
+width: 92%;
 }
 
 #description {
@@ -76,7 +96,7 @@ form {
 }
 
 #price {
-    width: 95%;
+    width: 99%;
     margin-left: 5px;
 }
 
@@ -149,4 +169,8 @@ p {
 #lng-errors {
     grid-row-start: 8;
     grid-column-start: 6;
+}
+
+#description-error {
+    width: 250px;
 }

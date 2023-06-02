@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "./LoginForm.css";
 
-function LoginFormPage() {
+import DemoLoginButton from "../Navigation/DemoLoginButton";
+
+function LoginForm() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.sessionState.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Redirect to="/" />;
+  const [errors, setErrors] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
+    setErrors([]);
     return dispatch(sessionActions.loginThunk({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
@@ -29,34 +27,41 @@ function LoginFormPage() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <fieldset>
-        <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h1 className="login-header">Log In</h1>
+      {/* <fieldset> */}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="error-wrapper">
+            {errors.credential && <p className="errors">{errors.credential}</p>}
+          </div>
           <label>
-            Username or Email
+            {/* Username or Email */}
             <input
               type="text"
               value={credential}
+              placeholder="Username or Email"
               onChange={(e) => setCredential(e.target.value)}
               required
             />
           </label>
           <label>
-            Password
+            {/* Password */}
             <input
               type="password"
               value={password}
+              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </label>
-          <button className="submit-button" type="submit">Log In</button>
-          {errors.credential && <p className="errors">{errors.credential}</p>}
+          <button className="submit-button" type="submit">
+            Log In
+          </button>
         </form>
-      </fieldset>
-    </>
+      {/* </fieldset> */}
+
+      <DemoLoginButton />
+    </div>
   );
 }
-
-export default LoginFormPage;
+export default LoginForm;

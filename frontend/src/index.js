@@ -7,7 +7,8 @@ import App from "./App";
 
 import configureStore from "./store";
 
-import { restoreCSRF, csrfFetch } from './store/csrf';
+import { ModalProvider } from "./context/Modal";
+import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import * as spotsActions from "./store/spotsReducer";
 import * as bookingActions from "./store/bookingReducer";
@@ -19,7 +20,7 @@ import * as imageActions from "./store/imageReducer";
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 
   window.csrfFetch = csrfFetch;
@@ -34,9 +35,11 @@ if (process.env.NODE_ENV !== 'production') {
 const Root = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ModalProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ModalProvider>
     </Provider>
   );
 };

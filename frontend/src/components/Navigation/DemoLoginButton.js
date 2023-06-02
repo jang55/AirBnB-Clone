@@ -1,5 +1,6 @@
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+// import { Link } from "react-router-dom";
 
 function DemoLoginButton() {
   const dispatch = useDispatch();
@@ -14,7 +15,8 @@ function DemoLoginButton() {
     }));
   };
 
-  return <button onClick={demoHandler}>Demo-User Login</button>;
+  // return <button onClick={demoHandler}>Demo-User Login</button>;
+  return <button className="demo-button" onClick={demoHandler}>Demo User</button>;
 }
 
 export default DemoLoginButton;

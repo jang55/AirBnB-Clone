@@ -19,6 +19,7 @@ function LocationForm() {
   const [image0, setImage0] = useState("");
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
+  const [image3, setImage3] = useState("");
   const [previewImage, setPreviewImage] = useState(""); 
   const [isRequired, setIsRequired] = useState(false);
   const [errors, setErrors] = useState({});
@@ -40,6 +41,7 @@ function LocationForm() {
     setImage0("");
     setImage1("");
     setImage2("");
+    setImage3("");
     setPreviewImage("");
     setIsRequired(false);
     setErrors({});
@@ -88,7 +90,7 @@ function LocationForm() {
       return true;
     };
 
-    const imgs = { previewImage, image0, image1, image2 };
+    const imgs = { previewImage, image0, image1, image2, image3 };
     Object.keys(imgs).forEach((imgKey) => {
       const imgURL = imgs[imgKey];
       if (!isValidImg(imgURL)) {
@@ -150,7 +152,7 @@ function LocationForm() {
 
   return (
     <div className="form-container">
-      <form onSubmit={submitHandler}>
+      <form className="create-spot-form" onSubmit={submitHandler}>
         <h1>Create a new Spot</h1>
         <div>
           <h3>Where's your place located?</h3>
@@ -165,19 +167,21 @@ function LocationForm() {
                 type="text"
                 id="country"
                 placeholder="Country"
+                className="create-form-inputs"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
+            </label>
               <div id="country-errors">
                 {errors.country && <p className="errors">{errors.country}</p>}
               </div>
-            </label>
             <label id="address-label" className="form-label">
               Street Address
               <input
                 type="text"
                 id="address"
                 placeholder="Street Address"
+                className="create-form-inputs"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -191,6 +195,7 @@ function LocationForm() {
                 type="text"
                 id="city"
                 placeholder="City"
+                className="create-form-inputs"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
@@ -204,6 +209,7 @@ function LocationForm() {
                 type="text"
                 id="state"
                 placeholder="State"
+                className="create-form-inputs"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               />
@@ -217,6 +223,7 @@ function LocationForm() {
                 type="text"
                 id="lat"
                 placeholder="Latitude"
+                className="create-form-inputs"
                 value={lat}
                 onChange={(e) => setLat(e.target.value)}
               />
@@ -236,6 +243,7 @@ function LocationForm() {
                 type="text"
                 id="lng"
                 placeholder="Longitude"
+                className="create-form-inputs"
                 value={lng}
                 onChange={(e) => setLng(e.target.value)}
               />
@@ -263,12 +271,13 @@ function LocationForm() {
               id="description"
               placeholder="Please write a description at least 30 characters"
               value={description}
+              className="create-form-inputs"
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
           <div>
             {errors.description && (
-              <p className="errors">
+              <p className="errors" id="description-error">
                 Description needs a minimum of 30 characters
               </p>
             )}
@@ -285,6 +294,7 @@ function LocationForm() {
               type="text"
               id="name"
               placeholder="Name of your spot"
+              className="create-form-inputs"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -303,6 +313,7 @@ function LocationForm() {
               type="text"
               id="price"
               placeholder="Price per a night (USD)"
+              className="create-form-inputs"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -315,7 +326,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="image"
+              className="create-form-inputs"
               placeholder="Preview Image URL"
               value={previewImage}
               onChange={(e) => setPreviewImage(e.target.value)}
@@ -332,7 +343,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="image"
+              className="create-form-inputs"
               placeholder="Image URL"
               value={image0}
               onChange={(e) => setImage0(e.target.value)}
@@ -346,7 +357,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="image"
+              className="create-form-inputs"
               placeholder="Image URL"
               value={image1}
               onChange={(e) => setImage1(e.target.value)}
@@ -360,7 +371,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="image"
+              className="create-form-inputs"
               placeholder="Image URL"
               value={image2}
               onChange={(e) => setImage2(e.target.value)}
@@ -369,6 +380,20 @@ function LocationForm() {
           <div>
             {errors.image2?.url && (
               <p className="errors">{errors.image2?.url}</p>
+            )}
+          </div>
+          <label className="form-label">
+            <input
+              type="text"
+              className="create-form-inputs"
+              placeholder="Image URL"
+              value={image3}
+              onChange={(e) => setImage3(e.target.value)}
+            />
+          </label>
+          <div>
+            {errors.image3?.url && (
+              <p className="errors">{errors.image3?.url}</p>
             )}
           </div>
         </div>

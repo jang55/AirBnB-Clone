@@ -22,3 +22,12 @@
     padding: 10px 20px 10px 0px;
     list-style-type: none
 }
+
+.demo-button {
+    background-color: rgb(219, 223, 223);
+    border: none;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+}

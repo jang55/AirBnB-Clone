@@ -24,13 +24,10 @@ function LocationDetails() {
     })().then(() => setIsLoading("Loading..."));
   }, [dispatch, locationId]);
 
+  const reserveHandler = () => {
+    alert("Feature Coming Soon...");
+  };
 
-
-    const reserveHandler = () => {
-        alert("Feature Coming Soon...")
-    }
-
-    
   return (
     <>
       {isLoading && (
@@ -51,34 +48,52 @@ function LocationDetails() {
             <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
             <p>{spot.description}</p>
             <div className="reserve-wrapper">
-                <div>
-                    <span>{`$${spot.price}.00 `}</span>
-                    <span>night</span>
-                </div>
-                <div>
-                    <span>{"★"}</span>
-                    <span>
-                        {spot.avgStarRating
-                        ? String(spot.avgStarRating).length === 1 ? `${spot.avgStarRating}.0` : spot.avgStarRating
-                        : "New"}
-                    </span>
-                    <span> - </span>
-                    <span>{`${spot.numReviews} Reviews`}</span>
-                </div>
-                <button id="reserve-button" onClick={reserveHandler} >Reserve</button>
+              <div>
+                <span>{`$${spot.price}.00 `}</span>
+                <span>night</span>
+              </div>
+              <div>
+                <span>{"★"}</span>
+                <span>
+                  {spot.avgStarRating
+                    ? String(spot.avgStarRating).length === 1
+                      ? `${spot.avgStarRating}.0`
+                      : spot.avgStarRating
+                    : "New"}
+                </span>
+                <span>{Number(spot.numReviews) === 0 ? "" : "·"} </span>
+                <span>
+                  {Number(spot.numReviews) === 0
+                    ? ""
+                    : Number(spot.numReviews) === 1
+                    ? `${spot.numReviews} Review`
+                    : `${spot.numReviews} Reviews`}
+                </span>
+              </div>
+              <button id="reserve-button" onClick={reserveHandler}>
+                Reserve
+              </button>
             </div>
           </div>
           <div className="reviews-container">
-          <div>
-                    <span>{"★"}</span>
-                    <span>
-                        {spot.avgStarRating
-                        ? String(spot.avgStarRating).length === 1 ? `${spot.avgStarRating}.0` : spot.avgStarRating
-                        : "New"}
-                    </span>
-                    <span> - </span>
-                    <span>{`${spot.numReviews} Reviews`}</span>
-                </div>
+            <div>
+              <span>{"★"}</span>
+              <span>
+                {spot.avgStarRating
+                  ? String(spot.avgStarRating).length === 1
+                    ? `${spot.avgStarRating}.0`
+                    : spot.avgStarRating
+                  : "New"}
+              </span>
+              <span>{Number(spot.numReviews) === 0 ? "" : "·"} </span>
+              <span>
+                {Number(spot.numReviews) === 0
+                  ? ""
+                  : Number(spot.numReviews) === 1
+                  ? `${spot.numReviews} Review`
+                  : `${spot.numReviews} Reviews`}
+              </span>
+            </div>
             <Reviews locationId={locationId} />
           </div>
         </div>
