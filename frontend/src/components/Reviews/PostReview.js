@@ -19,10 +19,16 @@ function PostReview({ locationId, setShowModal }) {
       stars,
     };
 
+    let newReview;
+
     const submitReview = async () => {
       try {
-        await dispatch(reviewActions.addReviewThunk(formInfo, locationId));
+        newReview = await dispatch(reviewActions.addReviewThunk(formInfo, locationId));
       } catch (err) {
+        console.log(err)
+        if(err.status === 403) {
+            setErrors({alreadyCreated: "Review already exist for this spot"})
+        }
         const data = await err.json();
         if (data && data.errors) {
           setErrors(data.errors);
@@ -31,7 +37,10 @@ function PostReview({ locationId, setShowModal }) {
     };
 
     await submitReview();
-    setShowModal(false);
+
+    if(newReview && newReview.ok) {
+        setShowModal(false);
+    }
   };
 
   return (
@@ -47,6 +56,9 @@ function PostReview({ locationId, setShowModal }) {
         </li>
         <li>
           {errors.stars && <p className="errors">Star Rating is required</p>}
+        </li>
+        <li>
+          {errors.alreadyCreated && <p className="errors">{errors.alreadyCreated}</p>}
         </li>
       </ul>
       <textarea
