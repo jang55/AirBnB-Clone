@@ -27,26 +27,6 @@ function LocationForm() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  //reset all values
-  const reset = () => {
-    setAddress("");
-    setCity("");
-    setState("");
-    setCountry("");
-    setLat("");
-    setLng("");
-    setName("");
-    setDescription("");
-    setPrice("");
-    setImage0("");
-    setImage1("");
-    setImage2("");
-    setImage3("");
-    setPreviewImage("");
-    setIsRequired(false);
-    setErrors({});
-  };
-
   //submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -114,11 +94,16 @@ function LocationForm() {
       }
 
       // Add images to spot
-      if (newSpot) {
+      if (newSpot  && Object.values(newErrors).length === 0) {
         Object.keys(imgs).forEach( async (imgKey) => {
             const imgURL = imgs[imgKey];
             if (imgURL.length > 0) {
-              const imageBody = { url: imgURL, preview: true };
+              let imageBody;
+              if(imgKey === "previewImage") {
+                imageBody = { url: imgURL, preview: true };
+              } else {
+                imageBody = { url: imgURL, preview: false };
+              }
               await dispatch(
                 imageActions.addSpotImageThunk(imageBody, newSpot.id)
               ).catch(async (err) => {
@@ -143,7 +128,6 @@ function LocationForm() {
         return;
       } 
 
-      reset();
       history.push(`/locations/${newSpot.id}`);
     }
     
