@@ -8,6 +8,11 @@ function Reviews({ locationId }) {
   const dispatch = useDispatch();
   const reviewsInfo = useSelector((state) => state.reviewState);
   const allReviews = Object.values(reviewsInfo);
+  const reverseOrderAllReviews = [];
+  for(let i = allReviews.length - 1; i >= 0; i--) {
+    reverseOrderAllReviews.push(allReviews[i]);
+  };
+
   const [isLoading, setIsLoading] = useState("");
 
   
@@ -19,13 +24,13 @@ function Reviews({ locationId }) {
   }, [dispatch, locationId]);
 
   return (
-    <>
-      {isLoading && allReviews.map(review => (
+    <div className="review-container">
+      {isLoading && (reverseOrderAllReviews.map(review => (
         <div key={review.id} className="review-wrapper">
             <ReviewCard review={review}/>
         </div>
-      ))}
-    </>
+      )))}
+    </div>
   );
 }
 

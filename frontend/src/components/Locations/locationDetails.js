@@ -3,6 +3,7 @@ import * as spotsActions from "../../store/spotsReducer";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Reviews from "../Reviews";
+import PostReviewModal from "../Reviews/PostReviewModal";
 import "./Location.css";
 
 function LocationDetails() {
@@ -75,6 +76,7 @@ function LocationDetails() {
               </button>
             </div>
           </div>
+          {/************************************************/}
           <div className="reviews-container">
             <div>
               <span>{"★"}</span>
@@ -93,6 +95,9 @@ function LocationDetails() {
                   ? `${spot.numReviews} Review`
                   : `${spot.numReviews} Reviews`}
               </span>
+            </div>
+            <div>
+                  <PostReviewModal locationId={locationId} />
             </div>
             <Reviews locationId={locationId} />
           </div>

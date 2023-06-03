@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 /*************** TYPES **************************/
 const LOAD_REVIEWS = "reviews/loadReviews";
-const ADD_REVIEW = "reviews/addReview";
+// const ADD_REVIEW = "reviews/addReview";
 const UPDATE_REVIEW = "reviews/updateReview";
 const REMOVE_REVIEW = "reviews/removeReview";
 
@@ -16,12 +16,12 @@ export const loadReviewsAction = (reviews) => {
 
 /******/
 
-export const addOneReviewAction = (review) => {
-  return {
-    type: ADD_REVIEW,
-    payload: review,
-  };
-};
+// export const addOneReviewAction = (review) => {
+//   return {
+//     type: ADD_REVIEW,
+//     payload: review,
+//   };
+// };
 
 /******/
 
@@ -67,9 +67,7 @@ export const addReviewThunk = (review, spotId) => async (dispatch) => {
   });
 
   if (res.ok) {
-    const review = await res.json();
-    dispatch(addOneReviewAction(review));
-    return review;
+    await dispatch(loadReviewsThunk(spotId));
   }
 };
 
@@ -120,10 +118,10 @@ const reviewReducer = (state = initialState, action) => {
         newState[review.id] = review;
       });
       return newState;
-    case ADD_REVIEW:
-      newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
+    // case ADD_REVIEW:
+    //   newState = { ...state };
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
     case UPDATE_REVIEW:
       newState = { ...state };
       newState[action.payload.id] = action.payload;
