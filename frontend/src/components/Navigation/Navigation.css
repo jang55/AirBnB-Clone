@@ -1,33 +1,79 @@
-.hidden{
-    display: none;
+.hidden {
+  display: none;
 }
 
 .navbar {
-    display: flex;
-    justify-content: flex-end;
-    border-bottom: 1px solid rgb(171, 169, 169);
-    box-shadow: 0px 0.01em black;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(171, 169, 169);
+  box-shadow: 0px 0.01em black;
+  padding: 0px 10px;
 }
 
 .unordered-list {
-    border: 1px solid black;
-    display: flex;
-    border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-    padding-right: 12px;
+  border: 1px solid black;
+  display: flex;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-right: 12px;
 }
 
 .unordered-list > li {
-    padding: 10px 20px 10px 0px;
-    list-style-type: none
+  padding: 10px 20px 10px 0px;
+  list-style-type: none;
 }
 
 .demo-button {
-    background-color: rgb(219, 223, 223);
-    border: none;
-    color: black;
-    padding-top: 10px;
-    padding-bottom: 1px;
-    margin-bottom: 10px;
+  background-color: rgb(219, 223, 223);
+  border: none;
+  color: black;
+  padding-top: 10px;
+  padding-bottom: 1px;
+  margin-bottom: 10px;
+}
+
+#logo {
+  width: 60px;
+}
+
+#menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+#menu-icon {
+  width: 25px;
+  margin-right: 5px;
+}
+
+#profile-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile-icon {
+  width: 20px;
+}
+
+#nav-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  padding: 10px 10px;
+
+}
+
+#nav-link-container li {
+  list-style-type: none;
+}
+
+#right-side-nav {
+    display: flex;
 }

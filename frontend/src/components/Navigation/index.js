@@ -6,6 +6,7 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 // import SignupFormModal from "../SignupFormModal";
 // import DemoLoginButton from "./DemoLoginButton";
+import logo from "../../assets/logo.png";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.sessionState.user);
@@ -25,14 +26,18 @@ function Navigation({ isLoaded }) {
   return (
     <nav className="navbar">
       <NavLink exact to="/">
-        Home
+        <img id="logo" src={logo} />
       </NavLink>
-      <NavLink to="/locations/new">
-        Create A Spot
-      </NavLink>
-      <ul>
-        <li>{isLoaded && <ProfileButton user={sessionUser} />}</li>
+      <div id="right-side-nav">
+      <ul id="nav-link-container">
+        <li>
+          <NavLink to="/locations/new">Create A Spot</NavLink>
+        </li>
       </ul>
+
+      {isLoaded && <ProfileButton user={sessionUser} />}
+
+      </div>
     </nav>
   );
 }

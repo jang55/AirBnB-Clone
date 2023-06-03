@@ -3,7 +3,10 @@ import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import menuIcon from "../../assets/hamburgerMenu.png";
 import { Link } from "react-router-dom";
+import "./Navigation.css";
+import profileIcon from "../../assets/profileIcon.png";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -40,10 +43,11 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+    <div id="profile-button-container">
+      <div id="menu-container" >
+        <img id="menu-icon" src={menuIcon} />
+        <img id="profile-icon" src={profileIcon} />
+      </div>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
@@ -53,9 +57,7 @@ function ProfileButton({ user }) {
             </li>
             <li>{user.email}</li>
             <li>
-              <Link to="/currentUser/locations">
-                Manage Spots
-              </Link>
+              <Link to="/currentUser/locations">Manage Spots</Link>
             </li>
             <li>
               <button onClick={logout}>Log Out</button>
@@ -72,7 +74,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
