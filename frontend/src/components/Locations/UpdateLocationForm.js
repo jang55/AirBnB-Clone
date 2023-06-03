@@ -9,7 +9,7 @@ function UpdateLocationForm() {
   const dispatch = useDispatch();
   const { locationId } = useParams();
 
-  // const placeHolderSpotInfo = {...currentSpot};
+
 
   //all the states used in the form
   const [currentSpot, setCurrentSpot] = useState({});

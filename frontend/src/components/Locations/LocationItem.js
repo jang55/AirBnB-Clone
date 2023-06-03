@@ -1,3 +1,5 @@
+
+
 function LocationItem({ spot }) {
   return (
     <div className={`description-container item${spot.id}`}>

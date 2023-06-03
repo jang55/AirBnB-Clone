@@ -31,11 +31,11 @@ function ProfileButton({ user }) {
         <img id="menu-icon" src={menuIcon} alt="menu-icon" />
         <img id="profile-icon" src={profileIcon} alt="profile-button" />
       </div>
-      <ul className={menuDropDownClassName}>
+      <ul className={menuDropDownClassName} onClick={(e) => e.stopPropagation()}>
         {user ? (
           <>
-            <li>Hello, {user.firstName}</li>
-            <li>{user.email}</li>
+            <li onClick={(e) => e.stopPropagation()} >Hello, {user.firstName}</li>
+            <li onClick={(e) => e.stopPropagation()} >{user.email}</li>
             <li id="manage-spot-link">
               <Link to="/currentUser/locations">Manage Spots</Link>
             </li>

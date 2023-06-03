@@ -49,6 +49,7 @@
 
 #menu-container:hover {
   background-color: rgb(197, 202, 202);
+  box-shadow: 1px 1px 6px black;
 }
 
 #menu-icon {
