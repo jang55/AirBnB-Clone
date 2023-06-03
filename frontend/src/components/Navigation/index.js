@@ -26,17 +26,18 @@ function Navigation({ isLoaded }) {
   return (
     <nav className="navbar">
       <NavLink exact to="/">
-        <img id="logo" src={logo} />
+        <img id="logo" src={logo} alt="logo"/>
       </NavLink>
       <div id="right-side-nav">
-      <ul id="nav-link-container">
-        <li>
-          <NavLink to="/locations/new">Create A Spot</NavLink>
-        </li>
-      </ul>
+        <ul id="nav-link-container">
+          <li>
+            <NavLink style={{ color: "#096246" }} to="/locations/new">
+              Create a New Spot
+            </NavLink>
+          </li>
+        </ul>
 
-      {isLoaded && <ProfileButton user={sessionUser} />}
-
+        {isLoaded && <ProfileButton user={sessionUser} />}
       </div>
     </nav>
   );

@@ -44,6 +44,11 @@
   padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid black;
+  box-shadow: 0px 0px 2px black;
+}
+
+#menu-container:hover {
+  background-color: rgb(197, 202, 202);
 }
 
 #menu-icon {
@@ -67,13 +72,61 @@
   align-items: center;
   margin-right: 10px;
   padding: 10px 10px;
-
 }
 
 #nav-link-container li {
   list-style-type: none;
 }
 
+#nav-link-container li:hover {
+
+  background-color: rgb(197, 202, 202);
+}
+
 #right-side-nav {
-    display: flex;
+  display: flex;
+}
+
+/* .active {
+  color: #0b805b;
+} */
+
+/**********************************************/
+/* for profilebutton.js */
+
+.menu-wrapper {
+  position: absolute;
+  background: rgb(219, 223, 223);
+  border: 1px solid black;
+  top: 70px;
+  right: 50px;
+  padding: 10px;
+  box-shadow: 0px 0px 2px black;
+}
+
+.menu-wrapper li {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  padding: 5px 0px;
+}
+
+#manage-spot-link a {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 5px 10px;
+}
+
+#manage-spot-link a:hover {
+    background-color: rgb(197, 202, 202);
+}
+
+.menu-wrapper li button {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+#logout-button:hover {
+    background-color: rgb(197, 202, 202);
 }

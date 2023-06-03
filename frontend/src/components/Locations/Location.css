@@ -1,76 +1,74 @@
 /* this is for locationItems.js */
 a {
-    color: black;
-    text-decoration: none;
-
+  color: black;
+  text-decoration: none;
 }
 
 .description-link {
-    font-weight: bolder;
-    font-size: 15px;
+  font-weight: bolder;
+  font-size: 15px;
 }
 
 .description-wrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .description-name {
-    margin: 2px 4px 4px 0px;
+  margin: 2px 4px 4px 0px;
 }
 
 .description-container {
-    width: 250px;
-    margin: 10px 20px 10px 20px;
+  width: 250px;
+  margin: 10px 20px 10px 20px;
 }
 
 .description-container > img {
-    border-radius: 12px;
-    height: 200px;
-    width: 250px;
+  border-radius: 12px;
+  height: 200px;
+  width: 250px;
 }
 
 .spot-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 25px;
-    padding-right: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
 }
 
-/* .active {
-    color: rgb(51, 51, 51);
-    font-weight: bold;
-    font-size: 1.2em;
-    background: rgb(240, 240, 179);
-    padding: 1px;
+.spot-card {
+  border-radius: 15px
+}
+
+.spot-card:hover {
+  background-color: rgb(197, 202, 202);
+}
+
+/* .active:hover {
+    background-color: rgb(197, 202, 202);
   } */
-
-
 
 /****************************************************************/
 /* this is for locationDetails.js */
 
 .reserve-wrapper {
-    border: 1px solid black;
-    width: 200px;
-    border-radius: 10px;
-    padding: 10px;
+  border: 1px solid black;
+  width: 200px;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 #reserve-button {
-    background-color: rgb(241, 92, 92);
-    color: white;
-    font-size: 10px;
-    width: 85%;
-    box-shadow: 1px 2px 4px black;
-    padding: 10px;
+  background-color: rgb(241, 92, 92);
+  color: white;
+  font-size: 10px;
+  width: 85%;
+  box-shadow: 1px 2px 4px black;
+  padding: 10px;
 }
 
 .details-container {
-    border-bottom: 2px solid black;
-    padding-bottom: 13px;
+  border-bottom: 2px solid black;
+  padding-bottom: 13px;
 }
-
-
 
 /*************************************************************/

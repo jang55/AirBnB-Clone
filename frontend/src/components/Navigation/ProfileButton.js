@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
@@ -11,67 +11,47 @@ import profileIcon from "../../assets/profileIcon.png";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
-
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
-  const closeMenu = () => setShowMenu(false);
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logoutThunk());
-    closeMenu();
+    setShowMenu(false);
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  document.addEventListener("click", () => setShowMenu(false));
+
+  const menuDropDownClassName = "menu-wrapper" + (showMenu ? "" : " hidden");
 
   return (
-    <div id="profile-button-container">
-      <div id="menu-container" >
-        <img id="menu-icon" src={menuIcon} />
-        <img id="profile-icon" src={profileIcon} />
+    <div id="profile-button-container" onClick={(e) =>{
+      e.stopPropagation() 
+      setShowMenu(!showMenu)
+    }}>
+      <div id="menu-container">
+        <img id="menu-icon" src={menuIcon} alt="menu-icon" />
+        <img id="profile-icon" src={profileIcon} alt="profile-button" />
       </div>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className={menuDropDownClassName}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>
-              {user.firstName} {user.lastName}
-            </li>
+            <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
-            <li>
+            <li id="manage-spot-link">
               <Link to="/currentUser/locations">Manage Spots</Link>
             </li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button id="logout-button" onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
-          <>
+          <div onClick={(e) => e.stopPropagation()}>
             <li>
               <LoginFormModal />
             </li>
             <li>
               <SignupFormModal />
             </li>
-          </>
+          </div>
         )}
       </ul>
     </div>

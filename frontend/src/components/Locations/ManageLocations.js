@@ -29,7 +29,7 @@ function ManageLocations({ isLoaded }) {
       {isLoaded && (
         <nav className="spot-container">
           {allSpots.map((spot) => (
-            <div key={spot.id}>
+            <div key={spot.id} className="spot-card">
               <NavLink to={`/locations/${spot.id}`}>
                 <LocationItem spot={spot} />
               </NavLink>
