@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as spotActions from "../../store/spotsReducer";
-import * as imageActions from "../../store/imageReducer";
 import "./LocationForm.css";
 
 function UpdateLocationForm() {

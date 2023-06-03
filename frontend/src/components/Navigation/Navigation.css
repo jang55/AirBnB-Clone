@@ -78,9 +78,13 @@
   list-style-type: none;
 }
 
-#nav-link-container li:hover {
+#nav-link-container li a {
+  color: #096246;
+  text-decoration: none;
+}
 
-  background-color: rgb(197, 202, 202);
+#nav-link-container li a:hover {
+  color: #48a794;
 }
 
 #right-side-nav {
@@ -111,6 +115,11 @@
   padding: 5px 0px;
 }
 
+.menu-wrapper li a {
+  color: black;
+  text-decoration: none;
+}
+
 #manage-spot-link a {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -118,7 +127,7 @@
 }
 
 #manage-spot-link a:hover {
-    background-color: rgb(197, 202, 202);
+  background-color: rgb(197, 202, 202);
 }
 
 .menu-wrapper li button {
@@ -128,5 +137,5 @@
 }
 
 #logout-button:hover {
-    background-color: rgb(197, 202, 202);
+  background-color: rgb(197, 202, 202);
 }

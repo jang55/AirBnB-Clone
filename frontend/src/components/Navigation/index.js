@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
       <div id="right-side-nav">
         <ul id="nav-link-container">
           <li>
-            <NavLink style={{ color: "#096246" }} to="/locations/new">
+            <NavLink to="/locations/new">
               Create a New Spot
             </NavLink>
           </li>
