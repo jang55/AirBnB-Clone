@@ -4,11 +4,11 @@ import * as reviewActions from "../../store/reviewReducer";
 import { useDispatch } from "react-redux";
 import "./PostReview.css";
 
-function PostReview({ locationId, setShowModal }) {
+function PostReview({ locationId, setShowModal, setNewReview }) {
   const [stars, setStars] = useState(0);
   const [review, setReview] = useState("");
   const [errors, setErrors] = useState({});
-
+  
   const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
@@ -19,13 +19,17 @@ function PostReview({ locationId, setShowModal }) {
       stars,
     };
 
-    let newReview;
+    
 
     const submitReview = async () => {
       try {
-        newReview = await dispatch(reviewActions.addReviewThunk(formInfo, locationId));
-      } catch (err) {
-        console.log(err)
+        let newlyReview = await dispatch(reviewActions.addReviewThunk(formInfo, locationId));
+        console.log(newlyReview)
+        if(newlyReview) setNewReview(true)
+        setShowModal(false);
+
+    } catch (err) {
+
         if(err.status === 403) {
             setErrors({alreadyCreated: "Review already exist for this spot"})
         }
@@ -38,9 +42,6 @@ function PostReview({ locationId, setShowModal }) {
 
     await submitReview();
 
-    if(newReview && newReview.ok) {
-        setShowModal(false);
-    }
   };
 
   return (

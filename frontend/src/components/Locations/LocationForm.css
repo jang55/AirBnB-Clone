@@ -93,6 +93,10 @@
   background-color: rgb(209, 228, 241);
 }
 
+#description:focus {
+  background-color: white;
+}
+
 .price-label {
   display: flex;
   flex-direction: row;

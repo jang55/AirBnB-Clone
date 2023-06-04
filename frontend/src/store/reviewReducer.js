@@ -67,7 +67,9 @@ export const addReviewThunk = (review, spotId) => async (dispatch) => {
   });
 
   if (res.ok) {
-    await dispatch(loadReviewsThunk(spotId));
+    let result = await dispatch(loadReviewsThunk(spotId));
+
+    return result;
   }
 };
 

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import PostReview from "./PostReview";
 
-function PostReviewModal({ locationId }) {
+function PostReviewModal({ locationId, setNewReview }) {
   const [showModal, setShowModal] = useState(false);
-
+  
   return (
     <>
       <button className="post-review-button" onClick={() => setShowModal(true)}>
@@ -12,7 +12,7 @@ function PostReviewModal({ locationId }) {
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <PostReview locationId={locationId} setShowModal={setShowModal} />
+          <PostReview setNewReview={setNewReview} locationId={locationId} setShowModal={setShowModal} />
         </Modal>
       )}
     </>

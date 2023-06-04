@@ -11,8 +11,10 @@ function LocationDetails() {
   const { locationId } = useParams();
   const [spot, setSpot] = useState({});
   const [isLoading, setIsLoading] = useState("");
+  const [newReview, setNewReview] = useState(false);
 
   useEffect(() => {
+    setNewReview(false);
     //make a fetch call to get details of one spot
     (async () => {
       const spotInfo = await dispatch(
@@ -23,7 +25,7 @@ function LocationDetails() {
         setSpot(spotInfo);
       }
     })().then(() => setIsLoading("Loading..."));
-  }, [dispatch, locationId]);
+  }, [dispatch, locationId, newReview]);
 
   const reserveHandler = () => {
     alert("Feature Coming Soon...");
@@ -58,7 +60,7 @@ function LocationDetails() {
                 <span>
                   {spot.avgStarRating
                     ? String(spot.avgStarRating).length === 1
-                      ? `${spot.avgStarRating}.0`
+                      ? Number(spot.avgStarRating).toFixed(1)
                       : spot.avgStarRating
                     : "New"}
                 </span>
@@ -83,7 +85,7 @@ function LocationDetails() {
               <span>
                 {spot.avgStarRating
                   ? String(spot.avgStarRating).length === 1
-                    ? `${spot.avgStarRating}.0`
+                    ? Number(spot.avgStarRating).toFixed(1)
                     : spot.avgStarRating
                   : "New"}
               </span>
@@ -97,7 +99,7 @@ function LocationDetails() {
               </span>
             </div>
             <div>
-                  <PostReviewModal locationId={locationId} />
+              <PostReviewModal setNewReview={setNewReview} locationId={locationId} />
             </div>
             <Reviews locationId={locationId} />
           </div>

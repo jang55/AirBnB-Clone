@@ -12,7 +12,7 @@ function LocationItem({ spot }) {
           {/* the nested ternary is to make sure a solid integer will also tturn to a decimal eg. 3 => 3.0 */}
           <span>
             {spot.avgRating
-              ? String(spot.avgRating).length === 1 ? `${spot.avgRating}.0` : spot.avgRating
+              ? String(spot.avgRating).length === 1 ? Number(spot.avgRating).toFixed(1) : spot.avgRating
               : "New"}
           </span>
         </div>
