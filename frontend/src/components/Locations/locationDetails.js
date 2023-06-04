@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Reviews from "../Reviews";
 import PostReviewModal from "../Reviews/PostReviewModal";
+import { useReview } from "../../context/ReviewContext";
 import "./Location.css";
 
 function LocationDetails() {
@@ -11,10 +12,9 @@ function LocationDetails() {
   const { locationId } = useParams();
   const [spot, setSpot] = useState({});
   const [isLoading, setIsLoading] = useState("");
-  const [newReview, setNewReview] = useState(false);
+  const { newReview, setNewReview, deleteReview, setDeleteReview } = useReview();
 
   useEffect(() => {
-    setNewReview(false);
     //make a fetch call to get details of one spot
     (async () => {
       const spotInfo = await dispatch(
@@ -25,7 +25,12 @@ function LocationDetails() {
         setSpot(spotInfo);
       }
     })().then(() => setIsLoading("Loading..."));
-  }, [dispatch, locationId, newReview]);
+  }, [dispatch, locationId, newReview, deleteReview]);
+
+  useEffect(() => {
+    setNewReview(false);
+    setDeleteReview(false);
+  }, [spot, setDeleteReview, setNewReview])
 
   const reserveHandler = () => {
     alert("Feature Coming Soon...");
@@ -99,7 +104,7 @@ function LocationDetails() {
               </span>
             </div>
             <div>
-              <PostReviewModal setNewReview={setNewReview} locationId={locationId} />
+              <PostReviewModal locationId={locationId} />
             </div>
             <Reviews locationId={locationId} />
           </div>

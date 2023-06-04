@@ -2,12 +2,14 @@ import { useState } from "react";
 import StarRating from "./StarRating";
 import * as reviewActions from "../../store/reviewReducer";
 import { useDispatch } from "react-redux";
+import { useReview } from "../../context/ReviewContext";
 import "./PostReview.css";
 
-function PostReview({ locationId, setShowModal, setNewReview }) {
+function PostReview({ locationId, setShowModal }) {
   const [stars, setStars] = useState(0);
   const [review, setReview] = useState("");
   const [errors, setErrors] = useState({});
+  const {setNewReview} = useReview();
   
   const dispatch = useDispatch();
 
@@ -24,7 +26,6 @@ function PostReview({ locationId, setShowModal, setNewReview }) {
     const submitReview = async () => {
       try {
         let newlyReview = await dispatch(reviewActions.addReviewThunk(formInfo, locationId));
-        console.log(newlyReview)
         if(newlyReview) setNewReview(true)
         setShowModal(false);
 

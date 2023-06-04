@@ -102,7 +102,8 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   });
 
   if (res.ok) {
-    dispatch(removeReviewAction(reviewId));
+    let result = dispatch(removeReviewAction(reviewId));
+    return result;
   }
 };
 

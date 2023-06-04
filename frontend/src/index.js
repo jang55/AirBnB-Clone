@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import configureStore from "./store";
-
+import ReviewProvider from "./context/ReviewContext";
 import { ModalProvider } from "./context/Modal";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
@@ -36,9 +36,11 @@ const Root = () => {
   return (
     <Provider store={store}>
       <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ReviewProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ReviewProvider>
       </ModalProvider>
     </Provider>
   );
