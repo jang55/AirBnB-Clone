@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 function DeleteReviewModal({ review }) {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector((state) => state.sessionState.user);
+  
+  
 
   return (
     <>
-      {user.id === review.userId && (
+      {user && (user.id === review.userId ? true : false) && (
         <div>
           <button
             className="delete-review-button"

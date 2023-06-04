@@ -4,18 +4,21 @@ import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import menuIcon from "../../assets/hamburgerMenu.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Navigation.css";
 import profileIcon from "../../assets/profileIcon.png";
 
+
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logoutThunk());
     setShowMenu(false);
+    history.push("/");
   };
 
   document.addEventListener("click", () => setShowMenu(false));

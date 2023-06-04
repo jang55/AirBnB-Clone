@@ -54,10 +54,11 @@ const validateSignup = [
     .withMessage("Invalid email"),
   check("username")
     .exists({ checkFalsy: true })
-    .matches(/^[a-zA-Z0-9]+$/)
     .withMessage("Username is required")
+    .matches(/^[a-zA-Z0-9]+$/)
+    .withMessage("Username can not use special characters")
     .isLength({ min: 4 })
-    .withMessage("Username is required"),
+    .withMessage("Username is required with atleast 4 characters"),
   check("username").not().isEmail().withMessage("Username cannot be an email."),
   check("password")
     .exists({ checkFalsy: true })

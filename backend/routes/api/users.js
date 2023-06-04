@@ -39,20 +39,35 @@ router.post('/signup', validateSignup, async (req, res, next) => {
         } 
       });
 
+      const errObj = {}
+
       if(existedUsername){
-        const err = new Error("User already exists");
-        err.title = "Bad request.";
-        err.errors = ["User with that username already exists"];
-        err.status = 403;
-        return next(err);
+        // const err = new Error("User already exists");
+        // err.title = "Bad request.";
+        // // err.errors = ["User with that username already exists"];
+        // err.errors = {username: "User with that username already exists"};
+        // err.status = 403;
+        // return next(err);
+        errObj.username = "User with that username already exists";
       } 
       if(existedEmail) {
+        // const err = new Error("User already exists");
+        // err.title = "Bad request.";
+        // // err.errors = ["User with that email already exists"];
+        // err.errors = {email: "User with that email already exists"};
+        // err.status = 403;
+        // return next(err);
+        errObj.email = "User with that email already exists";
+      } 
+
+      if(Object.values(errObj).length > 0) {
         const err = new Error("User already exists");
         err.title = "Bad request.";
-        err.errors = ["User with that email already exists"];
+        // err.errors = ["User with that email already exists"];
+        err.errors = errObj;
         err.status = 403;
         return next(err);
-      } 
+      }
 
   //creates the new user if info are all valid
       const user = await User.create({ email, username, hashedPassword, firstName, lastName });
