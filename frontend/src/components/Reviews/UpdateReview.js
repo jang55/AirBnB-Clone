@@ -2,12 +2,14 @@ import { useState } from "react";
 import StarRating from "./StarRating";
 import * as reviewActions from "../../store/reviewReducer";
 import { useDispatch } from "react-redux";
+import { useReview } from "../../context/ReviewContext";
 import "./PostReview.css";
 
-function UpdateReview({ setShowModal, review }) {
+function UpdateReview({ setShowModal, review, type }) {
   const [stars, setStars] = useState(review.stars);
   const [reviewText, setReviewText] = useState(review.review);
   const [errors, setErrors] = useState({});
+  const {setNewReview} = useReview();
 
   const dispatch = useDispatch();
 
@@ -22,6 +24,7 @@ function UpdateReview({ setShowModal, review }) {
     const submitReview = async () => {
       try {
         await dispatch(reviewActions.updateReviewThunk(formInfo, review.id));
+        if(type === "detail") setNewReview(true);
         setShowModal(false);
       } catch (err) {
         const data = await err.json();
@@ -36,7 +39,7 @@ function UpdateReview({ setShowModal, review }) {
 
   return (
     <form onSubmit={submitHandler} className="post-review-container">
-      <h1>{`How was your stay at ${review.Spot.name}?`}</h1>
+      {type ==="manage" ? <h1>{`How was your stay at ${review.Spot.name}?`}</h1> : <h1>How was your stay?</h1>}
       <ul className="post-review-errors-container">
         <li>
           {errors.review && (

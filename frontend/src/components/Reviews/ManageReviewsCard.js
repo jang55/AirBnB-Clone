@@ -2,7 +2,7 @@ import DeleteReviewModal from "./DeleteReviewModal";
 import UpdateReviewModal from "./UpdateReviewModal";
 import { NavLink } from "react-router-dom";
 
-function ManageReviewsCard({ review }) {
+function ManageReviewsCard({ review, type }) {
 
   const createdDate = (() => {
     return (
@@ -21,7 +21,7 @@ function ManageReviewsCard({ review }) {
       <p>{createdDate}</p>
       <p>{review?.review}</p>
       <div>
-        <UpdateReviewModal review={review} />
+        <UpdateReviewModal review={review} type={type}/>
       </div>
       <div className="delete-review-container">
         <DeleteReviewModal review={review} />

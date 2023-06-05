@@ -1,5 +1,5 @@
 import DeleteReviewModal from "./DeleteReviewModal";
-
+import UpdateReviewModal from "./UpdateReviewModal";
 function ReviewCard({ review }) {
   
   const createdDate = (() => {
@@ -14,6 +14,9 @@ function ReviewCard({ review }) {
       <h4>{review.User?.firstName}</h4>
       <p>{createdDate}</p>
       <p>{review?.review}</p>
+      <div>
+        <UpdateReviewModal review={review} type={"detail"}/>
+      </div>
       <div className="delete-review-container">
         <DeleteReviewModal review={review} />
       </div>

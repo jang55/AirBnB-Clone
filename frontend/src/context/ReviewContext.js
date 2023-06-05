@@ -12,7 +12,6 @@ function ReviewProvider(props) {
     const [newReview, setNewReview] = useState(false);
     const [deleteReview, setDeleteReview] = useState(false);
    
-    // console.log(sign)
     return (
         <ReviewContext.Provider 
             value={{
