@@ -15,6 +15,8 @@ function LocationDetails() {
   const { newReview, setNewReview, deleteReview, setDeleteReview } = useReview();
 
   useEffect(() => {
+    setNewReview(false);
+    setDeleteReview(false);
     //make a fetch call to get details of one spot
     (async () => {
       const spotInfo = await dispatch(
@@ -25,12 +27,12 @@ function LocationDetails() {
         setSpot(spotInfo);
       }
     })().then(() => setIsLoading("Loading..."));
-  }, [dispatch, locationId, newReview, deleteReview]);
+  }, [dispatch, locationId, newReview, deleteReview, setDeleteReview, setNewReview]);
 
-  useEffect(() => {
-    setNewReview(false);
-    setDeleteReview(false);
-  }, [spot, setDeleteReview, setNewReview])
+  // useEffect(() => {
+  //   setNewReview(false);
+  //   setDeleteReview(false);
+  // }, [spot, setDeleteReview, setNewReview])
 
   const reserveHandler = () => {
     alert("Feature Coming Soon...");

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import DeleteReview from "./DeleteReview";
+import UpdateReview from "./UpdateReview";
 import { useSelector } from "react-redux";
 
-function DeleteReviewModal({ review }) {
+function UpdateReviewModal({ review }) {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector((state) => state.sessionState.user);
+//   console.log(review)
   
   
 
@@ -14,14 +15,14 @@ function DeleteReviewModal({ review }) {
       {user && user.id === review.userId && (
         <div>
           <button
-            className="delete-review-button"
+            className="update-review-button"
             onClick={() => setShowModal(true)}
           >
-            Delete
+            Update
           </button>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <DeleteReview review={review} setShowModal={setShowModal} />
+              <UpdateReview review={review} setShowModal={setShowModal} />
             </Modal>
           )}
         </div>
@@ -29,4 +30,4 @@ function DeleteReviewModal({ review }) {
     </>
   );
 }
-export default DeleteReviewModal;
+export default UpdateReviewModal;

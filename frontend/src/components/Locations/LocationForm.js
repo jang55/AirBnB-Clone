@@ -310,7 +310,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="create-form-inputs"
+              className="create-form-inputs image-inputs"
               placeholder="Preview Image URL"
               value={previewImage}
               onChange={(e) => setPreviewImage(e.target.value)}
@@ -327,7 +327,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="create-form-inputs"
+              className="create-form-inputs image-inputs"
               placeholder="Image URL"
               value={image0}
               onChange={(e) => setImage0(e.target.value)}
@@ -341,7 +341,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="create-form-inputs"
+              className="create-form-inputs image-inputs"
               placeholder="Image URL"
               value={image1}
               onChange={(e) => setImage1(e.target.value)}
@@ -355,7 +355,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="create-form-inputs"
+              className="create-form-inputs image-inputs"
               placeholder="Image URL"
               value={image2}
               onChange={(e) => setImage2(e.target.value)}
@@ -369,7 +369,7 @@ function LocationForm() {
           <label className="form-label">
             <input
               type="text"
-              className="create-form-inputs"
+              className="create-form-inputs image-inputs"
               placeholder="Image URL"
               value={image3}
               onChange={(e) => setImage3(e.target.value)}

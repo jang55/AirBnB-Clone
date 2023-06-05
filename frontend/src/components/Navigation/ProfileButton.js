@@ -34,24 +34,27 @@ function ProfileButton({ user }) {
         <img id="menu-icon" src={menuIcon} alt="menu-icon" />
         <img id="profile-icon" src={profileIcon} alt="profile-button" />
       </div>
-      <ul className={menuDropDownClassName} onClick={(e) => e.stopPropagation()}>
+      <ul className={menuDropDownClassName} >
         {user ? (
           <>
-            <li onClick={(e) => e.stopPropagation()} >Hello, {user.firstName}</li>
-            <li onClick={(e) => e.stopPropagation()} >{user.email}</li>
+            <li className="user-info" onClick={(e) => e.stopPropagation()} >Hello, {user.firstName}</li>
+            <li className="user-info" onClick={(e) => e.stopPropagation()} >{user.email}</li>
             <li id="manage-spot-link">
               <Link to="/currentUser/locations">Manage Spots</Link>
             </li>
-            <li>
+            <li id="manage-reviews-link">
+              <Link to="/currentUser/reviews">Manage Reviews</Link>
+            </li>
+            <li id="logout-container" onClick={(e) => e.stopPropagation()}>
               <button id="logout-button" onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
-          <div onClick={(e) => e.stopPropagation()}>
-            <li>
+          <div onClick={(e) => e.stopPropagation()} id="login-signup-container ">
+            <li id="login-button-wrapper">
               <LoginFormModal />
             </li>
-            <li>
+            <li id="signup-button-wrapper">
               <SignupFormModal />
             </li>
           </div>

@@ -150,7 +150,7 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   });
 
   if (res.ok) {
-    dispatch(removeOneSpotAction(spotId));
+    return dispatch(removeOneSpotAction(spotId));
   }
 };
 

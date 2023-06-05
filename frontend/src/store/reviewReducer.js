@@ -2,14 +2,24 @@ import { csrfFetch } from "./csrf";
 
 /*************** TYPES **************************/
 const LOAD_REVIEWS = "reviews/loadReviews";
+const LOAD_CURRENTUSER_REVIEWS = "reviews/currentUserReviews"
 // const ADD_REVIEW = "reviews/addReview";
-const UPDATE_REVIEW = "reviews/updateReview";
+// const UPDATE_REVIEW = "reviews/updateReview";
 const REMOVE_REVIEW = "reviews/removeReview";
 
 /*************** ACTIONS CREATOR **************************/
 export const loadReviewsAction = (reviews) => {
   return {
     type: LOAD_REVIEWS,
+    payload: reviews,
+  };
+};
+
+/******/
+
+export const loadCurrentUserReviewsAction = (reviews) => {
+  return {
+    type: LOAD_CURRENTUSER_REVIEWS,
     payload: reviews,
   };
 };
@@ -25,12 +35,12 @@ export const loadReviewsAction = (reviews) => {
 
 /******/
 
-export const updateOneReviewAction = (review) => {
-  return {
-    type: UPDATE_REVIEW,
-    payload: review,
-  };
-};
+// export const updateOneReviewAction = (review) => {
+//   return {
+//     type: UPDATE_REVIEW,
+//     payload: review,
+//   };
+// };
 
 /******/
 
@@ -50,6 +60,19 @@ export const loadReviewsThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const reviews = await res.json();
     dispatch(loadReviewsAction(reviews));
+    return reviews;
+  }
+};
+
+/******/
+
+//loads all review by spot id
+export const loadCurrentUserReviewsThunk = () => async (dispatch) => {
+  const res = await csrfFetch(`/api/users/currentUser/reviews`);
+
+  if (res.ok) {
+    const reviews = await res.json();
+    dispatch(loadCurrentUserReviewsAction(reviews));
     return reviews;
   }
 };
@@ -87,9 +110,12 @@ export const updateReviewThunk =
     });
 
     if (res.ok) {
-      const review = await res.json();
-      dispatch(updateOneReviewAction(review));
-      return review;
+      // const review = await res.json();
+      // dispatch(updateOneReviewAction(review));
+      // return review;
+      let result = await dispatch(loadCurrentUserReviewsThunk());
+
+      return result;
     }
   };
 
@@ -121,14 +147,21 @@ const reviewReducer = (state = initialState, action) => {
         newState[review.id] = review;
       });
       return newState;
+    case LOAD_CURRENTUSER_REVIEWS:
+      newState = {};
+      const allCurrentUserReviews = action.payload.Reviews;
+      allCurrentUserReviews.forEach((review) => {
+        newState[review.id] = review;
+      });
+      return newState;
     // case ADD_REVIEW:
     //   newState = { ...state };
     //   newState[action.payload.id] = action.payload;
     //   return newState;
-    case UPDATE_REVIEW:
-      newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
+    // case UPDATE_REVIEW:
+    //   newState = { ...state };
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
     case REMOVE_REVIEW:
       newState = { ...state };
       delete newState[action.payload];

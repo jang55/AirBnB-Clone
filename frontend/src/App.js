@@ -10,6 +10,7 @@ import LocationDetails from "./components/Locations/locationDetails";
 import LocationForm from "./components/Locations/LocationForm";
 import ManageLocations from "./components/Locations/ManageLocations";
 import UpdateLocationForm from "./components/Locations/UpdateLocationForm";
+import ManageReviews from "./components/Reviews/ManageReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/currentUser/locations">
             <ManageLocations isLoaded={isLoaded} />
+          </Route>
+          <Route path="/currentUser/reviews">
+            <ManageReviews isLoaded={isLoaded} />
           </Route>
           <Route exact path="/locations/:locationId">
             <LocationDetails />

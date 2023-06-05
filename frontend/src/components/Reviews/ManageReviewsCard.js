@@ -1,7 +1,9 @@
 import DeleteReviewModal from "./DeleteReviewModal";
+import UpdateReviewModal from "./UpdateReviewModal";
+import { NavLink } from "react-router-dom";
 
-function ReviewCard({ review }) {
-  
+function ManageReviewsCard({ review }) {
+
   const createdDate = (() => {
     return (
       new Date(review?.createdAt).toString().slice(4, 8) +
@@ -11,9 +13,16 @@ function ReviewCard({ review }) {
 
   return (
     <>
-      <h4>{review.User?.firstName}</h4>
+      <h4>
+        <NavLink to={`/locations/${review?.Spot.id}`}>
+          {review?.Spot.name}
+        </NavLink>
+      </h4>
       <p>{createdDate}</p>
       <p>{review?.review}</p>
+      <div>
+        <UpdateReviewModal review={review} />
+      </div>
       <div className="delete-review-container">
         <DeleteReviewModal review={review} />
       </div>
@@ -21,4 +30,4 @@ function ReviewCard({ review }) {
   );
 }
 
-export default ReviewCard;
+export default ManageReviewsCard;

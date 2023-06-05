@@ -26,6 +26,11 @@
   background-color: white;
 }
 
+.image-inputs {
+  width: 97%;
+  margin: 8px 0px;
+}
+
 .address-wrapper {
   display: grid;
   grid-template-columns: repeat(10, 40px);
@@ -36,7 +41,10 @@
 #country-label {
   grid-column-start: span 10;
   grid-row-start: 1;
+
+  margin-bottom: 5px;
 }
+
 #country {
   width: 96%;
 }
@@ -44,6 +52,8 @@
 #address-label {
   grid-column-start: span 10;
   grid-row-start: 3;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #address {
@@ -53,6 +63,8 @@
 #city-label {
   grid-column-start: span 6;
   grid-row-start: 5;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #city-label {
@@ -62,16 +74,21 @@
 #state-label {
   grid-column-start: span 4;
   grid-row-start: 5;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #state {
-  width: 91%;
+  width: 90%;
 }
 
 #lat-label {
   grid-column-start: span 5;
   grid-row-start: 7;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
+
 #lat {
   width: 87%;
 }
@@ -79,9 +96,16 @@
 #lng-label {
   grid-column-start: span 5;
   grid-row-start: 7;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
+
 #lng {
   width: 92%;
+}
+
+#name {
+  width: 97%;
 }
 
 #description {
@@ -104,7 +128,7 @@
 }
 
 #price {
-  width: 99%;
+  width: 94%;
   margin-left: 5px;
 }
 
