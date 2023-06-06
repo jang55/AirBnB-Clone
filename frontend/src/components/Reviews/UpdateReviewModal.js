@@ -3,7 +3,7 @@ import { Modal } from "../../context/Modal";
 import UpdateReview from "./UpdateReview";
 import { useSelector } from "react-redux";
 
-function UpdateReviewModal({ review, type }) {
+function UpdateReviewModal({ review, pageType }) {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector((state) => state.sessionState.user);
   
@@ -21,7 +21,7 @@ function UpdateReviewModal({ review, type }) {
           </button>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <UpdateReview review={review} setShowModal={setShowModal} type={type}/>
+              <UpdateReview review={review} setShowModal={setShowModal} pageType={pageType}/>
             </Modal>
           )}
         </div>

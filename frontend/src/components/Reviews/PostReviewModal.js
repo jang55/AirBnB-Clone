@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "../../context/Modal";
 import PostReview from "./PostReview";
 import { useSelector } from "react-redux";
 
 function PostReviewModal({ locationId }) {
   const [showModal, setShowModal] = useState(false);
+  const [review, setReview] = useState(null);
 
   const user = useSelector((state) => state.sessionState.user);
-  const allReviews = Object.values(useSelector(state => state.reviewState))
-  const review = allReviews.find(review => review.userId === user.id);
+  const allReviewsState = Object.values(useSelector(state => state.reviewState))
+
+  useEffect(() => {
+    if(user) {
+      const reviewState = allReviewsState.find(review => review.userId === user.id);
+      setReview(reviewState);
+    }
+  }, [allReviewsState, user]);
 
   return (
     <>

@@ -100,8 +100,8 @@ export const addReviewThunk = (review, spotId) => async (dispatch) => {
 
 //updates an existing review
 export const updateReviewThunk =
-  (updatedReview, reviewId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+  (updatedReview, review, pageType) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${review.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -110,10 +110,16 @@ export const updateReviewThunk =
     });
 
     if (res.ok) {
+      console.log(pageType)
       // const review = await res.json();
       // dispatch(updateOneReviewAction(review));
       // return review;
-      let result = await dispatch(loadCurrentUserReviewsThunk());
+      let result;
+      if(pageType === "manage") {
+        result = await dispatch(loadCurrentUserReviewsThunk());
+      } else if (pageType === "detail") {
+        result = await dispatch(loadReviewsThunk(review.spotId));
+      }
 
       return result;
     }

@@ -21,7 +21,7 @@ function ManageReviews() {
       {isLoaded &&
         allReviews.map((review, i) => (
           <div key={review.id} className="currentUser-reviews-container">
-            <ManageReviewsCard review={review} type={"manage"}/>
+            <ManageReviewsCard review={review} pageType={"manage"}/>
           </div>
         ))}
     </>

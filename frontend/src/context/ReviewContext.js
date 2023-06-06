@@ -18,7 +18,7 @@ function ReviewProvider(props) {
                 newReview,
                 setNewReview,
                 deleteReview,
-                setDeleteReview
+                setDeleteReview,
                 }}>
             {props.children}
         </ReviewContext.Provider>

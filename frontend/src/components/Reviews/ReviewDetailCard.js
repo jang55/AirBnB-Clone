@@ -1,6 +1,6 @@
 import DeleteReviewModal from "./DeleteReviewModal";
 import UpdateReviewModal from "./UpdateReviewModal";
-function ReviewCard({ review }) {
+function ReviewDetailCard({ review }) {
   
   const createdDate = (() => {
     return (
@@ -15,7 +15,7 @@ function ReviewCard({ review }) {
       <p>{createdDate}</p>
       <p>{review?.review}</p>
       <div>
-        <UpdateReviewModal review={review} type={"detail"}/>
+        <UpdateReviewModal review={review} pageType={"detail"}/>
       </div>
       <div className="delete-review-container">
         <DeleteReviewModal review={review} />
@@ -24,4 +24,4 @@ function ReviewCard({ review }) {
   );
 }
 
-export default ReviewCard;
+export default ReviewDetailCard;

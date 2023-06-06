@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as reviewActions from "../../store/reviewReducer";
 import { useEffect, useState } from "react";
-import ReviewCard from "./ReviewCard";
+import ReviewDetailCard from "./ReviewDetailCard";
 import "./Reviews.css"
 
 function Reviews({ locationId }) {
@@ -27,7 +27,7 @@ function Reviews({ locationId }) {
     <div className="review-container">
       {isLoading && (reverseOrderAllReviews.map(review => (
         <div key={review.id} className="review-wrapper">
-            <ReviewCard review={review}/>
+            <ReviewDetailCard review={review}/>
         </div>
       )))}
     </div>
