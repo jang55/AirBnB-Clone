@@ -5,7 +5,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import menuIcon from "../../assets/hamburgerMenu.png";
 import { Link, useHistory } from "react-router-dom";
-import "./Navigation.css";
+import "./ProfileButton.css"
 import profileIcon from "../../assets/profileIcon.png";
 
 

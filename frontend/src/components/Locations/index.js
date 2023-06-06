@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as spotsAction from "../../store/spotsReducer";
 import { NavLink } from "react-router-dom";
-import LocationItem from "./LocationItem";
+import LocationCard from "./LocationCard";
 import "./Location.css";
 
 function Locations({ isLoaded }) {
@@ -23,7 +23,7 @@ function Locations({ isLoaded }) {
           {allSpots.map((spot) => (
             <div key={spot.id} className="spot-card">
               <NavLink to={`/locations/${spot.id}`}>
-                <LocationItem spot={spot} />
+                <LocationCard spot={spot} />
               </NavLink>
             </div>
           ))}

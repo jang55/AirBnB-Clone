@@ -1,6 +1,7 @@
+import "./LocationCard.css"
+// import "./Location.css";
 
-
-function LocationItem({ spot }) {
+function LocationCard({ spot }) {
   return (
     <div className={`description-container item${spot.id}`}>
       <img src={spot.previewImage} alt={`${spot.name}`} />
@@ -26,4 +27,4 @@ function LocationItem({ spot }) {
   );
 }
 
-export default LocationItem;
+export default LocationCard;
