@@ -1,31 +1,29 @@
 /* this is for locationCard.js */
 
 .description-link {
-    font-weight: bolder;
-    font-size: 15px;
-  }
-  
-  .description-wrapper {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .description-name {
-    margin: 2px 4px 4px 0px;
-  }
-  
-  .description-container {
-    width: 250px;
-    margin: 10px 20px 10px 20px;
-  }
-  
-  .description-container > img {
-    border-radius: 12px;
-    height: 200px;
-    width: fit-content;
-  }
-  
- 
-  /* .active:hover {
-      background-color: rgb(197, 202, 202);
-    } */
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.description-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description-name {
+  margin: 2px 4px 4px 0px;
+}
+
+.description-container {
+  /* width: 250px; */
+  margin: 10px 20px 10px 20px;
+}
+
+.description-container > img {
+  border-radius: 12px;
+  height: 200px;
+  width: fit-content;
+  /* width: 250px; */
+}
+
+

@@ -23,7 +23,7 @@
 
 /****************************************************************/
 
- @media (min-width: 1051px) and (max-width: 1310px) {
+ /* @media (min-width: 1051px) and (max-width: 1310px) {
   .description-container > img {
     height: 260px;
   }
@@ -39,7 +39,7 @@
   .description-container > img {
     height: 300px;
   }
-}
+} */
 
 
 
