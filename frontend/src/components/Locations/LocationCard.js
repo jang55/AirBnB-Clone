@@ -1,9 +1,16 @@
-import "./LocationCard.css"
-// import "./Location.css";
+import { useState } from "react";
+import "./LocationCard.css";
 
 function LocationCard({ spot }) {
+  const [toolTip, setToolTip] = useState(false);
+
   return (
-    <div className={`description-container item${spot.id}`}>
+    <div
+      className={`description-container item${spot.id} tooltip`}
+      onMouseLeave={() => setToolTip(false)}
+      onMouseEnter={() => setToolTip(true)}
+    >
+      {toolTip && <span className="tooltiptext">{spot.name}</span>}
       <img src={spot.previewImage} alt={`${spot.name}`} />
       <div className="description-wrapper">
         <span className="description-link">{`${spot.city}, ${spot.state}`}</span>
@@ -13,7 +20,9 @@ function LocationCard({ spot }) {
           {/* the nested ternary is to make sure a solid integer will also tturn to a decimal eg. 3 => 3.0 */}
           <span>
             {spot.avgRating
-              ? String(spot.avgRating).length === 1 ? Number(spot.avgRating).toFixed(1) : spot.avgRating
+              ? String(spot.avgRating).length === 1
+                ? Number(spot.avgRating).toFixed(1)
+                : spot.avgRating
               : "New"}
           </span>
         </div>

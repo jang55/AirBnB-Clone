@@ -1,4 +1,4 @@
-/* this is for locationItems.js */
+/* this is for locationCard.js */
 
 .description-link {
     font-weight: bolder;
@@ -22,28 +22,10 @@
   .description-container > img {
     border-radius: 12px;
     height: 200px;
-    width: 250px;
+    width: fit-content;
   }
   
-  .spot-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 15px;
-  }
-  
-  .spot-card {
-    border-radius: 15px
-  }
-  
-  .spot-card a{
-      color: black;
-      text-decoration: none;
-  }
-  
-  .spot-card:hover {
-    background-color: rgb(197, 202, 202);
-  }
-  
+ 
   /* .active:hover {
       background-color: rgb(197, 202, 202);
     } */

@@ -53,6 +53,7 @@ function SignupForm() {
         }
       });
       history.push("/")
+      return;
     }
     return setErrors({
       confirmPassword:
@@ -122,9 +123,9 @@ function SignupForm() {
           <p className="errors">{errors.confirmPassword}</p>
         )}
         <button
-          disabled={disableButton}
+          disabled={disableButton || username.length < 4 || password.length < 6 || password !== confirmPassword}
           className={
-            disableButton ? "signup-submit-button-not" : "signup-submit-button"
+            disableButton || username.length < 4 || password.length < 6 || password !== confirmPassword ? "signup-submit-button-not" : "signup-submit-button"
           }
           type="submit"
         >

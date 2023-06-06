@@ -25,7 +25,7 @@ function ManageLocations({ isLoaded }) {
   return (
     <>
       <h1>Manage Your Spots</h1>
-      <button onClick={createButtonHandler}>Create a New Spot</button>
+      {allSpots.length === 0 && <button onClick={createButtonHandler}>Create a New Spot</button>}
       {isLoaded && (
         <nav className="spot-container">
           {allSpots.map((spot) => (

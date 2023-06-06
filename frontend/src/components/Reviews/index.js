@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ReviewDetailCard from "./ReviewDetailCard";
 import "./Reviews.css"
 
-function Reviews({ locationId }) {
+function Reviews({ locationId, location }) {
   const dispatch = useDispatch();
   const reviewsInfo = useSelector((state) => state.reviewState);
   const allReviews = Object.values(reviewsInfo);
@@ -13,9 +13,26 @@ function Reviews({ locationId }) {
     reverseOrderAllReviews.push(allReviews[i]);
   };
 
-  const [isLoading, setIsLoading] = useState("");
+  /************************* */
 
+  const [isLoading, setIsLoading] = useState("");
+  const [spotOwner, setSpotOwner] = useState(false);
+
+  const user = useSelector((state) => state.sessionState.user);
   
+  useEffect(() => {
+    if(user) {
+
+      if(location.ownerId === user.id ){
+        setSpotOwner(true);
+      }
+    }
+  }, [user, location.ownerId]);
+  
+  /******************************************* */
+
+
+
 
   useEffect(() => {
     (async () => {
@@ -25,7 +42,7 @@ function Reviews({ locationId }) {
 
   return (
     <div className="review-container">
-      {isLoading && (reverseOrderAllReviews.map(review => (
+      {isLoading && reverseOrderAllReviews.length === 0 ? ( !spotOwner ? <p>Be the first to post a review!</p> : "" ) : (reverseOrderAllReviews.map(review => (
         <div key={review.id} className="review-wrapper">
             <ReviewDetailCard review={review}/>
         </div>

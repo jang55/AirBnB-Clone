@@ -75,12 +75,12 @@ function PostReview({ locationId, setShowModal }) {
       </div>
       <button
         id={
-          review.length >= 10
+          review.length >= 10 && stars !== 0
             ? "post-review-submit-button"
             : "post-review-submit-button-not"
         }
         type="submit"
-        disabled={review.length < 10}
+        disabled={review.length < 10 || stars === 0}
       >
         Submit Your Review
       </button>

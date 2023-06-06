@@ -18,6 +18,7 @@
     justify-content: center;
 }
 
+
 .login-button:hover {
   background-color: rgb(197, 202, 202);
 }
@@ -37,6 +38,16 @@
   align-self: center;
   background-color: rgb(241, 92, 92);
   color: white;
+  font-size: 10px;
+  width: 85%;
+  box-shadow: 0px 1px 4px black;
+  padding: 10px;
+}
+.login-submit-button-not {
+  width: 100px;
+  border-radius: 5px;
+  margin-top: 10px;
+  align-self: center;
   font-size: 10px;
   width: 85%;
   box-shadow: 0px 1px 4px black;

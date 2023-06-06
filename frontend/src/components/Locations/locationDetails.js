@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Reviews from "../Reviews";
 import PostReviewModal from "../Reviews/PostReviewModal";
 import { useReview } from "../../context/ReviewContext";
-import "./Location.css";
+import "./LocationDetails.css";
 
 function LocationDetails() {
   const dispatch = useDispatch();
@@ -106,9 +106,9 @@ function LocationDetails() {
               </span>
             </div>
             <div>
-              <PostReviewModal locationId={locationId} />
+              <PostReviewModal locationId={locationId} location={spot} />
             </div>
-            <Reviews locationId={locationId} />
+            <Reviews locationId={locationId} location={spot} />
           </div>
         </div>
       )}

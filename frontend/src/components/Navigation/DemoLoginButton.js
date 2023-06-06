@@ -16,7 +16,7 @@ function DemoLoginButton() {
   };
 
   // return <button onClick={demoHandler}>Demo-User Login</button>;
-  return <button className="demo-button" onClick={demoHandler}>Demo User</button>;
+  return <button className="demo-button" onClick={demoHandler}>Log in as Demo User</button>;
 }
 
 export default DemoLoginButton;

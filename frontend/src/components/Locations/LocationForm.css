@@ -145,6 +145,23 @@
   align-items: center;
   width: fit-content;
 }
+
+#create-button-not {
+  font-size: 10px;
+  width: 100px;
+  height: 20px;
+  box-shadow: 1px 2px 4px black;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+#create-button:hover {
+  background-color: rgb(239, 39, 39);
+}
+
 #create-button-container {
   display: flex;
   justify-content: center;

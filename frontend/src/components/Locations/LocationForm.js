@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as spotActions from "../../store/spotsReducer";
@@ -20,12 +20,43 @@ function LocationForm() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
-  const [previewImage, setPreviewImage] = useState(""); 
+  const [previewImage, setPreviewImage] = useState("");
   const [isRequired, setIsRequired] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (
+      address.length === 0 ||
+      city.length === 0 ||
+      state.length === 0 ||
+      country.length === 0 ||
+      lat.length === 0 ||
+      lng.length === 0 ||
+      name.length === 0 ||
+      description.length === 0 ||
+      price.length === 0 ||
+      previewImage.length === 0
+    ) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+  ]);
 
   //submit handler
   const submitHandler = async (e) => {
@@ -89,31 +120,31 @@ function LocationForm() {
       } catch (err) {
         const data = await err.json();
         if (data && data.errors) {
-          newErrors = {...newErrors, ...data.errors};
+          newErrors = { ...newErrors, ...data.errors };
         }
       }
 
       // Add images to spot
-      if (newSpot  && Object.values(newErrors).length === 0) {
-        Object.keys(imgs).forEach( async (imgKey) => {
-            const imgURL = imgs[imgKey];
-            if (imgURL.length > 0) {
-              let imageBody;
-              if(imgKey === "previewImage") {
-                imageBody = { url: imgURL, preview: true };
-              } else {
-                imageBody = { url: imgURL, preview: false };
-              }
-              await dispatch(
-                imageActions.addSpotImageThunk(imageBody, newSpot.id)
-              ).catch(async (err) => {
-                const data = await err.json();
-                if (data && data.errors) {
-                  newErrors = {...newErrors, [imgKey] : { ...data.errors}};
-                }
-              });
+      if (newSpot && Object.values(newErrors).length === 0) {
+        Object.keys(imgs).forEach(async (imgKey) => {
+          const imgURL = imgs[imgKey];
+          if (imgURL.length > 0) {
+            let imageBody;
+            if (imgKey === "previewImage") {
+              imageBody = { url: imgURL, preview: true };
+            } else {
+              imageBody = { url: imgURL, preview: false };
             }
-        })
+            await dispatch(
+              imageActions.addSpotImageThunk(imageBody, newSpot.id)
+            ).catch(async (err) => {
+              const data = await err.json();
+              if (data && data.errors) {
+                newErrors = { ...newErrors, [imgKey]: { ...data.errors } };
+              }
+            });
+          }
+        });
       }
     };
 
@@ -124,15 +155,13 @@ function LocationForm() {
 
     if (newSpot) {
       if (Object.values(newErrors).length > 0) {
-        await dispatch(spotActions.deleteSpotThunk(newSpot.id)); 
+        await dispatch(spotActions.deleteSpotThunk(newSpot.id));
         return;
-      } 
+      }
 
       history.push(`/locations/${newSpot.id}`);
     }
-    
   };
-
 
   return (
     <div className="form-container">
@@ -156,9 +185,9 @@ function LocationForm() {
                 onChange={(e) => setCountry(e.target.value)}
               />
             </label>
-              <div id="country-errors">
-                {errors.country && <p className="errors">{errors.country}</p>}
-              </div>
+            <div id="country-errors">
+              {errors.country && <p className="errors">{errors.country}</p>}
+            </div>
             <label id="address-label" className="form-label">
               Street Address
               <input
@@ -382,7 +411,11 @@ function LocationForm() {
           </div>
         </div>
         <div id="create-button-container">
-          <button type="submit" id="create-button">
+          <button
+            type="submit"
+            id={!isDisabled ? "create-button" : "create-button-not"}
+            disabled={isDisabled}
+          >
             Create Spot
           </button>
         </div>

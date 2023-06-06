@@ -30,34 +30,38 @@ function LoginForm() {
     <div className="login-container">
       <h1 className="login-header">Log In</h1>
       {/* <fieldset> */}
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="error-wrapper">
-            {errors.credential && <p className="errors">{errors.credential}</p>}
-          </div>
-          <label>
-            {/* Username or Email */}
-            <input
-              type="text"
-              value={credential}
-              placeholder="Username or Email"
-              onChange={(e) => setCredential(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            {/* Password */}
-            <input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-          <button className="login-submit-button" type="submit">
-            Log In
-          </button>
-        </form>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="error-wrapper">
+          {errors.credential && <p className="errors">The provided credentials were invalid!</p>}
+        </div>
+        <label>
+          {/* Username or Email */}
+          <input
+            type="text"
+            value={credential}
+            placeholder="Username or Email"
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          {/* Password */}
+          <input
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <button
+          className={credential.length >= 4 && password.length >= 6 ? "login-submit-button" : "login-submit-button-not"}
+          type="submit"
+          disabled={credential.length < 4 || password.length < 6}
+        >
+          Log In
+        </button>
+      </form>
       {/* </fieldset> */}
 
       <DemoLoginButton />
