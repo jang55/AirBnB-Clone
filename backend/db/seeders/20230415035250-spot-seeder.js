@@ -32,8 +32,7 @@ module.exports = {
           lat: 40.34242,
           lng: -124.2342,
           name: "Cool Lake",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
-          Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 75,
         },
         {
