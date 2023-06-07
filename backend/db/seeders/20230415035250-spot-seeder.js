@@ -33,7 +33,8 @@ module.exports = {
           lat: 40.34242,
           lng: -124.2342,
           name: "Cool Lake",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+          Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 75,
         },
         {
@@ -45,7 +46,8 @@ module.exports = {
           lat: 40.344542,
           lng: -54.23442,
           name: "Yosemite National Park",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 25,
         },
         {
@@ -57,7 +59,8 @@ module.exports = {
           lat: 20.343242,
           lng: -124.23432,
           name: "Crystal Cove State Park",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 55,
         },
         {
@@ -69,7 +72,8 @@ module.exports = {
           lat: 70.34242,
           lng: 154.2342,
           name: "Big Sur",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 35,
         },
         {
@@ -81,7 +85,8 @@ module.exports = {
           lat: 80.34242,
           lng: 124.2342,
           name: "El Capitan State Beach",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 45,
         },
         {
@@ -93,7 +98,8 @@ module.exports = {
           lat: 50.34242,
           lng: -124.2342,
           name: "Tahoe State Recreation Area",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 35,
         },
         {
@@ -105,7 +111,8 @@ module.exports = {
           lat: 60.34242,
           lng: -124.2342,
           name: "Pismo Beach",
-          description: "This is a really short description",
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Leo in vitae turpis massa sed elementum tempus egestas. Sed turpis tincidunt id aliquet risus. Adipiscing tristique risus nec feugiat in fermentum posuere. Donec adipiscing tristique risus nec feugiat in fermentum posuere. A cras semper auctor neque.
+        Tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Ut enim blandit volutpat maecenas volutpat. Adipiscing enim eu turpis egestas. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Rhoncus est pellentesque elit ullamcorper dignissim cras. Sed risus pretium quam vulputate dignissim suspendisse. Massa vitae tortor condimentum lacinia. Malesuada bibendum arcu vitae elementum. Dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu. Lorem donec massa sapien faucibus et molestie ac.`,
           price: 35,
         },
       ],
