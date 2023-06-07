@@ -8,7 +8,7 @@ function DeleteLocationModal({locationId}) {
 
     return (
         <>
-            <button id="delete-button" onClick={() => setShowModal(true)} >Delete</button>
+            <button className="manage-location-delete-button" onClick={() => setShowModal(true)} >Delete</button>
             {showModal && (
             <Modal onClose={() => setShowModal(false)}>
               <DeleteLocation setShowModal={setShowModal} locationId={locationId}/>

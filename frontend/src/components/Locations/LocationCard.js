@@ -5,7 +5,9 @@ function LocationCard({ spot }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleToolTip = (e) => {
-    setPosition({ x: e.clientX, y: e.clientY });
+    const tooltipRef = document.getElementById("tooltipspan");
+    const tooltipWidth = tooltipRef?.offsetWidth;
+    setPosition({ x: e.clientX - tooltipWidth / 2 + 3, y: e.clientY + 32 });
   };
 
   return (
@@ -16,8 +18,9 @@ function LocationCard({ spot }) {
     >
       {position.y !== 0 && position.x !== 0 && (
         <span
-          style={{ left: position.x - 65, top: position.y - 33 }}
+          style={{ left: position.x - 90, top: position.y - 33 }}
           className="tooltiptext"
+          id="tooltipspan"
         >
           {spot.name}
         </span>

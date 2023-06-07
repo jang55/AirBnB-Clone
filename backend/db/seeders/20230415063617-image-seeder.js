@@ -24,6 +24,30 @@ module.exports = {
         imageableId: 1
       },
       {
+        url: "https://i.imgur.com/CQbzQ9Q.jpg",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
+        url: "https://i.imgur.com/i6M9j1a.jpg",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
+        url: "https://i.imgur.com/k5Yx2S6.jpg",
+        preview: true,
+        imageableType: "Spot",
+        imageableId: 1
+      },
+      {
         url: "https://i.imgur.com/7XBR50S.jpg",
         preview: false,
         imageableType: "Spot",

@@ -16,6 +16,10 @@ function ManageLocations({ isLoaded }) {
     history.push("/locations/new");
   };
 
+  const updateButtonHandler = (spotId) => {
+    history.push(`/locations/${spotId}/edit`);
+  };
+
   useEffect(() => {
     (async () => {
       await dispatch(spotsAction.loadCurrentUserSpotsThunk());
@@ -25,7 +29,9 @@ function ManageLocations({ isLoaded }) {
   return (
     <>
       <h1>Manage Your Spots</h1>
-      {allSpots.length === 0 && <button onClick={createButtonHandler}>Create a New Spot</button>}
+      {allSpots.length === 0 && (
+        <button onClick={createButtonHandler}>Create a New Spot</button>
+      )}
       {isLoaded && (
         <nav className="spot-container">
           {allSpots.map((spot) => (
@@ -34,12 +40,13 @@ function ManageLocations({ isLoaded }) {
                 <LocationCard spot={spot} />
               </NavLink>
               <div>
-                <button>
-                  <NavLink to={`/locations/${spot.id}/edit`}>
-                    Update
-                  </NavLink>
+                <button
+                  className="manage-location-update-button"
+                  onClick={() => updateButtonHandler(spot.id)}
+                >
+                  Update
                 </button>
-                <DeleteLocationModal locationId={spot.id}/>
+                <DeleteLocationModal locationId={spot.id} />
               </div>
             </div>
           ))}

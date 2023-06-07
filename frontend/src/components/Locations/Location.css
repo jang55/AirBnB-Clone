@@ -1,8 +1,15 @@
 .spot-container {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 15px;
+  gap: 20px 30px;
 }
+/* 
+@media (min-width: 2000px) {
+  body {
+    max-width: 2000px;
+    margin: auto;
+  }
+} */
 
 @media (min-width: 1311px) {
   .spot-container {
@@ -14,7 +21,7 @@
 @media (min-width: 1051px) and (max-width: 1310px) {
   .spot-container {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    /* margin: 10px 80px; */
+    margin: auto;
   }
 }
 
@@ -36,36 +43,11 @@
   }
 
   .spot-card {
-    max-width: 400px; 
+    max-width: 400px;
     /* min-width: 400px; */
     margin: auto;
   }
 }
-
-/****************************************************************/
-
- /* @media (min-width: 1051px) and (max-width: 1310px) {
-  .description-container > img {
-    height: 260px;
-  }
-}
-
-@media (min-width: 716px) and (max-width: 720px) {
-  .description-container > img {
-    height: 260px;
-  }
-} 
-
-@media (max-width: 715px) {
-  .description-container > img {
-    height: 300px;
-  }
-} */
-
-
-
-/****************************************************************/
-
 
 .spot-card {
   border-radius: 15px;
@@ -75,6 +57,10 @@
   /* max-width: 350px; */
   /* background-color: red; */
   width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
+  flex-direction: column;
 }
 
 .spot-card a {
@@ -85,12 +71,15 @@
   width: 100%;
 }
 
+.spot-card a.manage-location-update-button {
+  color: white;
+}
+
 .spot-card:hover {
   background-color: rgb(209, 215, 215);
 }
 
 /*************************************************************/
-
 
 .tooltip {
   position: relative;
@@ -112,10 +101,39 @@
 .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 100%;
-  left: 50%;
+  top: 50%;
+  left: 103%; 
   margin-left: -5px;
-  border-width: 5px;
+  border-width: 7px;
   border-style: solid;
-  border-color: rgb(51, 50, 47) transparent transparent transparent;
-} 
+  border-color:  transparent transparent transparent rgb(51, 50, 47);
+}
+
+/*****************************************************************/
+/** ManageLocation.js**/
+
+.manage-location-update-button {
+  background-color: rgb(161, 158, 158);
+  color: white;
+  margin: 5px;
+  padding: 3px 4px;
+  box-shadow: 1px 1px 3px black;
+  width: 100px;
+}
+
+.manage-location-update-button:hover {
+  background-color: rgb(127, 124, 124);
+}
+
+.manage-location-delete-button {
+  background-color: rgb(161, 158, 158);
+  color: white;
+  margin: 5px;
+  padding: 3px 4px;
+  box-shadow: 1px 1px 3px black;
+  width: 100px;
+}
+
+.manage-location-delete-button:hover {
+  background-color: rgb(127, 124, 124);
+}

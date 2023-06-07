@@ -3,7 +3,6 @@ import UpdateReviewModal from "./UpdateReviewModal";
 import { NavLink } from "react-router-dom";
 
 function ManageReviewsCard({ review, pageType }) {
-
   const createdDate = (() => {
     return (
       new Date(review?.createdAt).toString().slice(4, 8) +
@@ -20,11 +19,13 @@ function ManageReviewsCard({ review, pageType }) {
       </h4>
       <p>{createdDate}</p>
       <p>{review?.review}</p>
-      <div>
-        <UpdateReviewModal review={review} pageType={pageType}/>
-      </div>
-      <div className="delete-review-container">
-        <DeleteReviewModal review={review} />
+      <div className="review-buttons-container">
+        <div>
+          <UpdateReviewModal review={review} pageType={pageType} />
+        </div>
+        <div className="delete-review-container">
+          <DeleteReviewModal review={review} />
+        </div>
       </div>
     </>
   );
