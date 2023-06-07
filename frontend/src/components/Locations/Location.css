@@ -1,23 +1,44 @@
 .spot-container {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+@media (min-width: 1311px) {
+  .spot-container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* margin: 10px 80px; */
+  }
 }
 
 @media (min-width: 1051px) and (max-width: 1310px) {
   .spot-container {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* margin: 10px 80px; */
   }
 }
 
-@media (min-width: 716px) and (max-width: 1050px) {
+@media (min-width: 716px) and (max-width: 1139px) {
   .spot-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 3fr));
+  }
+
+  .spot-card {
+    max-width: 425px;
+    min-width: 375;
+    margin: auto;
   }
 }
 
 @media (max-width: 715px) {
   .spot-container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .spot-card {
+    max-width: 400px; 
+    /* min-width: 400px; */
+    margin: auto;
   }
 }
 
@@ -51,13 +72,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: fit-content;
+  /* max-width: 350px; */
+  /* background-color: red; */
+  width: 100%;
 }
 
 .spot-card a {
   color: black;
   text-decoration: none;
-  width: fit-content;
+  max-width: 100%;
+  /* background-color: green; */
+  width: 100%;
 }
 
 .spot-card:hover {
@@ -66,24 +91,22 @@
 
 /*************************************************************/
 
+
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
 .tooltiptext {
-  height: 20px;
-  background-color: rgb(51, 50, 47);
+  position: fixed;
   color: #ffffff;
   text-align: center;
-  border-radius: 6px;
+  max-width: 200px;
   padding: 5px 10px;
-  position: absolute;
-  z-index: 1;
-  top: -35px;
-  left: 50%;
-  margin-left: -60px;
+  background-color: rgb(51, 50, 47);
+  border-radius: 6px;
   box-shadow: 1px 1px 7px rgb(31, 28, 28);
+  z-index: 1;
 }
 
 .tooltiptext::after {
@@ -95,4 +118,4 @@
   border-width: 5px;
   border-style: solid;
   border-color: rgb(51, 50, 47) transparent transparent transparent;
-}
+} 

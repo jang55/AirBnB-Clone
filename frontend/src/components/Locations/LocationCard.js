@@ -2,15 +2,27 @@ import { useState } from "react";
 import "./LocationCard.css";
 
 function LocationCard({ spot }) {
-  const [toolTip, setToolTip] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleToolTip = (e) => {
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
 
   return (
     <div
       className={`description-container item${spot.id} tooltip`}
-      onMouseLeave={() => setToolTip(false)}
-      onMouseEnter={() => setToolTip(true)}
+      onMouseLeave={() => setPosition({ x: 0, y: 0 })}
+      onMouseMove={handleToolTip}
     >
-      {toolTip && <span className="tooltiptext">{spot.name}</span>}
+      {position.y !== 0 && position.x !== 0 && (
+        <span
+          style={{ left: position.x - 65, top: position.y - 33 }}
+          className="tooltiptext"
+        >
+          {spot.name}
+        </span>
+      )}
+
       <img src={spot.previewImage} alt={`${spot.name}`} />
       <div className="description-wrapper">
         <span className="description-link">{`${spot.city}, ${spot.state}`}</span>

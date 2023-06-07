@@ -15,15 +15,14 @@
 }
 
 .description-container {
-  /* width: 250px; */
-  margin: 10px 20px 10px 20px;
+  width: 100%;
 }
 
 .description-container > img {
   border-radius: 12px;
-  height: 200px;
-  width: fit-content;
-  /* width: 250px; */
+  height: 100%;
+  width: 100%;
+  
 }
 
 
