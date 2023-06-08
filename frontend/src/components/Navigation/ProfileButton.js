@@ -37,7 +37,7 @@ function ProfileButton({ user }) {
       <ul className={menuDropDownClassName} id="logged-in-user-menu" >
         {user ? (
           <>
-            <li className="user-info" onClick={(e) => e.stopPropagation()} >Hello, {user.firstName}</li>
+            <li className="user-info" onClick={(e) => e.stopPropagation()} >{`Hello, ${user.firstName}`}</li>
             <li className="user-info" onClick={(e) => e.stopPropagation()} >{user.email}</li>
             <li id="manage-spot-link">
               <Link to="/currentUser/locations">Manage Spots</Link>

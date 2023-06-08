@@ -110,7 +110,6 @@ export const updateReviewThunk =
     });
 
     if (res.ok) {
-      console.log(pageType)
       // const review = await res.json();
       // dispatch(updateOneReviewAction(review));
       // return review;

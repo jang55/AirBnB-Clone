@@ -24,9 +24,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* padding: 10px 0px; */
-  margin: 10px 0px;
+  padding: 10px 0px 0px ;
+  /* margin: 10px 0px; */
 }
+
+/* #logged-in-user-menu {
+} */
 
 #signup-button-wrapper {
   padding: px 10px;
@@ -47,7 +50,7 @@
   padding-bottom: 7px;
 }
 
-.menu-wrapper .user-info {
+.user-info {
   padding: 5px 0px 5px 0px;
   margin-right: 10px;
   margin-left: 10px;
