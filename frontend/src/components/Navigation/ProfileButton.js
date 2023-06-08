@@ -34,7 +34,7 @@ function ProfileButton({ user }) {
         <img id="menu-icon" src={menuIcon} alt="menu-icon" />
         <img id="profile-icon" src={profileIcon} alt="profile-button" />
       </div>
-      <ul className={menuDropDownClassName} >
+      <ul className={menuDropDownClassName} id="logged-in-user-menu" >
         {user ? (
           <>
             <li className="user-info" onClick={(e) => e.stopPropagation()} >Hello, {user.firstName}</li>
@@ -50,7 +50,7 @@ function ProfileButton({ user }) {
             </li>
           </>
         ) : (
-          <div onClick={(e) => e.stopPropagation()} id="login-signup-container ">
+          <div onClick={(e) => e.stopPropagation()} id="login-signup-container">
             <li id="login-button-wrapper">
               <LoginFormModal />
             </li>

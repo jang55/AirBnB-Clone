@@ -18,7 +18,7 @@ function LocationCard({ spot }) {
     >
       {position.y !== 0 && position.x !== 0 && (
         <span
-          style={{ left: position.x - 90, top: position.y - 33 }}
+          style={{ left: position.x - 10, top: position.y - 10 }}
           className="tooltiptext"
           id="tooltipspan"
         >

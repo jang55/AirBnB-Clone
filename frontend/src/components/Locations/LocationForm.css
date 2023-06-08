@@ -6,7 +6,7 @@
 }
 
 .create-spot-form {
-  max-width: 400px;
+  max-width: 550px;
   /* background-color: aqua; */
 }
 
@@ -27,13 +27,13 @@
 }
 
 .image-inputs {
-  width: 97%;
+  width: 99%;
   margin: 8px 0px;
 }
 
 .address-wrapper {
   display: grid;
-  grid-template-columns: repeat(10, 40px);
+  grid-template-columns: repeat(10, 55px);
   /* grid-template-rows: repeat(8, 35px); */
   grid-template-rows: 40px, 20px, 40px, 20px 40px, 20px, 40px, 20px;
 }
@@ -46,7 +46,7 @@
 }
 
 #country {
-  width: 96%;
+  width: 99%;
 }
 
 #address-label {
@@ -57,7 +57,7 @@
 }
 
 #address {
-  width: 96%;
+  width: 99%;
 }
 
 #city-label {
@@ -79,7 +79,7 @@
 }
 
 #state {
-  width: 90%;
+  width: 97%;
 }
 
 #lat-label {
@@ -101,15 +101,15 @@
 }
 
 #lng {
-  width: 92%;
+  width: 98%;
 }
 
 #name {
-  width: 97%;
+  width: 99%;
 }
 
 #description {
-  width: 97%;
+  width: 99%;
   height: 100px;
   resize: none;
   border: 2px solid black;
@@ -128,14 +128,15 @@
 }
 
 #price {
-  width: 94%;
+  width: 98%;
   margin-left: 5px;
+  font-size: 14px;
 }
 
 #create-button {
   background-color: rgb(241, 92, 92);
   color: white;
-  font-size: 10px;
+  font-size: 15px;
   width: 100px;
   height: 20px;
   box-shadow: 1px 2px 4px black;
@@ -147,7 +148,7 @@
 }
 
 #create-button-not {
-  font-size: 10px;
+  font-size: 15px;
   width: 100px;
   height: 20px;
   box-shadow: 1px 2px 4px black;

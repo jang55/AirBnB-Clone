@@ -20,25 +20,28 @@
 }
 
 .update-review-button {
-  background-color: rgb(161, 158, 158);
-  color: white;
+  background-color: rgb(207, 202, 202);
+  /* color: white; */
   margin: 5px;
   padding: 2px 4px;
   box-shadow: 1px 1px 3px black;
+  border-radius: 5px;
+  
 }
 
 .update-review-button:hover {
-  background-color: rgb(127, 124, 124);
+  background-color: rgb(161, 158, 158);
 }
 
 .delete-review-button {
-  background-color: rgb(161, 158, 158);
-  color: white;
+  background-color: rgb(207, 202, 202);
+  /* color: white; */
   margin: 5px;
   padding: 2px 4px;
   box-shadow: 1px 1px 3px black;
+  border-radius: 5px;
 }
 
 .delete-review-button:hover {
-  background-color: rgb(127, 124, 124);
+  background-color: rgb(161, 158, 158);
 }
