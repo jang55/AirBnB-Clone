@@ -263,6 +263,53 @@ router.get("/", async (req, res, next) => {
         return next(err);
     }
 
+// //query for all the spots
+//     const allSpots = await Spot.findAll({
+//         attributes: {
+//             include: [
+//                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+//             ] 
+//         },
+//         include:[
+//             {
+//                 model: Review,
+//                 attributes: [],
+//                 required: false
+//             },
+//             {
+//                 model: Image,
+//                 as: "previewImage",
+//                 where: { preview: true },
+//                 attributes: ["url"],
+//                 required: false,
+//             },
+//         ],
+//         group: ["Spot.id", "previewImage.id"],
+//         subQuery: false,
+//         ...query,
+//     });
+
+// const spots = [];
+
+// //iteratng through each spot to fix the decimal
+//     for(let i = 0; i < allSpots.length; i++) {
+//         let spot = allSpots[i].toJSON();
+
+//         if(spot.avgRating) {
+//             spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
+//         };
+
+//         spot.previewImage = spot.previewImage[0]?.url || null;
+//         spots.push(spot);
+//     }
+
+//     res.json({
+//         Spots: spots,
+//         page: page,
+//         size: size
+//     });
+
+
 //query for all the spots
     const allSpots = await Spot.findAll({
         attributes: {
@@ -276,15 +323,8 @@ router.get("/", async (req, res, next) => {
                 attributes: [],
                 required: false
             },
-            {
-                model: Image,
-                as: "previewImage",
-                where: { preview: true },
-                attributes: ["url"],
-                required: false,
-            },
         ],
-        group: ["Spot.id", "previewImage.id"],
+        group: ["Spot.id"],
         subQuery: false,
         ...query,
     });
@@ -299,7 +339,15 @@ router.get("/", async (req, res, next) => {
             spot.avgRating = Number(Number(spot.avgRating).toFixed(1));
         };
 
-        spot.previewImage = spot.previewImage[0]?.url || null;
+        const images = await Image.findAll({
+            where: {
+                imageableId: spot.id,
+                preview: true,
+                imageableType: "Spot"
+            }
+        });
+
+        spot.previewImage = images[0]?.dataValues.url || null;
         spots.push(spot);
     }
 
