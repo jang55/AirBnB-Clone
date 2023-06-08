@@ -20,9 +20,7 @@ module.exports = {
           lat: 10.34242,
           lng: -104.2342,
           name: "Mountain View",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 100,
         },
         {
@@ -34,9 +32,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 40.34242,
           lng: -124.2342,
           name: "Cool Lake",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 75,
         },
         {
@@ -48,9 +44,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 40.344542,
           lng: -54.23442,
           name: "Yosemite National Park",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 25,
         },
         {
@@ -62,9 +56,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 20.343242,
           lng: -124.23432,
           name: "Crystal Cove State Park",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 55,
         },
         {
@@ -76,9 +68,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 70.34242,
           lng: 154.2342,
           name: "Big Sur",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 35,
         },
         {
@@ -90,9 +80,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 80.34242,
           lng: 124.2342,
           name: "El Capitan State Beach",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 45,
         },
         {
@@ -104,9 +92,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 50.34242,
           lng: -124.2342,
           name: "Tahoe State Recreation Area",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 35,
         },
         {
@@ -118,9 +104,7 @@ Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim d
           lat: 60.34242,
           lng: -124.2342,
           name: "Pismo Beach",
-          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget. Ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Sem et tortor consequat id porta. Netus et malesuada fames ac turpis egestas. Varius sit amet mattis vulputate enim nulla aliquet. Ut consequat semper viverra nam libero justo laoreet sit. Justo laoreet sit amet cursus sit amet dictum. Duis at tellus at urna condimentum mattis pellentesque id nibh. Imperdiet nulla malesuada pellentesque elit eget. Viverra adipiscing at in tellus integer feugiat. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eget nunc lobortis mattis aliquam.
-
-Velit sed ullamcorper morbi tincidunt ornare. Dictum sit amet justo donec enim diam vulputate ut pharetra. Nunc mattis enim ut tellus. Enim lobortis scelerisque fermentum dui faucibus. Dolor sed viverra ipsum nunc aliquet bibendum. Ut sem nulla pharetra diam sit amet nisl. Bibendum neque egestas congue quisque. Erat imperdiet sed euismod nisi porta lorem mollis. Orci sagittis eu volutpat odio facilisis mauris sit amet massa. Integer enim neque volutpat ac tincidunt. Enim nulla aliquet porttitor lacus luctus. At erat pellentesque adipiscing commodo elit. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Aenean sed adipiscing diam donec adipiscing tristique.`,
+          description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi morbi tempus iaculis urna id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Aenean et tortor at risus.  `,
           price: 35,
         },
       ],
