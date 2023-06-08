@@ -2,8 +2,8 @@ import { csrfFetch } from "./csrf";
 
 /********************** TYPES ******************************/
 const LOAD_ALL_SPOTS = "spots/loadAllSpots";
-const LOAD_ONE_SPOT = "spots/loadOneSpot"
-const LOAD_CURRENTUSER_SPOTS = "spots/currentUserSpots"
+const LOAD_ONE_SPOT = "spots/loadOneSpot";
+const LOAD_CURRENTUSER_SPOTS = "spots/currentUserSpots";
 const ADD_SPOT = "spots/addSpot";
 const UPDATE_SPOT = "spots/updateSpot";
 const REMOVE_SPOT = "spots/removeSpot";
@@ -162,37 +162,37 @@ const spotsReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case LOAD_ALL_SPOTS:
-        newState = {...state};
-        const allSpots = action.payload.Spots;
-        allSpots.forEach(spot => {
-            newState[spot.id] = spot;
-        })
-        return newState;
+      newState = {};
+      const allSpots = action.payload.Spots;
+      allSpots.forEach((spot) => {
+        newState[spot.id] = spot;
+      });
+      return newState;
     case LOAD_ONE_SPOT:
-        newState = {};
-        newState[action.payload.id] = action.payload;
-        return newState;
+      newState = {};
+      newState[action.payload.id] = action.payload;
+      return newState;
     case LOAD_CURRENTUSER_SPOTS:
-        newState = {};
-        const allUserSpots = action.payload.Spots;
-        allUserSpots.forEach(spot => {
-            newState[spot.id] = spot;
-        })
-        return newState;
+      newState = {};
+      const allUserSpots = action.payload.Spots;
+      allUserSpots.forEach((spot) => {
+        newState[spot.id] = spot;
+      });
+      return newState;
     case ADD_SPOT:
-        newState = {...state};
-        newState[action.payload.id] = action.payload;
-        return newState;
+      newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
     case UPDATE_SPOT:
-        newState = {...state};
-        newState[action.payload.id] = action.payload;
-        return newState;
+      newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
     case REMOVE_SPOT:
-        newState = {...state};
-        delete newState[action.payload];
-        return newState;
+      newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     default:
-        return state;
+      return state;
   }
 };
 
