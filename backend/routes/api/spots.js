@@ -289,7 +289,7 @@ router.get("/", async (req, res, next) => {
         ...query,
     });
 
-    const spots = []
+    const spots = [];
 
 //iteratng through each spot to fix the decimal
     for(let i = 0; i < allSpots.length; i++) {
