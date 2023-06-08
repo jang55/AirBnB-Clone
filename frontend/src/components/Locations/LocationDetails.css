@@ -6,7 +6,8 @@
 }
 
 .details-description-wrapper {
-  max-width: 700px;
+  max-width: 60%;
+  /* width: 90%; */
 }
 
 .reserve-wrapper {
@@ -21,7 +22,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 50px;
-  margin-top: 15px;
+  margin-top: 40px;
   box-shadow: 0px 0px 4px black;
 }
 
@@ -29,6 +30,7 @@
   display: flex;
   width: 90%;
   justify-content: space-between;
+  align-items: center;
 }
 
 #reserve-rating-wrapper {
@@ -36,7 +38,7 @@
   align-items: center;
 }
 
-#price {
+#detail-price {
   font-weight: 600;
   font-size: 20px;
 }
@@ -68,10 +70,11 @@
 #reserve-button {
   background-color: rgb(241, 92, 92);
   color: white;
-  font-size: 10px;
+  font-size: 15px;
   width: 90%;
   box-shadow: 1px 2px 4px black;
   padding: 10px;
+  margin-top: 11px;
 }
 
 #reserve-button:hover {
@@ -92,10 +95,12 @@
   "i0 i0 i1 i2"
   "i0 i0 i3 i4";
   margin-top: 15px;
+  box-shadow: 3px 5px 9px rgb(74, 73, 73);
 }
 
 .details-image {
   padding: 2px;
+  /* box-shadow: 0px 0px 4px gray; */
 }
 
 #image0 {

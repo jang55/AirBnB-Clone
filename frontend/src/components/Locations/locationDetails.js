@@ -75,7 +75,7 @@ function LocationDetails() {
               <div className="reserve-wrapper">
                 <div className="price-reviewCount">
                   <div>
-                    <span id="price">{`$${spot.price}.00 `}</span>
+                    <span id="detail-price">{`$${spot.price}.00 `}</span>
                     <span>night</span>
                   </div>
                   <div id="reserve-rating-wrapper">

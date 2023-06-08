@@ -10,9 +10,9 @@ function ReviewDetailCard({ review }) {
 
   return (
     <>
-      <h4>{review.User?.firstName}</h4>
-      <p>{createdDate}</p>
-      <p>{review?.review}</p>
+      <h4 className="reviews-name">{review.User?.firstName}</h4>
+      <p className="reviews-date">{createdDate}</p>
+      <p className="reviews-review">{review?.review}</p>
       <div className="review-buttons-container">
         <div>
           <UpdateReviewModal review={review} pageType={"detail"} />

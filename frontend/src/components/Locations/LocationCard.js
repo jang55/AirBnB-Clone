@@ -26,7 +26,7 @@ function LocationCard({ spot }) {
         </span>
       )}
 
-      <img src={spot.previewImage} alt={`${spot.name}`} />
+      <img src={spot.previewImage} alt={`${spot.name}`} className="landing-page-images"/>
       <div className="description-wrapper">
         <span className="description-link">{`${spot.city}, ${spot.state}`}</span>
         <div>

@@ -79,6 +79,10 @@
   background-color: rgb(209, 215, 215);
 }
 
+.landing-page-images {
+  box-shadow: 0px 0px 7px gray;
+}
+
 /*************************************************************/
 
 .tooltip {

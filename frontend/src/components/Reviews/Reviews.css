@@ -4,12 +4,28 @@
 }
 
 .review-wrapper {
-  border-bottom: 1px dotted black;
-  background-color: rgb(207, 207, 204);
-  padding: 10px;
+  /* border-bottom: 1px dotted black; */
+  background-color: rgb(229, 229, 226);
+  padding: 0px 20px 10px 20px;
   margin: 8px;
-  border-radius: 12px;
-  width: 500px;
+  border-radius: 8px;
+  width: 70%;
+  box-shadow: 0px 0px 4px gray;
+}
+
+.reviews-name{
+  margin: 8px 0px 12px 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.reviews-date{
+  color: gray;
+  font-size: 13px;
+}
+
+.reviews-name{
+
 }
 
 /***************************************/
