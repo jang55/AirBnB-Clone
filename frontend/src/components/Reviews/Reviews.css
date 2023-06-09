@@ -12,6 +12,19 @@
   width: 70%;
   box-shadow: 0px 0px 4px gray;
 }
+.reviews-name-stars-container {
+  display: flex;
+  align-items: center;
+}
+
+.each-star-rating-container {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.reviews-stars-rating {
+  font-size: 20px;
+}
 
 .reviews-name{
   margin: 8px 0px 12px 0px;
