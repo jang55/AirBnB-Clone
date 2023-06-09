@@ -12,13 +12,13 @@ function ManageReviewsCard({ review, pageType }) {
 
   return (
     <>
-      <h4>
+      <h4 className="manage-reviews-title">
         <NavLink to={`/locations/${review?.Spot.id}`}>
           {review?.Spot.name}
         </NavLink>
       </h4>
-      <p>{createdDate}</p>
-      <p>{review?.review}</p>
+      <p className="manage-reviews-date">{createdDate}</p>
+      <p className="manage-reviews-reviews">{review?.review}</p>
       <div className="review-buttons-container">
         <div>
           <UpdateReviewModal review={review} pageType={pageType} />

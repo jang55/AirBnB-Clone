@@ -116,6 +116,26 @@
 /*****************************************************************/
 /** ManageLocation.js**/
 
+.manage-location-no-spot-message {
+  margin-bottom: 20px;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+
+.create-spot-from-manage-location {
+  background-color: rgb(207, 202, 202);
+  /* color: white; */
+  margin: 5px;
+  padding: 5px 4px;
+  box-shadow: 1px 1px 3px black;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.create-spot-from-manage-location:hover {
+  background-color: rgb(161, 158, 158);
+}
+
 .manage-location-update-button {
   background-color: rgb(207, 202, 202);
   /* color: white; */

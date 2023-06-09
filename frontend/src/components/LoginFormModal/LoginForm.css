@@ -38,7 +38,7 @@
   align-self: center;
   background-color: rgb(241, 92, 92);
   color: white;
-  font-size: 10px;
+  font-size: 15px;
   width: 85%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
@@ -48,7 +48,7 @@
   border-radius: 5px;
   margin-top: 10px;
   align-self: center;
-  font-size: 10px;
+  font-size: 15px;
   width: 85%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
@@ -64,8 +64,9 @@ label {
 
 .login-form input {
   margin: 5px;
-  width: 280px;
+  width: 300px;
   background-color: rgb(209, 228, 241);
+  font-size: 20px;
 }
 
 .login-form input:focus {

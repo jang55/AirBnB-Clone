@@ -27,11 +27,11 @@
 .signup-submit-button {
   width: 100px;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: 30px;
   align-self: center;
   background-color: rgb(241, 92, 92);
   color: white;
-  font-size: 10px;
+  font-size: 15px;
   width: 85%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
@@ -42,7 +42,7 @@
   border-radius: 5px;
   margin-top: 10px;
   align-self: center;
-  font-size: 10px;
+  font-size: 15px;
   width: 85%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
@@ -54,12 +54,13 @@ label {
 
 .signup-form input {
   margin: 5px;
-  width: 280px;
+  width: 300px;
   border: 2px solid black;
   background-color: rgb(209, 228, 241);
   box-shadow: 0px 0px 2px rgb(124, 63, 63);
   margin: 0px;
   padding: 0px;
+  font-size: 20px;
 }
 
 .signup-form input:focus {
@@ -74,7 +75,7 @@ label {
 
 .signup-header {
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
   padding-bottom: 0px;
 }
 

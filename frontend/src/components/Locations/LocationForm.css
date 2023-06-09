@@ -20,6 +20,8 @@
   border: 2px solid black;
   background-color: rgb(209, 228, 241);
   width: 96%;
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .create-form-inputs:focus {

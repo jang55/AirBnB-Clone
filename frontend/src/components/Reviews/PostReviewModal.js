@@ -28,7 +28,7 @@ function PostReviewModal({ locationId, location }) {
       {user && !review && !spotOwner && (
         <div>
           <button
-            className="post-review-button"
+            className="post-review-button-open-modal"
             onClick={() => setShowModal(true)}
           >
             Post Your Review

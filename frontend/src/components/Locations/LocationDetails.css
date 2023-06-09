@@ -95,12 +95,12 @@
   "i0 i0 i1 i2"
   "i0 i0 i3 i4";
   margin-top: 15px;
-  box-shadow: 3px 5px 9px rgb(74, 73, 73);
+  /* box-shadow: 3px 5px 9px rgb(74, 73, 73); */
 }
 
 .details-image {
   padding: 2px;
-  /* box-shadow: 0px 0px 4px gray; */
+  box-shadow: 2px 5px 9px rgb(74, 73, 73);
 }
 
 #image0 {
