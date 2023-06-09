@@ -24,9 +24,16 @@ function LocationForm() {
   const [isRequired, setIsRequired] = useState(false);
   const [errors, setErrors] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
+  const [createdSpot, setCreatedSpot] = useState({});
 
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (Object.values(createdSpot).length) {
+      history.push(`/locations/${createdSpot.id}`);
+    }
+  }, [createdSpot, history]);
 
   useEffect(() => {
     if (
@@ -126,7 +133,9 @@ function LocationForm() {
 
       // Add images to spot
       if (newSpot && Object.values(newErrors).length === 0) {
-        Object.keys(imgs).forEach(async (imgKey) => {
+        const imgKeys = Object.keys(imgs);
+        for (let i = 0; i < imgKeys.length; i++) {
+          const imgKey = imgKeys[i];
           const imgURL = imgs[imgKey];
           if (imgURL.length > 0) {
             let imageBody;
@@ -135,16 +144,18 @@ function LocationForm() {
             } else {
               imageBody = { url: imgURL, preview: false };
             }
-            await dispatch(
-              imageActions.addSpotImageThunk(imageBody, newSpot.id)
-            ).catch(async (err) => {
+            try {
+              await dispatch(
+                imageActions.addSpotImageThunk(imageBody, newSpot.id)
+              );
+            } catch (err) {
               const data = await err.json();
               if (data && data.errors) {
                 newErrors = { ...newErrors, [imgKey]: { ...data.errors } };
               }
-            });
+            }
           }
-        });
+        }
       }
     };
 
@@ -159,7 +170,7 @@ function LocationForm() {
         return;
       }
 
-      history.push(`/locations/${newSpot.id}`);
+      setCreatedSpot(newSpot);
     }
   };
 
