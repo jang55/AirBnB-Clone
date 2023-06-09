@@ -32,7 +32,7 @@
   background-color: rgb(241, 92, 92);
   color: white;
   font-size: 15px;
-  width: 85%;
+  width: 100%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
 }
@@ -43,7 +43,7 @@
   margin-top: 30px;
   align-self: center;
   font-size: 15px;
-  width: 85%;
+  width: 100%;
   box-shadow: 0px 1px 4px black;
   padding: 10px;
 }
@@ -52,7 +52,7 @@ label {
   margin: 7px;
 }
 
-.signup-form input {
+.signup-inputs {
   margin: 5px;
   width: 300px;
   border: 2px solid black;
@@ -63,8 +63,42 @@ label {
   font-size: 20px;
 }
 
-.signup-form input:focus {
+.signup-inputs:focus {
   background-color: white;
+}
+
+.sign-up-checkboxes {
+  margin: 20px 0px;
+} 
+
+.sign-up-checkboxes input {
+  margin: 5px
+}
+
+.news-text {
+  font-size: 15px;
+}
+
+.have-an-account-text-container {
+  border-top: 2px solid black;
+  margin-top: 15px;
+  padding-top: 30px;
+  padding-left: 7px;
+  padding-bottom: 10px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.have-an-account-text-container span {
+  font-size: 13px;
+}
+
+.click-here-text {
+  cursor: pointer;
+}
+.click-here-text:hover {
+  color: gray;
 }
 
 .signup-container {
