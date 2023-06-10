@@ -79,6 +79,14 @@ label {
   font-size: 15px;
 }
 
+#terms-conditions {
+  cursor: pointer;
+}
+
+#terms-conditions:hover {
+  color: gray;
+}
+
 .have-an-account-text-container {
   border-top: 2px solid black;
   margin-top: 15px;

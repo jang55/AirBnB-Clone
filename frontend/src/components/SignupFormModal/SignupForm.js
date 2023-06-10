@@ -20,9 +20,10 @@ function SignupForm() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  useEffect(() => {
-    console.log(agreeToTerms);
-  }, [agreeToTerms]);
+  const agreeToTermsHandler = (e) => {
+    e.preventDefault();
+    alert("Do you agree to have enjoy this site?");
+  }
 
   useEffect(() => {
     if (
@@ -164,7 +165,7 @@ function SignupForm() {
                   onChange={(e) => setAgreeToTerms(!agreeToTerms)}
                 />
                 <label className="news-text">
-                  Agree to Terms and Conditions
+                  Agree to <span onClick={agreeToTermsHandler} id="terms-conditions">Terms and Conditions</span>
                 </label>
               </div>
               <div>
