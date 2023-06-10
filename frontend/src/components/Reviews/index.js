@@ -40,7 +40,7 @@ function Reviews({ locationId, location }) {
     <div className="review-container">
       {isLoading && reverseOrderAllReviews.length === 0 ? (
         !spotOwner ? (
-          <p>Be the first to post a review!</p>
+          user && <p>Be the first to post a review!</p>
         ) : (
           ""
         )
