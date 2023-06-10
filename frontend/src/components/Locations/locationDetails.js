@@ -70,7 +70,7 @@ function LocationDetails() {
             <div className="details-description-reserve-wrapper">
               <div className="details-description-wrapper">
                 <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
-                <p>{spot.description}</p>
+                <p className="details-description">{spot.description}</p>
               </div>
               <div className="reserve-wrapper">
                 <div className="price-reviewCount">

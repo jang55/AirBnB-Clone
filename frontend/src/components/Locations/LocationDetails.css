@@ -10,6 +10,11 @@
   /* width: 90%; */
 }
 
+.details-description {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .reserve-wrapper {
   border: 2px solid black;
   width: 300px;
