@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px 30px;
+  margin-right: 20px;
 }
 /* 
 @media (min-width: 2000px) {
@@ -21,7 +22,7 @@
 @media (min-width: 1051px) and (max-width: 1310px) {
   .spot-container {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: auto;
+    margin-right: 20px;
   }
 }
 
