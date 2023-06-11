@@ -101,7 +101,7 @@ function LocationDetails() {
                 {/* <button id="reserve-button" onClick={reserveHandler}>
                   Reserve
                 </button> */}
-                <ReserveBookingModal />
+                <ReserveBookingModal spot={spot}/>
               </div>
             </div>
           </div>

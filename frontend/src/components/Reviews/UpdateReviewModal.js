@@ -17,7 +17,7 @@ function UpdateReviewModal({ review, pageType }) {
             className="update-review-button"
             onClick={() => setShowModal(true)}
           >
-            Update
+            Edit
           </button>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>

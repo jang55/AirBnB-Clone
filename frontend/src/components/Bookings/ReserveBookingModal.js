@@ -3,7 +3,7 @@ import { Modal } from "../../context/Modal";
 import ReserveBooking from "./ReserveBooking";
 
 
-function ReserveBookingModal() {
+function ReserveBookingModal({spot}) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -11,7 +11,7 @@ function ReserveBookingModal() {
             <button id="reserve-button" onClick={() => setShowModal(true)} >Reserve</button>
             {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-                <ReserveBooking />
+                <ReserveBooking spot={spot}/>
             </Modal>
           )}
         </>

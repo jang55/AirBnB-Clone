@@ -48,7 +48,7 @@ function ManageLocations({ isLoaded }) {
                   className="manage-location-update-button"
                   onClick={() => updateButtonHandler(spot.id)}
                 >
-                  Update
+                  Edit
                 </button>
                 <DeleteLocationModal locationId={spot.id} />
               </div>
