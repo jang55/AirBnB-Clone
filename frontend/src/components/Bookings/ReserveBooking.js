@@ -1,20 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as bookingActions from "../../store/bookingReducer";
 import "./ReserveBooking.css";
 
 function ReserveBooking({ spot }) {
   const dispatch = useDispatch();
-  const [startMonth, setStartMonth] = useState(new Date().toJSON().slice(5, 7));
-  const [startDay, setStartDay] = useState(new Date().toJSON().slice(8, 10));
-  const [startYear, setStartYear] = useState(new Date().toJSON().slice(0, 4));
-  const [endMonth, setEndMonth] = useState(new Date().toJSON().slice(5, 7));
-  const [endDay, setEndDay] = useState(new Date().toJSON().slice(8, 10));
-  const [endYear, setEndYear] = useState(new Date().toJSON().slice(0, 4));
+  const [dateArr, setDateArr] = useState([]);
+  const [startMonth, setStartMonth] = useState("");
+  const [startDay, setStartDay] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endMonth, setEndMonth] = useState("");
+  const [endDay, setEndDay] = useState("");
+  const [endYear, setEndYear] = useState("");
   const [successful, setSuccesful] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const dateSplitIntoArr = new Date().toLocaleDateString().split("/");
+        setDateArr(dateSplitIntoArr)
+    }, []);
+
+    useEffect(() => {
+        if(dateArr.length > 0) {
+            setStartMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`)
+            setStartDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`)
+            setStartYear(dateArr[2])
+            setEndMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`)
+            setEndDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`)
+            setEndYear(dateArr[2])
+        }
+    }, [dateArr]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
