@@ -11,7 +11,7 @@ function ReserveBookingModal({spot}) {
             <button id="reserve-button" onClick={() => setShowModal(true)} >Reserve</button>
             {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-                <ReserveBooking spot={spot}/>
+                <ReserveBooking spot={spot} setShowModal={setShowModal}/>
             </Modal>
           )}
         </>

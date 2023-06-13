@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as bookingActions from "../../store/bookingReducer";
 import "./ReserveBooking.css";
 
-function ReserveBooking({ spot }) {
+function ReserveBooking({ spot, setShowModal }) {
   const dispatch = useDispatch();
   const [dateArr, setDateArr] = useState([]);
   const [startMonth, setStartMonth] = useState("");
@@ -17,21 +17,21 @@ function ReserveBooking({ spot }) {
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        const dateSplitIntoArr = new Date().toLocaleDateString().split("/");
-        setDateArr(dateSplitIntoArr)
-    }, []);
+  useEffect(() => {
+    const dateSplitIntoArr = new Date().toLocaleDateString().split("/");
+    setDateArr(dateSplitIntoArr);
+  }, []);
 
-    useEffect(() => {
-        if(dateArr.length > 0) {
-            setStartMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`)
-            setStartDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`)
-            setStartYear(dateArr[2])
-            setEndMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`)
-            setEndDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`)
-            setEndYear(dateArr[2])
-        }
-    }, [dateArr]);
+  useEffect(() => {
+    if (dateArr.length > 0) {
+      setStartMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`);
+      setStartDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`);
+      setStartYear(dateArr[2]);
+      setEndMonth(dateArr[0].length === 2 ? dateArr[0] : `0${dateArr[0]}`);
+      setEndDay(dateArr[1].length === 2 ? dateArr[1] : `0${dateArr[1]}`);
+      setEndYear(dateArr[2]);
+    }
+  }, [dateArr]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -68,166 +68,210 @@ function ReserveBooking({ spot }) {
 
   return (
     <>
-      {!successful && (<div className="booking-form-container">
-        <h2>Pick your dates to book.</h2>
-        <form onSubmit={onSubmitHandler} className="form-wrapper">
-          <div className="start-date-wrapper">
-            <label className="start-date-label">Start Date:</label>
-            <select
-              value={startMonth}
-              onChange={(e) => setStartMonth(e.target.value)}
-            >
-              <option value="" disabled>
-                Month
-              </option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
-            <select
-              value={startDay}
-              onChange={(e) => setStartDay(e.target.value)}
-            >
-              <option value="" disabled>
-                Day
-              </option>
-              <option value={"01"}>01</option>
-              <option value={"02"}>02</option>
-              <option value={"03"}>03</option>
-              <option value={"04"}>04</option>
-              <option value={"05"}>05</option>
-              <option value={"06"}>06</option>
-              <option value={"07"}>07</option>
-              <option value={"08"}>08</option>
-              <option value={"09"}>09</option>
-              <option value={"10"}>10</option>
-              <option value={"11"}>11</option>
-              <option value={"12"}>12</option>
-              <option value={"12"}>12</option>
-              <option value={"13"}>13</option>
-              <option value={"14"}>14</option>
-              <option value={"15"}>15</option>
-              <option value={"16"}>16</option>
-              <option value={"17"}>17</option>
-              <option value={"18"}>18</option>
-              <option value={"19"}>19</option>
-              <option value={"20"}>20</option>
-              <option value={"21"}>21</option>
-              <option value={"22"}>22</option>
-              <option value={"23"}>23</option>
-              <option value={"24"}>24</option>
-              <option value={"25"}>25</option>
-              <option value={"26"}>26</option>
-              <option value={"27"}>27</option>
-              <option value={"28"}>28</option>
-              <option value={"29"}>29</option>
-              <option value={"30"}>30</option>
-              <option value={"31"}>31</option>
-            </select>
-            <select
-              value={startYear}
-              onChange={(e) => setStartYear(e.target.value)}
-            >
-              <option value="" disabled>
-                Year
-              </option>
-              <option value={"2023"}>2023</option>
-              <option value={"2024"}>2024</option>
-              <option value={"2025"}>2025</option>
-              <option value={"2026"}>2026</option>
-              <option value={"2027"}>2027</option>
-              <option value={"2028"}>2028</option>
-            </select>
-            {errors.startDate && <p className="errors booking-errors">{errors.startDate}</p>}
-          </div>
-          <div className="end-date-wrapper">
-            <label className="end-date-label">End Date:</label>
-            <select
-              value={endMonth}
-              onChange={(e) => setEndMonth(e.target.value)}
-            >
-              <option value="" disabled>
-                Month
-              </option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
-            <select value={endDay} onChange={(e) => setEndDay(e.target.value)}>
-              <option value="" disabled>
-                Day
-              </option>
-              <option value={"01"}>01</option>
-              <option value={"02"}>02</option>
-              <option value={"03"}>03</option>
-              <option value={"04"}>04</option>
-              <option value={"05"}>05</option>
-              <option value={"06"}>06</option>
-              <option value={"07"}>07</option>
-              <option value={"08"}>08</option>
-              <option value={"09"}>09</option>
-              <option value={"10"}>10</option>
-              <option value={"11"}>11</option>
-              <option value={"12"}>12</option>
-              <option value={"12"}>12</option>
-              <option value={"13"}>13</option>
-              <option value={"14"}>14</option>
-              <option value={"15"}>15</option>
-              <option value={"16"}>16</option>
-              <option value={"17"}>17</option>
-              <option value={"18"}>18</option>
-              <option value={"19"}>19</option>
-              <option value={"20"}>20</option>
-              <option value={"21"}>21</option>
-              <option value={"22"}>22</option>
-              <option value={"23"}>23</option>
-              <option value={"24"}>24</option>
-              <option value={"25"}>25</option>
-              <option value={"26"}>26</option>
-              <option value={"27"}>27</option>
-              <option value={"28"}>28</option>
-              <option value={"29"}>29</option>
-              <option value={"30"}>30</option>
-              <option value={"31"}>31</option>
-            </select>
-            <select
-              value={endYear}
-              onChange={(e) => setEndYear(e.target.value)}
-            >
-              <option value="" disabled>
-                Year
-              </option>
-              <option value={"2023"}>2023</option>
-              <option value={"2024"}>2024</option>
-              <option value={"2025"}>2025</option>
-              <option value={"2026"}>2026</option>
-              <option value={"2027"}>2027</option>
-              <option value={"2028"}>2028</option>
-            </select>
-            {errors.endDate && <p className="errors booking-errors">{errors.endDate}</p>}
-          </div>
-          <button type="submit" className="booking-submit-button">Submit Dates</button>
-        </form>
-      </div>)}
-      {successful && <h2>{`Successfully Booked for dates starting on ${startDate} and ending on ${endDate}`}</h2>}
+      {!successful && (
+        <div className="booking-form-container">
+          <form onSubmit={onSubmitHandler} className="form-wrapper">
+            <h2>Please pick your dates to reserve.</h2>
+            <div className="start-date-wrapper">
+              <label className="start-date-label">Start Date:</label>
+              <select
+                value={startMonth}
+                onChange={(e) => setStartMonth(e.target.value)}
+              >
+                <option value="" disabled>
+                  Month
+                </option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select
+                value={startDay}
+                onChange={(e) => setStartDay(e.target.value)}
+              >
+                <option value="" disabled>
+                  Day
+                </option>
+                <option value={"01"}>01</option>
+                <option value={"02"}>02</option>
+                <option value={"03"}>03</option>
+                <option value={"04"}>04</option>
+                <option value={"05"}>05</option>
+                <option value={"06"}>06</option>
+                <option value={"07"}>07</option>
+                <option value={"08"}>08</option>
+                <option value={"09"}>09</option>
+                <option value={"10"}>10</option>
+                <option value={"11"}>11</option>
+                <option value={"12"}>12</option>
+                <option value={"12"}>12</option>
+                <option value={"13"}>13</option>
+                <option value={"14"}>14</option>
+                <option value={"15"}>15</option>
+                <option value={"16"}>16</option>
+                <option value={"17"}>17</option>
+                <option value={"18"}>18</option>
+                <option value={"19"}>19</option>
+                <option value={"20"}>20</option>
+                <option value={"21"}>21</option>
+                <option value={"22"}>22</option>
+                <option value={"23"}>23</option>
+                <option value={"24"}>24</option>
+                <option value={"25"}>25</option>
+                <option value={"26"}>26</option>
+                <option value={"27"}>27</option>
+                <option value={"28"}>28</option>
+                {!(startMonth === "02") && <option value={"29"}>29</option>}
+                {!(startMonth === "02") && <option value={"30"}>30</option>}
+                {!(
+                  startMonth === "02" ||
+                  startMonth === "04" ||
+                  startMonth === "06" ||
+                  startMonth === "09" ||
+                  startMonth === "11" ||
+                  startMonth === "04"
+                ) && <option value={"31"}>31</option>}
+              </select>
+              <select
+                value={startYear}
+                onChange={(e) => setStartYear(e.target.value)}
+              >
+                <option value="" disabled>
+                  Year
+                </option>
+                <option value={"2023"}>2023</option>
+                <option value={"2024"}>2024</option>
+                <option value={"2025"}>2025</option>
+                <option value={"2026"}>2026</option>
+                <option value={"2027"}>2027</option>
+                <option value={"2028"}>2028</option>
+              </select>
+              {errors.startDate && (
+                <p className="errors booking-errors">{errors.startDate}</p>
+              )}
+              {errors.startDay && (
+                <p className="errors booking-errors">{errors.startDay}</p>
+              )}
+            </div>
+            <div className="end-date-wrapper">
+              <label className="end-date-label">End Date:</label>
+              <select
+                value={endMonth}
+                onChange={(e) => setEndMonth(e.target.value)}
+              >
+                <option value="" disabled>
+                  Month
+                </option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+              <select
+                value={endDay}
+                onChange={(e) => setEndDay(e.target.value)}
+              >
+                <option value="" disabled>
+                  Day
+                </option>
+                <option value={"01"}>01</option>
+                <option value={"02"}>02</option>
+                <option value={"03"}>03</option>
+                <option value={"04"}>04</option>
+                <option value={"05"}>05</option>
+                <option value={"06"}>06</option>
+                <option value={"07"}>07</option>
+                <option value={"08"}>08</option>
+                <option value={"09"}>09</option>
+                <option value={"10"}>10</option>
+                <option value={"11"}>11</option>
+                <option value={"12"}>12</option>
+                <option value={"12"}>12</option>
+                <option value={"13"}>13</option>
+                <option value={"14"}>14</option>
+                <option value={"15"}>15</option>
+                <option value={"16"}>16</option>
+                <option value={"17"}>17</option>
+                <option value={"18"}>18</option>
+                <option value={"19"}>19</option>
+                <option value={"20"}>20</option>
+                <option value={"21"}>21</option>
+                <option value={"22"}>22</option>
+                <option value={"23"}>23</option>
+                <option value={"24"}>24</option>
+                <option value={"25"}>25</option>
+                <option value={"26"}>26</option>
+                <option value={"27"}>27</option>
+                <option value={"28"}>28</option>
+                {!(endMonth === "02") && <option value={"29"}>29</option>}
+                {!(endMonth === "02") && <option value={"30"}>30</option>}
+                {!(
+                  endMonth === "02" ||
+                  endMonth === "04" ||
+                  endMonth === "06" ||
+                  endMonth === "09" ||
+                  endMonth === "11" ||
+                  endMonth === "04"
+                ) && <option value={"31"}>31</option>}
+              </select>
+              <select
+                value={endYear}
+                onChange={(e) => setEndYear(e.target.value)}
+              >
+                <option value="" disabled>
+                  Year
+                </option>
+                <option value={"2023"}>2023</option>
+                <option value={"2024"}>2024</option>
+                <option value={"2025"}>2025</option>
+                <option value={"2026"}>2026</option>
+                <option value={"2027"}>2027</option>
+                <option value={"2028"}>2028</option>
+              </select>
+              {errors.endDate && (
+                <p className="errors booking-errors">{errors.endDate}</p>
+              )}
+              {errors.endDay && (
+                <p className="errors booking-errors">{errors.endDay}</p>
+              )}
+            </div>
+            <button type="submit" className="booking-submit-button">
+              Submit Dates
+            </button>
+          </form>
+        </div>
+      )}
+      {successful && (
+        <div className="success-booking-message-container">
+          <h4>{`Dates successfully reserved for ${new Date(startDate)
+            .toString()
+            .slice(0, 10)}, ${new Date(startDate)
+            .toString()
+            .slice(11, 15)} to ${new Date(endDate)
+            .toString()
+            .slice(0, 10)}, ${new Date(endDate).toString().slice(11, 15)}`}</h4>
+          <button className="ok-button" onClick={() => setShowModal(false)}>
+            OK
+          </button>
+        </div>
+      )}
     </>
   );
 }
