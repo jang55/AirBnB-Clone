@@ -82,7 +82,6 @@
 }
 
 #manage-reviews-link {
-  border-bottom: 1px solid black;
   padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -90,6 +89,22 @@
 
 #manage-reviews-link:hover {
   background-color: rgb(197, 202, 202);
+}
+
+#manage-bookings-link {
+  border-bottom: 1px solid black;
+  padding-right: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#manage-bookings-link:hover {
+  background-color: rgb(197, 202, 202);
+}
+
+#manage-bookings-link a {
+  padding-left: 10px;
+  width: 120px;
 }
 
 .menu-wrapper li button {
