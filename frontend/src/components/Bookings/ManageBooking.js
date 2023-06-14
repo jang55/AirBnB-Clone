@@ -1,6 +1,7 @@
 import CurrentUserBookingCard from "./CurrentUserBookingCard";
 import * as bookingActions from "../../store/bookingReducer";
 import DeleteBookingModal from "./DeleteBookingModal";
+import UpdatebookingModal from "./UpdateBookingModal";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -41,6 +42,7 @@ function ManageBookings({ isLoaded }) {
                 <CurrentUserBookingCard booking={booking} />
               </NavLink>
               <div>
+                <UpdatebookingModal booking={booking}/>
                 <DeleteBookingModal booking={booking}/>
               </div>
             </div>
