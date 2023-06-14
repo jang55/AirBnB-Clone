@@ -1,5 +1,6 @@
 import CurrentUserBookingCard from "./CurrentUserBookingCard";
 import * as bookingActions from "../../store/bookingReducer";
+import DeleteBookingModal from "./DeleteBookingModal";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -9,7 +10,6 @@ function ManageBookings({ isLoaded }) {
   const dispatch = useDispatch();
   const bookingsState = useSelector((state) => state.bookingState);
   const [allBookings, setAllBookings] = useState([]);
-
 
   useEffect(() => {
     (async () => {
@@ -21,9 +21,9 @@ function ManageBookings({ isLoaded }) {
     setAllBookings(Object.values(bookingsState));
   }, [bookingsState]);
 
-//   useEffect(() => {
-//     console.log(allBookings);
-//   }, [allBookings]);
+  //   useEffect(() => {
+  //     console.log(allBookings);
+  //   }, [allBookings]);
 
   return (
     <>
@@ -35,13 +35,16 @@ function ManageBookings({ isLoaded }) {
       )}
       {isLoaded && (
         <nav className="booking-container">
-          {allBookings.map((booking, i) => {
-            return <div key={`${booking.id}${i}`}>
+          {allBookings.map((booking, i) => (
+            <div key={`${booking.id}${i}`} className={"spot-card"}>
               <NavLink to={`/locations/${booking.spotId}`}>
                 <CurrentUserBookingCard booking={booking} />
               </NavLink>
-            </div>;
-          })}
+              <div>
+                <DeleteBookingModal booking={booking}/>
+              </div>
+            </div>
+          ))}
         </nav>
       )}
     </>

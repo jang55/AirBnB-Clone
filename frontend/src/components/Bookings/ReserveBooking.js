@@ -54,7 +54,6 @@ function ReserveBooking({ spot, setShowModal }) {
         bookingActions.createBookingThunk(formInfo, spot.id)
       );
     } catch (err) {
-      console.log(err);
       const data = await err.json();
       if (data && data.errors) {
         setErrors(data.errors);

@@ -31,8 +31,15 @@ function ManageLocations({ isLoaded }) {
       <h1>Manage Your Spots</h1>
       {allSpots.length === 0 && (
         <div>
-          <h3 className="manage-location-no-spot-message">You have no Spots yet! Create a new Spot!</h3>
-          <button className="create-spot-from-manage-location" onClick={createButtonHandler}>Create a New Spot</button>
+          <h3 className="manage-location-no-spot-message">
+            You have no Spots yet! Create a new Spot!
+          </h3>
+          <button
+            className="create-spot-from-manage-location"
+            onClick={createButtonHandler}
+          >
+            Create a New Spot
+          </button>
         </div>
       )}
       {isLoaded && (

@@ -94,7 +94,7 @@ export const createBookingThunk = (booking, spotId) => async (dispatch) => {
 
     if(res.ok) {
         const booking = await res.json();
-        dispatch(addBookingAction(booking));
+        dispatch(loadUserBookingsThunk());
         return booking;
     }
 }

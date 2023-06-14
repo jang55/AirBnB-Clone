@@ -1,0 +1,78 @@
+.booking-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px 30px;
+    margin-right: 20px;
+  }
+
+  @media (min-width: 1311px) {
+    .booking-container {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      /* margin: 10px 80px; */
+    }
+  }
+  
+  @media (min-width: 1051px) and (max-width: 1310px) {
+    .booking-container {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-right: 20px;
+    }
+  }
+  
+  @media (min-width: 716px) and (max-width: 1139px) {
+    .booking-container {
+      grid-template-columns: repeat(2, minmax(0, 3fr));
+    }
+  
+    .spot-card {
+      max-width: 425px;
+      min-width: 375;
+      margin: auto;
+    }
+  }
+  
+  @media (max-width: 715px) {
+    .booking-container {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  
+    .spot-card {
+      max-width: 400px;
+      /* min-width: 400px; */
+      margin: auto;
+    }
+  }
+  
+  .spot-card {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 350px; */
+    /* background-color: red; */
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    flex-direction: column;
+  }
+  
+  .spot-card a {
+    color: black;
+    text-decoration: none;
+    max-width: 100%;
+    /* background-color: green; */
+    width: 100%;
+  }
+  
+  .spot-card a.manage-location-update-button {
+    color: white;
+  }
+  
+  .spot-card:hover {
+    background-color: rgb(209, 215, 215);
+  }
+  
+  .landing-page-images {
+    box-shadow: 0px 0px 7px gray;
+  }
