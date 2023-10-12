@@ -15,6 +15,10 @@
     margin: 8px;
 }
 
+.booking-form-h2 {
+    font-size: 20px;
+}
+
 .start-date-wrapper, .end-date-wrapper {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -48,18 +52,26 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    /* width: 90%; */
     margin: auto;
+    font-size: 18px;
 }
 
-.success-booking-message-container h4 {
+.success-booking-h4 {
+    margin: 5px;
+}
+
+.success-booking-message-wrapper {
     background-color: rgb(237, 233, 229);
-    padding: 15px;
+    padding: 7px 15px;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 .ok-button {
-    width: 50px;
+    width: 70px;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 .booking-errors {
