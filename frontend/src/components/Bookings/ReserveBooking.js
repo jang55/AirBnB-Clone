@@ -244,6 +244,13 @@ function ReserveBooking({ spot, setShowModal }) {
                 <option value={"2027"}>2027</option>
                 <option value={"2028"}>2028</option>
               </select>
+              {/* <input type="date" /> */}
+              {/* <input
+        type="text"
+        onChange={(e) => console.log(e.target.value)}
+        onFocus={(e) => (e.target.type = "date")}
+        onBlur={(e) => (e.target.type = "text")}
+      /> */}
               {errors.endDate && (
                 <p className="errors booking-errors">{errors.endDate}</p>
               )}
