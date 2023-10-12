@@ -82,6 +82,7 @@ function ReserveBooking({ spot, setShowModal }) {
               <select
                 value={startMonth}
                 onChange={(e) => setStartMonth(e.target.value)}
+                
               >
                 <option value="" disabled>
                   Month
@@ -102,8 +103,9 @@ function ReserveBooking({ spot, setShowModal }) {
               <select
                 value={startDay}
                 onChange={(e) => setStartDay(e.target.value)}
-                menuPlacement={"bottom"}
-                minMenuHeight={100}
+                // menuPlacement="bottom"
+                // maxMenuHeight={30}
+                className="booking-start-day-select"
               >
                 <option value="" disabled>
                   Day
@@ -119,7 +121,6 @@ function ReserveBooking({ spot, setShowModal }) {
                 <option value={"09"}>09</option>
                 <option value={"10"}>10</option>
                 <option value={"11"}>11</option>
-                <option value={"12"}>12</option>
                 <option value={"12"}>12</option>
                 <option value={"13"}>13</option>
                 <option value={"14"}>14</option>

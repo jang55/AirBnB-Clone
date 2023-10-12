@@ -60,8 +60,8 @@ function CurrentUserBookingCard({ booking }) {
         </div>
         <div>
           <p>Reserved for:</p>
-          <p>Start Date: {startDate}</p>
-          <p>End Date: {endDate}</p>
+          <p>{`Start Date: ${startDate.slice(0, 10)}, ${startDate.slice(11, 15)}`}</p>
+          <p>{`End Date: ${endDate.slice(0, 10)}, ${endDate.slice(11, 15)}`}</p>
         </div>
       </div>
     </>
