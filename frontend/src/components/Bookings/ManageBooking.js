@@ -41,7 +41,7 @@ function ManageBookings({ isLoaded }) {
               <NavLink to={`/locations/${booking.spotId}`}>
                 <CurrentUserBookingCard booking={booking} />
               </NavLink>
-              <div>
+              <div className="booking-buttons-wrapper">
                 <UpdatebookingModal booking={booking}/>
                 <DeleteBookingModal booking={booking}/>
               </div>

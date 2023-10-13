@@ -8,7 +8,7 @@ function DeleteBookingModal({ booking }) {
   return (
     <>
       <button
-        className="manage-delete-delete-button"
+        className="delete-booking-button booking-function-buttons"
         onClick={() => setShowModal(true)}
       >
         Delete

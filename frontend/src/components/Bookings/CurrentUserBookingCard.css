@@ -56,7 +56,7 @@
     margin-top: 10px;
     flex-direction: column;
     border: 1px solid gray;
-    box-shadow: 0px 0px 5px 1px gray;
+    box-shadow: 0px 0px 4px 1px gray;
   }
   
   .spot-booking-card a {
@@ -78,3 +78,41 @@
   .landing-page-images {
     box-shadow: 0px 0px 7px gray;
   }
+
+  .booking-buttons-wrapper {
+    display: flex;
+  }
+
+  .booking-function-buttons {
+    width: 70px;
+    padding: 3px 10px;
+    margin: 5px;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 5px;
+    background-color: rgb(207, 202, 202);
+  }
+
+  .booking-function-buttons:hover {
+    background-color: rgb(186, 181, 181);
+  }
+
+  /* .update-booking-button {
+
+  }
+
+  .delete-booking-button {
+
+  } */
+
+.description-booking-dates-wrapper {
+  border-top: 1px solid gray;
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-booking-dates {
+  font-weight: bolder;
+}

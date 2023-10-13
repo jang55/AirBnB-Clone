@@ -58,10 +58,10 @@ function CurrentUserBookingCard({ booking }) {
           <span className="description-link">{`$${booking.Spot.price}.00 `}</span>
           <span>night</span>
         </div>
-        <div>
+        <div className="description-booking-dates-wrapper">
           <p>Reserved for:</p>
-          <p>{`Start Date: ${startDate.slice(0, 10)}, ${startDate.slice(11, 15)}`}</p>
-          <p>{`End Date: ${endDate.slice(0, 10)}, ${endDate.slice(11, 15)}`}</p>
+          <p>{`Check In: `} <span className="description-booking-dates">{startDate.slice(0, 10)}, {startDate.slice(11, 15)}</span></p>
+          <p>{`Check Out: `}<span className="description-booking-dates">{endDate.slice(0, 10)}, {endDate.slice(11, 15)}</span></p>
         </div>
       </div>
     </>
