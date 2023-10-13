@@ -16,7 +16,7 @@
 }
 
 .booking-form-h2 {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .start-date-wrapper, .end-date-wrapper {
@@ -37,8 +37,12 @@
     height: 10px;
 } */
 
+.start-date-label {
+    margin-right: 22px;
+}
+
 .end-date-label {
-    margin-right: 17px;
+    margin-right: 5px;
 }
 
 .booking-submit-button {

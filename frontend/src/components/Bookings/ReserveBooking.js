@@ -78,7 +78,7 @@ function ReserveBooking({ spot, setShowModal }) {
           <form onSubmit={onSubmitHandler} className="form-wrapper">
             <h2 className="booking-form-h2">Please pick your dates to reserve.</h2>
             <div className="start-date-wrapper">
-              <label className="start-date-label">Start Date:</label>
+              <label className="start-date-label">Check In:</label>
               <select
                 value={startMonth}
                 onChange={(e) => setStartMonth(e.target.value)}
@@ -171,7 +171,7 @@ function ReserveBooking({ spot, setShowModal }) {
               )}
             </div>
             <div className="end-date-wrapper">
-              <label className="end-date-label">End Date:</label>
+              <label className="end-date-label">Check Out:</label>
               <select
                 value={endMonth}
                 onChange={(e) => setEndMonth(e.target.value)}

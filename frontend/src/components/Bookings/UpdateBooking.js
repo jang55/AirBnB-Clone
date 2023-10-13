@@ -19,8 +19,14 @@ function UpdateBooking({ booking, setShowModal }) {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const dateSplitStartArr = new Date(booking.startDate).toLocaleDateString().split("/");
-    const dateSplitEndArr = new Date(booking.endDate).toLocaleDateString().split("/");
+    const startYear = booking.startDate.slice(0, 4)
+    const startMonth = Number(booking.startDate.slice(5, 7) - 1)
+    const startDay = booking.startDate.slice(8, 10)
+    const endYear = booking.endDate.slice(0, 4)
+    const endMonth = Number(booking.endDate.slice(5, 7) - 1)
+    const endDay = booking.endDate.slice(8, 10)
+    const dateSplitStartArr = new Date(startYear, startMonth, startDay).toLocaleDateString().split("/");
+    const dateSplitEndArr = new Date(endYear, endMonth, endDay).toLocaleDateString().split("/");
     setDateStartArr(dateSplitStartArr);
     setDateEndArr(dateSplitEndArr);
   }, [booking.startDate, booking.endDate]);
@@ -78,7 +84,7 @@ function UpdateBooking({ booking, setShowModal }) {
           <form onSubmit={onSubmitHandler} className="form-wrapper">
             <h2>Please pick your dates to update your reservations.</h2>
             <div className="start-date-wrapper">
-              <label className="start-date-label">Start Date:</label>
+              <label className="start-date-label">Check In:</label>
               <select
                 value={startMonth}
                 onChange={(e) => setStartMonth(e.target.value)}
@@ -167,7 +173,7 @@ function UpdateBooking({ booking, setShowModal }) {
               )}
             </div>
             <div className="end-date-wrapper">
-              <label className="end-date-label">End Date:</label>
+              <label className="end-date-label">Check Out:</label>
               <select
                 value={endMonth}
                 onChange={(e) => setEndMonth(e.target.value)}
