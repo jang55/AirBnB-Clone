@@ -37,7 +37,7 @@ function ManageBookings({ isLoaded }) {
       {isLoaded && (
         <nav className="booking-container">
           {allBookings.map((booking, i) => (
-            <div key={`${booking.id}${i}`} className={"spot-card"}>
+            <div key={`${booking.id}${i}`} className={"spot-booking-card"}>
               <NavLink to={`/locations/${booking.spotId}`}>
                 <CurrentUserBookingCard booking={booking} />
               </NavLink>
