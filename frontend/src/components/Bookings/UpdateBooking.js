@@ -16,6 +16,8 @@ function UpdateBooking({ booking, setShowModal }) {
   const [successful, setSuccesful] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [frontStartDate, setFrontStartDate] = useState("");
+  const [frontEndDate, setFrontEndDate] = useState("");
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -51,8 +53,12 @@ function UpdateBooking({ booking, setShowModal }) {
     const startDate = `${startYear}-${startMonth}-${startDay}`;
     const endDate = `${endYear}-${endMonth}-${endDay}`;
 
+    // sets the date to be made in the database
     setStartDate(startDate);
     setEndDate(endDate);
+    // sets the date to be shown in the frontend 
+    setFrontStartDate(`${startYear}, ${startMonth}, ${startDay}`)
+    setFrontEndDate(`${endYear}, ${endMonth}, ${endDay}`);
 
     const formInfo = {
       startDate,
@@ -270,15 +276,16 @@ function UpdateBooking({ booking, setShowModal }) {
       )}
       {successful && (
         <div className="success-booking-message-container">
-          <h4>{`Dates successfully reserved for ${new Date(startDate)
-            .toString()
-            .slice(0, 10)}, ${new Date(startDate)
-            .toString()
-            .slice(11, 15)} to ${new Date(endDate)
-            .toString()
-            .slice(0, 10)}, ${new Date(endDate).toString().slice(11, 15)}`}</h4>
+          <h4 className="success-booking-h4">{`Dates successfully updated for `}</h4>
+          <p>{`${new Date(frontStartDate)
+              .toString()
+              .slice(0, 10)}, ${new Date(frontStartDate)
+              .toString()
+              .slice(11, 15)} - ${new Date(frontEndDate)
+              .toString()
+              .slice(0, 10)}, ${new Date(frontEndDate).toString().slice(11, 15)}`}</p>
           <button className="ok-button" onClick={() => setShowModal(false)}>
-            OK
+            Close
           </button>
         </div>
       )}
