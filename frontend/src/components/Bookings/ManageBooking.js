@@ -41,10 +41,10 @@ function ManageBookings({ isLoaded }) {
               <NavLink to={`/locations/${booking.spotId}`}>
                 <CurrentUserBookingCard booking={booking} />
               </NavLink>
-              <div className="booking-buttons-wrapper">
+              {new Date(booking.endDate).getTime() > new Date().getTime() ? <div className="booking-buttons-wrapper">
                 <UpdatebookingModal booking={booking}/>
                 <DeleteBookingModal booking={booking}/>
-              </div>
+              </div> : <p>Out-of-date Reservation</p>}
             </div>
           ))}
         </nav>
