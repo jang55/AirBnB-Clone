@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Reviews from "../Reviews";
 import PostReviewModal from "../Reviews/PostReviewModal";
+import ReserveBookingModal from "../Bookings/ReserveBookingModal";
 import { useReview } from "../../context/ReviewContext";
 import "./LocationDetails.css";
 
@@ -42,9 +43,9 @@ function LocationDetails() {
   //   setDeleteReview(false);
   // }, [spot, setDeleteReview, setNewReview])
 
-  const reserveHandler = () => {
-    alert("Feature Coming Soon...");
-  };
+  // const reserveHandler = () => {
+  //   alert("Feature Coming Soon...");
+  // };
 
   return (
     <>
@@ -70,7 +71,7 @@ function LocationDetails() {
             <div className="details-description-reserve-wrapper">
               <div className="details-description-wrapper">
                 <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
-                <p>{spot.description}</p>
+                <p className="details-description">{spot.description}</p>
               </div>
               <div className="reserve-wrapper">
                 <div className="price-reviewCount">
@@ -97,9 +98,10 @@ function LocationDetails() {
                     </span>
                   </div>
                 </div>
-                <button id="reserve-button" onClick={reserveHandler}>
+                {/* <button id="reserve-button" onClick={reserveHandler}>
                   Reserve
-                </button>
+                </button> */}
+                <ReserveBookingModal spot={spot}/>
               </div>
             </div>
           </div>

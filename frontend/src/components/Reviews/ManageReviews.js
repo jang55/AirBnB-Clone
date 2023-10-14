@@ -19,7 +19,7 @@ function ManageReviews() {
 
   return (
     <>
-      <h1>Manage Reviews</h1>
+      <h1>Manage Your Reviews</h1>
       {isLoaded && 
         allReviews.map((review) => (
           <div key={review.id} className="currentUser-reviews-container">

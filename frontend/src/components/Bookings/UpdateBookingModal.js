@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import UpdateReview from "./UpdateReview";
-import { useSelector } from "react-redux";
+import UpdateBooking from "./UpdateBooking";
 
-function UpdateReviewModal({ review, pageType }) {
+function UpdatebookingModal({ booking,}) {
   const [showModal, setShowModal] = useState(false);
-  const user = useSelector((state) => state.sessionState.user);
-  
-  
 
   return (
     <>
-      {user && user.id === review.userId && (
+      {(
         <div>
           <button
-            className="update-review-button"
+            className="update-booking-button booking-function-buttons"
             onClick={() => setShowModal(true)}
           >
             Edit
           </button>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <UpdateReview review={review} setShowModal={setShowModal} pageType={pageType}/>
+              <UpdateBooking booking={booking} setShowModal={setShowModal}/>
             </Modal>
           )}
         </div>
@@ -29,4 +25,4 @@ function UpdateReviewModal({ review, pageType }) {
     </>
   );
 }
-export default UpdateReviewModal;
+export default UpdatebookingModal;

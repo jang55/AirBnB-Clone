@@ -31,9 +31,15 @@ function ManageLocations({ isLoaded }) {
       <h1>Manage Your Spots</h1>
       {allSpots.length === 0 && (
         <div>
-          <h3 className="manage-location-no-spot-message">You have no Spots yet! Create a new Spot!</h3>
-          <button className="create-spot-from-manage-location" onClick={createButtonHandler}>Create a New Spot</button>
-
+          <h3 className="manage-location-no-spot-message">
+            You have no Spots yet! Create a new Spot!
+          </h3>
+          <button
+            className="create-spot-from-manage-location"
+            onClick={createButtonHandler}
+          >
+            Create a New Spot
+          </button>
         </div>
       )}
       {isLoaded && (
@@ -48,7 +54,7 @@ function ManageLocations({ isLoaded }) {
                   className="manage-location-update-button"
                   onClick={() => updateButtonHandler(spot.id)}
                 >
-                  Update
+                  Edit
                 </button>
                 <DeleteLocationModal locationId={spot.id} />
               </div>

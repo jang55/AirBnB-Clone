@@ -45,6 +45,9 @@ function ProfileButton({ user }) {
             <li id="manage-reviews-link">
               <Link to="/currentUser/reviews">Manage Reviews</Link>
             </li>
+            <li id="manage-bookings-link">
+              <Link to="/currentUser/bookings">Manage Bookings</Link>
+            </li>
             <li id="logout-container" onClick={(e) => e.stopPropagation()}>
               <button id="logout-button" onClick={logout}>Log Out</button>
             </li>
