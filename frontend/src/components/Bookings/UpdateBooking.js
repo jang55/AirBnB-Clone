@@ -74,6 +74,23 @@ function UpdateBooking({ booking, setShowModal }) {
     } catch (err) {
       const data = await err.json();
       if (data && data.errors) {
+        if(data.statusCode === 403) {
+          const errors = {}
+          if(data.errors.length >= 2) {
+            errors["startDate"] = data.errors[0];
+            errors["endDate"] = data.errors[1];
+            setErrors(errors);
+            return;
+          } else {
+            if(data.errors[0].includes("Start")) {
+              errors["startDate"] = data.errors[0];
+            } else {
+              errors["endDate"] = data.errors[0];
+            }
+            setErrors(errors);
+            return;
+          }
+        }
         setErrors(data.errors);
       }
     }
