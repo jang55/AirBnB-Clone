@@ -88,7 +88,7 @@ function UpdateBooking({ booking, setShowModal }) {
       {!successful && (
         <div className="booking-form-container">
           <form onSubmit={onSubmitHandler} className="form-wrapper">
-            <h2>Please pick your dates to update your reservations.</h2>
+            <h2 className="booking-form-h2">Please pick your dates to update your reservations.</h2>
             <div className="start-date-wrapper">
               <label className="start-date-label">Check In:</label>
               <select
