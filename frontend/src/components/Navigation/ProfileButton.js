@@ -7,6 +7,7 @@ import menuIcon from "../../assets/hamburgerMenu.png";
 import { Link, useHistory } from "react-router-dom";
 import "./ProfileButton.css"
 import profileIcon from "../../assets/profileIcon.png";
+import AboutDevModal from "./AboutDevModal";
 
 
 function ProfileButton({ user }) {
@@ -47,6 +48,9 @@ function ProfileButton({ user }) {
             </li>
             <li id="manage-bookings-link">
               <Link to="/currentUser/bookings">Manage Bookings</Link>
+            </li>
+            <li id="manage-about-me-link">
+              <AboutDevModal />
             </li>
             <li id="logout-container" onClick={(e) => e.stopPropagation()}>
               <button id="logout-button" onClick={logout}>Log Out</button>

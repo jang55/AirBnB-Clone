@@ -15,6 +15,8 @@ function ReserveBooking({ spot, setShowModal }) {
   const [successful, setSuccesful] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [frontStartDate, setFrontStartDate] = useState("");
+  const [frontEndDate, setFrontEndDate] = useState("");
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -39,8 +41,12 @@ function ReserveBooking({ spot, setShowModal }) {
     const startDate = `${startYear}-${startMonth}-${startDay}`;
     const endDate = `${endYear}-${endMonth}-${endDay}`;
 
+    // sets the date to be made in the database
     setStartDate(startDate);
     setEndDate(endDate);
+    // sets the date to be shown in the frontend 
+    setFrontStartDate(`${startYear}, ${startMonth}, ${startDay}`)
+    setFrontEndDate(`${endYear}, ${endMonth}, ${endDay}`);
 
     const formInfo = {
       startDate,
@@ -56,6 +62,23 @@ function ReserveBooking({ spot, setShowModal }) {
     } catch (err) {
       const data = await err.json();
       if (data && data.errors) {
+        if(data.statusCode === 403) {
+          const errors = {}
+          if(data.errors.length >= 2) {
+            errors["startDate"] = data.errors[0];
+            errors["endDate"] = data.errors[1];
+            setErrors(errors);
+            return;
+          } else {
+            if(data.errors[0].includes("Start")) {
+              errors["startDate"] = data.errors[0];
+            } else {
+              errors["endDate"] = data.errors[0];
+            }
+            setErrors(errors);
+            return;
+          }
+        }
         setErrors(data.errors);
       }
     }
@@ -70,12 +93,13 @@ function ReserveBooking({ spot, setShowModal }) {
       {!successful && (
         <div className="booking-form-container">
           <form onSubmit={onSubmitHandler} className="form-wrapper">
-            <h2>Please pick your dates to reserve.</h2>
+            <h2 className="booking-form-h2">Please pick your dates to reserve.</h2>
             <div className="start-date-wrapper">
-              <label className="start-date-label">Start Date:</label>
+              <label className="start-date-label">Check In:</label>
               <select
                 value={startMonth}
                 onChange={(e) => setStartMonth(e.target.value)}
+                
               >
                 <option value="" disabled>
                   Month
@@ -96,6 +120,9 @@ function ReserveBooking({ spot, setShowModal }) {
               <select
                 value={startDay}
                 onChange={(e) => setStartDay(e.target.value)}
+                // menuPlacement="bottom"
+                // maxMenuHeight={30}
+                className="booking-start-day-select"
               >
                 <option value="" disabled>
                   Day
@@ -111,7 +138,6 @@ function ReserveBooking({ spot, setShowModal }) {
                 <option value={"09"}>09</option>
                 <option value={"10"}>10</option>
                 <option value={"11"}>11</option>
-                <option value={"12"}>12</option>
                 <option value={"12"}>12</option>
                 <option value={"13"}>13</option>
                 <option value={"14"}>14</option>
@@ -153,6 +179,12 @@ function ReserveBooking({ spot, setShowModal }) {
                 <option value={"2026"}>2026</option>
                 <option value={"2027"}>2027</option>
                 <option value={"2028"}>2028</option>
+                <option value={"2029"}>2029</option>
+                <option value={"2030"}>2030</option>
+                <option value={"2031"}>2031</option>
+                <option value={"2032"}>2032</option>
+                <option value={"2033"}>2033</option>
+                <option value={"2034"}>2034</option>
               </select>
               {errors.startDate && (
                 <p className="errors booking-errors">{errors.startDate}</p>
@@ -162,7 +194,7 @@ function ReserveBooking({ spot, setShowModal }) {
               )}
             </div>
             <div className="end-date-wrapper">
-              <label className="end-date-label">End Date:</label>
+              <label className="end-date-label">Check Out:</label>
               <select
                 value={endMonth}
                 onChange={(e) => setEndMonth(e.target.value)}
@@ -243,7 +275,20 @@ function ReserveBooking({ spot, setShowModal }) {
                 <option value={"2026"}>2026</option>
                 <option value={"2027"}>2027</option>
                 <option value={"2028"}>2028</option>
+                <option value={"2029"}>2029</option>
+                <option value={"2030"}>2030</option>
+                <option value={"2031"}>2031</option>
+                <option value={"2032"}>2032</option>
+                <option value={"2033"}>2033</option>
+                <option value={"2034"}>2034</option>
               </select>
+              {/* <input type="date" /> */}
+              {/* <input
+        type="text"
+        onChange={(e) => console.log(e.target.value)}
+        onFocus={(e) => (e.target.type = "date")}
+        onBlur={(e) => (e.target.type = "text")}
+      /> */}
               {errors.endDate && (
                 <p className="errors booking-errors">{errors.endDate}</p>
               )}
@@ -259,15 +304,18 @@ function ReserveBooking({ spot, setShowModal }) {
       )}
       {successful && (
         <div className="success-booking-message-container">
-          <h4>{`Dates successfully reserved for ${new Date(startDate)
-            .toString()
-            .slice(0, 10)}, ${new Date(startDate)
-            .toString()
-            .slice(11, 15)} to ${new Date(endDate)
-            .toString()
-            .slice(0, 10)}, ${new Date(endDate).toString().slice(11, 15)}`}</h4>
+          <div className="success-booking-message-wrapper">
+            <h4 className="success-booking-h4" >{`Dates successfully reserved for: `}</h4>
+            <p>{`${new Date(frontStartDate)
+              .toString()
+              .slice(0, 10)}, ${new Date(frontStartDate)
+              .toString()
+              .slice(11, 15)} - ${new Date(frontEndDate)
+              .toString()
+              .slice(0, 10)}, ${new Date(frontEndDate).toString().slice(11, 15)}`}</p>
+          </div>
           <button className="ok-button" onClick={() => setShowModal(false)}>
-            OK
+            Close
           </button>
         </div>
       )}

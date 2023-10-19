@@ -24,7 +24,7 @@
       grid-template-columns: repeat(2, minmax(0, 3fr));
     }
   
-    .spot-card {
+    .spot-booking-card {
       max-width: 425px;
       min-width: 375;
       margin: auto;
@@ -36,14 +36,14 @@
       grid-template-columns: repeat(1, minmax(0, 1fr));
     }
   
-    .spot-card {
+    .spot-booking-card {
       max-width: 400px;
       /* min-width: 400px; */
       margin: auto;
     }
   }
   
-  .spot-card {
+  .spot-booking-card {
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -55,9 +55,11 @@
     padding-right: 10px;
     margin-top: 10px;
     flex-direction: column;
+    border: 1px solid gray;
+    box-shadow: 0px 0px 4px 1px gray;
   }
   
-  .spot-card a {
+  .spot-booking-card a {
     color: black;
     text-decoration: none;
     max-width: 100%;
@@ -65,14 +67,52 @@
     width: 100%;
   }
   
-  .spot-card a.manage-location-update-button {
+  .spot-booking-card a.manage-location-update-button {
     color: white;
   }
   
-  .spot-card:hover {
+  .spot-booking-card:hover {
     background-color: rgb(209, 215, 215);
   }
   
   .landing-page-images {
     box-shadow: 0px 0px 7px gray;
   }
+
+  .booking-buttons-wrapper {
+    display: flex;
+  }
+
+  .booking-function-buttons {
+    width: 70px;
+    padding: 3px 10px;
+    margin: 5px;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 5px;
+    background-color: rgb(207, 202, 202);
+  }
+
+  .booking-function-buttons:hover {
+    background-color: rgb(186, 181, 181);
+  }
+
+  /* .update-booking-button {
+
+  }
+
+  .delete-booking-button {
+
+  } */
+
+.description-booking-dates-wrapper {
+  border-top: 1px solid gray;
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-booking-dates {
+  font-weight: bolder;
+}

@@ -8,8 +8,18 @@ function CurrentUserBookingCard({ booking }) {
   const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
-    setStartDate(new Date(booking.startDate).toString().slice(0, 15));
-    setEndDate(new Date(booking.endDate).toString().slice(0, 15));
+    // console.log(booking.startDate.slice(0, 4), "year")
+    // console.log(booking.startDate.slice(5, 7), "month")
+    // console.log(booking.startDate.slice(8, 10), "day")
+    const startYear = booking.startDate.slice(0, 4)
+    const startMonth = Number(booking.startDate.slice(5, 7) - 1)
+    const startDay = booking.startDate.slice(8, 10)
+    const endYear = booking.endDate.slice(0, 4)
+    const endMonth = Number(booking.endDate.slice(5, 7) - 1)
+    const endDay = booking.endDate.slice(8, 10)
+
+    setStartDate(new Date(startYear, startMonth, startDay).toString().slice(0, 15));
+    setEndDate(new Date(endYear,endMonth, endDay).toString().slice(0, 15));
   }, [booking.endDate, booking.startDate]);
 
   const handleToolTip = (e) => {
@@ -48,10 +58,10 @@ function CurrentUserBookingCard({ booking }) {
           <span className="description-link">{`$${booking.Spot.price}.00 `}</span>
           <span>night</span>
         </div>
-        <div>
+        <div className="description-booking-dates-wrapper">
           <p>Reserved for:</p>
-          <p>Start Date: {startDate}</p>
-          <p>End Date: {endDate}</p>
+          <p>{`Check In: `} <span className="description-booking-dates">{startDate.slice(0, 10)}, {startDate.slice(11, 15)}</span></p>
+          <p>{`Check Out: `}<span className="description-booking-dates">{endDate.slice(0, 10)}, {endDate.slice(11, 15)}</span></p>
         </div>
       </div>
     </>

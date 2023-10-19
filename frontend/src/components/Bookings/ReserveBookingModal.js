@@ -13,6 +13,10 @@ function ReserveBookingModal({ spot }) {
         <button
           id="reserve-button"
           onClick={() => {
+            if (!user) {
+              alert("Please login to continue making reservations");
+              return;
+            }
             if (user.id === spot.ownerId) {
               alert("Owners can not book there own spot!");
               return;

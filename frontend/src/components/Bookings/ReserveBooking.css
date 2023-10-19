@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content: center; */
+    /* width: 700px; */
 }
 
 .form-wrapper {
@@ -12,7 +14,13 @@
     flex-direction: column;
     border-radius: 5px;
     align-items: center;
+    /* justify-content: center; */
     margin: 8px;
+}
+
+.booking-form-h2 {
+    font-size: 18px;
+    text-align: center;
 }
 
 .start-date-wrapper, .end-date-wrapper {
@@ -26,8 +34,19 @@
     font-size: 20px;
 }
 
+/* .booking-start-day-select > option {
+    top: auto;
+    bottom: 100%;
+    background-color: red;
+    height: 10px;
+} */
+
+.start-date-label {
+    margin-right: 22px;
+}
+
 .end-date-label {
-    margin-right: 17px;
+    margin-right: 5px;
 }
 
 .booking-submit-button {
@@ -48,18 +67,26 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    /* width: 90%; */
     margin: auto;
+    font-size: 18px;
 }
 
-.success-booking-message-container h4 {
+.success-booking-h4 {
+    margin: 5px;
+}
+
+.success-booking-message-wrapper {
     background-color: rgb(237, 233, 229);
-    padding: 15px;
+    padding: 7px 15px;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 .ok-button {
-    width: 50px;
+    width: 70px;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 .booking-errors {

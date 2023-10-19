@@ -10,7 +10,7 @@ function UpdatebookingModal({ booking,}) {
       {(
         <div>
           <button
-            className="update-booking-button"
+            className="update-booking-button booking-function-buttons"
             onClick={() => setShowModal(true)}
           >
             Edit
