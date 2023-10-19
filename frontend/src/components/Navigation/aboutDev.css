@@ -5,7 +5,10 @@
     align-items: center;
     flex-direction: column;
     position: relative;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    padding-top: 13px;
+    border-radius: 12px;
+    background-color: gray;
 }
 
 .about-1-img {
@@ -28,9 +31,13 @@
 .developer-links > a {
     display: flex;
     align-items: center;
-    color: rgb(101, 96, 96);
+    color: rgb(74, 68, 68);
     margin: 10px;
     cursor: pointer;
+}
+
+.developer-links > a:hover {
+    color: white;
 }
 
 .developer-links > a > svg{
@@ -61,6 +68,17 @@
     text-decoration: underline;
 }
 
+#manage-about-me-link {
+    border-bottom: 1px solid black;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    cursor: pointer;
+}
+
+#manage-about-me-link:hover {
+    background-color: rgb(197, 202, 202);
+}
 
 .about-me-close-button {
     cursor: pointer;
@@ -69,5 +87,9 @@
 }
 
 .about-me-close-button:hover {
-    color: gray;
+    color: white;
+}
+
+.about-me-open-button {
+    margin-left: 10px;
 }

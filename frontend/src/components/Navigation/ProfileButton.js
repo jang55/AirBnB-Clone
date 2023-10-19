@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
             <li id="manage-bookings-link">
               <Link to="/currentUser/bookings">Manage Bookings</Link>
             </li>
-            <li id="manage-bookings-link">
+            <li id="manage-about-me-link">
               <AboutDevModal />
             </li>
             <li id="logout-container" onClick={(e) => e.stopPropagation()}>

@@ -8,7 +8,7 @@ function AboutDevModal() {
 
     return (
         <>
-            <p onClick={() => setShowModal(true)} >About Dev</p>            
+            <p className="about-me-open-button" onClick={() => setShowModal(true)} >About Dev</p>            
             {showModal && (
             <Modal onClose={() => setShowModal(false)}>
                 <AboutDev setShowModal={setShowModal}/>
