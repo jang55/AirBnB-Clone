@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jang55/AirBnB-Clone/issues"
   },
-  "homepage": "https://github.com/jang55/AirBnB-Clone#readme"
+  "homepage": "https://github.com/jang55/AirBnB-Clone#readme",
+  "dependencies": {
+    "react-icons": "^4.11.0"
+  }
 }

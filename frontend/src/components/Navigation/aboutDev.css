@@ -1,0 +1,73 @@
+
+.about-wrap-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 10px;
+}
+
+.about-1-img {
+    width: 240px;
+    height: 290px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 5px 3px rgba(86, 85, 86, 0.5);
+}
+
+.developer-links {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(178,183,143);
+    border-radius: 10px;
+    height: 50px;
+    width: 245px;
+}
+
+.developer-links > a {
+    display: flex;
+    align-items: center;
+    color: rgb(101, 96, 96);
+    margin: 10px;
+    cursor: pointer;
+}
+
+.developer-links > a > svg{
+    margin-right: 5px;
+}
+
+.github > svg {
+    color: white;
+    height: 20px;
+    width: 20px;
+
+}
+
+.github:hover {
+    text-decoration: underline;
+}
+
+.linkedin >svg {
+    color: #0177B5;
+    background-color: white;
+    border-radius: 2px;
+    margin-top: 1px;
+    height: 20px;
+    width: 20px;
+}
+
+.linkedin:hover {
+    text-decoration: underline;
+}
+
+
+.about-me-close-button {
+    cursor: pointer;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.about-me-close-button:hover {
+    color: gray;
+}

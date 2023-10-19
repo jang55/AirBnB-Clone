@@ -11,7 +11,7 @@ function AboutDevModal() {
             <p onClick={() => setShowModal(true)} >About Dev</p>            
             {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-                <AboutDev />
+                <AboutDev setShowModal={setShowModal}/>
             </Modal>
             )}
         </>
