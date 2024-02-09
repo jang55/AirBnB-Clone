@@ -42,7 +42,7 @@ if (!isProduction) {
 
   // this is cron jobs to do something to keep the project active
   // starts as min/ hour/ month/ day of the week
-  cron.schedule("3 * * * *", () => {
+  cron.schedule("5 * * * * *", () => {
     console.log("Hello Cron")
   })
 
