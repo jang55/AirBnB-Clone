@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/jang55/AirBnB-Clone#readme",
   "dependencies": {
+    "node-cron": "^3.0.3",
     "react-icons": "^4.11.0"
   }
 }

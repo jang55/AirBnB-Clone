@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');const { environment } = require('.
 const isProduction = environment === 'production';
 const routes = require('./routes');
 const { ValidationError } = require('sequelize');
+const cron = require("node-cron")
 
 const app = express();
 
@@ -38,6 +39,10 @@ if (!isProduction) {
       }
     })
   );
+
+  cron.schedule("3 * * * *", () => {
+    console.log("Hello Cron")
+  })
 
   app.use(routes); 
 
